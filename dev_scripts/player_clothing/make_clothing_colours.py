@@ -1,6 +1,6 @@
-"""Draft main clothing colours for the FRLG player sprites and render a preview sheet.
+"""Draft hat colours for the FRLG player sprites and render a preview sheet.
 
-Red's main colour is his jacket and hat; Leaf's is her hat.
+The wardrobe's main colour changes only the hat, for both Red and Leaf.
 
 Usage: python3 dev_scripts/player_clothing/make_clothing_colours.py [repo root]
 Writes .pal files, re-indexed sprites and a preview next to this script. Needs Pillow.
@@ -8,6 +8,7 @@ Writes .pal files, re-indexed sprites and a preview next to this script. Needs P
 import glob
 import os
 import sys
+from collections import Counter
 
 from PIL import Image, ImageDraw
 
@@ -33,31 +34,37 @@ COLOURS = {
     "black": [(99, 99, 115), (57, 57, 66), (24, 24, 32)],
 }
 
-# Per sprite: the main colour's palette slots (light, mid, dark or None), and how
-# to pull non-clothing pixels out of those slots first:
-#   None    - nothing to separate
+# Per sprite: the hat's palette slots (light, mid, dark or None), and the steps
+# that pull non-hat pixels out of those slots first:
 #   "touch" - dark-slot pixels that touch no light or mid pixel are hair (Red's battle back)
-#   "lower" - groups centred in the lower half of the frame are socks, shoes or a Poke Ball
+#   "below" - pixels below the hat line are clothing or a Poke Ball (Red's jacket, Leaf's
+#             socks); the hat line is set per sprite kind in HAT_LINE
 #   "small" - groups of fewer than 4 pixels are an eye or a stray highlight
-# Separated pixels keep their colour in one spare slot (merging the two closest
-# colours if there's none). Leaf's walking sprite is left alone: at that size her
-# socks matching her hat reads as an outfit, like Red's shoes matching his jacket.
+# Each separated slot keeps its colour in a spare slot of its own, so shading
+# survives. Leaf's walking sprite is left alone: at that size her socks matching
+# her hat reads as an outfit.
 SPRITES = {
     "red": {
-        "overworld": ("graphics/object_events/pics/people/red/*.png", (11, 12, 8), None),
-        "front": ("graphics/trainers/front_pics/red.png", (12, 13, None), None),
-        "back": ("graphics/trainers/back_pics/red.png", (11, 12, 8), "touch"),
+        "overworld": ("graphics/object_events/pics/people/red/*.png", (11, 12, 8), ["below"]),
+        "front": ("graphics/trainers/front_pics/red.png", (12, 13, None), ["below"]),
+        "back": ("graphics/trainers/back_pics/red.png", (11, 12, 8), ["touch", "below"]),
     },
     "leaf": {
-        "overworld": ("graphics/object_events/pics/people/leaf/*.png", (9, 10, None), None),
+        "overworld": ("graphics/object_events/pics/people/leaf/*.png", (9, 10, None), []),
         # The skin-tone script's version, where hair no longer shares skin slot 3.
-        "front": ("dev_scripts/player_skin_tones/leaf_front_hair_split.png", (14, 9, None), "lower"),
-        "back": ("graphics/trainers/back_pics/leaf.png", (9, 10, None), "small"),
+        "front": ("dev_scripts/player_skin_tones/leaf_front_hair_split.png", (14, 9, None), ["below"]),
+        "back": ("graphics/trainers/back_pics/leaf.png", (9, 10, None), ["small"]),
     },
 }
 
+# Sprites whose separated pixels all share one spare slot (the lightest colour),
+# because their palette can only spare one: Leaf's socks and Poke Ball are tiny.
+ONE_SLOT = {("leaf", "front")}
+
 # Frame height for each sprite kind, so pixels are judged frame by frame.
 FRAME_H = {"overworld": 32, "front": 64, "back": 64}
+# Rows below this, within a frame, are under the hat.
+HAT_LINE = {"overworld": 20, "front": 24, "back": 34}
 
 
 def components(px, w, y0, y1, wanted):
@@ -81,14 +88,15 @@ def components(px, w, y0, y1, wanted):
     return groups
 
 
-def pixels_to_separate(im, kind, slots, mode):
+def pixels_to_separate(im, kind, slots, step):
+    """Pixels in the hat's slots that aren't hat, for one separation step."""
     px = im.load()
     w, h = im.size
     fh = FRAME_H[kind]
     main = {s for s in slots if s is not None}
     found = []
     for y0 in range(0, h, fh):
-        if mode == "touch":
+        if step == "touch":
             light_mid = {slots[0], slots[1]}
             for y in range(y0, y0 + fh):
                 for x in range(w):
@@ -97,57 +105,80 @@ def pixels_to_separate(im, kind, slots, mode):
                             for ny in range(max(y0, y - 1), min(y0 + fh, y + 2))
                             for nx in range(max(0, x - 1), min(w, x + 2))):
                         found.append((x, y))
-        else:
+        elif step == "below":
+            # Only the light and mid shades: the thin dark outline stays shared,
+            # because the palettes can't spare a third slot.
+            light_mid = {slots[0], slots[1]}
+            for y in range(y0 + HAT_LINE[kind], y0 + fh):
+                for x in range(w):
+                    if px[x, y] in light_mid:
+                        found.append((x, y))
+        elif step == "small":
             for group in components(px, w, y0, y0 + fh, main):
-                cy = sum(y for _, y in group) / len(group) - y0
-                if (mode == "lower" and cy >= fh * 0.5) or (mode == "small" and len(group) < 4):
+                if len(group) < 4:
                     found += group
     return found
 
 
-def spare_slot(im, keep):
-    """An unused slot, or one freed by merging the two closest colours not in `keep`."""
-    used = set(im.getdata())
+def spare_slot(images, keep, no_merge_into):
+    """An unused slot, or one freed by merging away the cheapest colour not in `keep`.
+
+    The cost of merging a colour is its pixel count times its squared distance
+    to the colour it merges into, so rare colours with a near twin go first. Nothing merges into a
+    slot in `no_merge_into` (skin or hat), since those change with the wardrobe.
+    """
+    used = Counter()
+    for im in images:
+        used.update(im.getdata())
     for s in range(1, 16):
-        if s not in used:
+        if not used[s] and s not in keep:
             return s, None
-    pal = im.getpalette()
+    pal = images[0].getpalette()
+    col = lambda s: pal[s * 3:s * 3 + 3]
     cands = [s for s in range(1, 16) if s not in keep]
-    best = min(((sum((p - q) ** 2 for p, q in zip(pal[a * 3:a * 3 + 3], pal[b * 3:b * 3 + 3])), a, b)
-                for i, a in enumerate(cands) for b in cands[i + 1:]))
-    _, into, drop = best
-    px = im.load()
-    for y in range(im.size[1]):
-        for x in range(im.size[0]):
-            if px[x, y] == drop:
-                px[x, y] = into
-    note = "merged slot %d %s into slot %d %s" % (
-        drop, tuple(pal[drop * 3:drop * 3 + 3]), into, tuple(pal[into * 3:into * 3 + 3]))
+    _, drop, into = min(
+        (used[a] * sum((p - q) ** 2 for p, q in zip(col(a), col(b))), a, b)
+        for a in cands for b in range(1, 16) if b != a and used[b] and b not in no_merge_into)
+    for im in images:
+        px = im.load()
+        for y in range(im.size[1]):
+            for x in range(im.size[0]):
+                if px[x, y] == drop:
+                    px[x, y] = into
+    note = "merged slot %d %s (%d px) into slot %d %s" % (drop, tuple(col(drop)), used[drop], into, tuple(col(into)))
     return drop, note
 
 
-def separate(im, kind, slots, mode, notes, label):
-    if mode is None:
-        return im
-    im = im.copy()
-    found = pixels_to_separate(im, kind, slots, mode)
-    if not found:
-        return im
-    px = im.load()
-    # Use the lightest separated colour for the spare slot.
-    src = min({px[x, y] for x, y in found}, key=lambda s: slots.index(s))
-    # Skin slots and the main colour's slots are never merged away.
-    keep = {0, 1, 2, 3, 4, 11} | {s for s in slots if s is not None}
-    dst, note = spare_slot(im, keep)
-    if note:
-        notes.append("%s: %s" % (label, note))
-    pal = im.getpalette()
-    pal[dst * 3:dst * 3 + 3] = pal[src * 3:src * 3 + 3]
-    im.putpalette(pal)
-    for x, y in found:
-        px[x, y] = dst
-    notes.append("%s: moved %d non-clothing pixels into slot %d" % (label, len(found), dst))
-    return im
+def separate(images, kind, slots, steps, notes, label, one_slot=False):
+    """Run each step; every separated slot keeps its colour in a spare slot of its own."""
+    images = [im.copy() for im in images]
+    # Never merge away transparency, skin, the hat, or a slot this function filled.
+    # Slot 11 on front pictures is Leaf's hair, split out by the skin-tone script.
+    skin = {1, 2, 3, 4} if kind == "front" else {2, 3, 4}
+    hat = {s for s in slots if s is not None}
+    keep = {0} | skin | hat | ({11} if kind == "front" else set())
+    for step in steps:
+        found = {}
+        for n, im in enumerate(images):
+            px = im.load()
+            for x, y in pixels_to_separate(im, kind, slots, step):
+                found.setdefault(px[x, y], []).append((n, x, y))
+        if one_slot and found:
+            lightest = min(found, key=lambda s: slots.index(s))
+            found = {lightest: [p for pixels in found.values() for p in pixels]}
+        for src, pixels in sorted(found.items()):
+            dst, note = spare_slot(images, keep, keep)
+            if note:
+                notes.append("%s: %s" % (label, note))
+            keep.add(dst)
+            pal = images[0].getpalette()
+            pal[dst * 3:dst * 3 + 3] = pal[src * 3:src * 3 + 3]
+            for im in images:
+                im.putpalette(pal)
+            for n, x, y in pixels:
+                images[n].load()[x, y] = dst
+            notes.append("%s: %s step moved %d pixels from slot %d to slot %d" % (label, step, len(pixels), src, dst))
+    return images
 
 
 def recolour(im, slots, ramp):
@@ -173,13 +204,15 @@ def main():
     prepared = {}
     os.makedirs(os.path.join(OUT, "sprites"), exist_ok=True)
     for who, kinds in SPRITES.items():
-        for kind, (pattern, slots, mode) in kinds.items():
-            path = sorted(glob.glob(os.path.join(REPO, pattern)))
-            path = next((p for p in path if p.endswith("_normal.png")), path[0])
-            im = separate(Image.open(path), kind, slots, mode, notes, "%s %s" % (who, kind))
-            if mode is not None:
-                im.save(os.path.join(OUT, "sprites", "%s_%s_separated.png" % (who, kind)))
-            prepared[(who, kind)] = (im, slots)
+        for kind, (pattern, slots, steps) in kinds.items():
+            paths = sorted(glob.glob(os.path.join(REPO, pattern)))
+            images = separate([Image.open(p) for p in paths], kind, slots, steps, notes, "%s %s" % (who, kind),
+                              (who, kind) in ONE_SLOT)
+            if steps:
+                for p, im in zip(paths, images):
+                    im.save(os.path.join(OUT, "sprites", "%s_%s_%s" % (who, kind, os.path.basename(p))))
+            preview = next((im for p, im in zip(paths, images) if p.endswith("_normal.png")), images[0])
+            prepared[(who, kind)] = (preview, slots)
 
     os.makedirs(os.path.join(OUT, "pal"), exist_ok=True)
     order = ["original"] + [c for c in COLOURS if c not in ("red", "white")]
