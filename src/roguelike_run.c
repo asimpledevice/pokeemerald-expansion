@@ -8,7 +8,13 @@
 #include "roguelike.h"
 #include "script_pokemon_util.h"
 #include "wild_encounter.h"
+#include "event_data.h"
+#include "field_screen_effect.h"
+#include "overworld.h"
+#include "string_util.h"
 #include "constants/battle.h"
+#include "constants/flags.h"
+#include "constants/vars.h"
 #include "constants/items.h"
 #include "constants/map_groups.h"
 #include "constants/opponents.h"
@@ -35,9 +41,40 @@ static const u16 sSliceTrainers[] =
     TRAINER_YOUNGSTER_TIMMY,
 };
 
+struct RoguelikeTownInfo
+{
+    u16 map;
+    u8 centerWarp; // warp id of the Pokémon Center door: the player arrives there
+    u8 gymWarp;    // warp id of the Gym door: the player leaves the Gym there
+    u8 gymTrainers;
+    u16 gymTrainerIds[2];
+    u16 leader;
+    u16 badgeFlag;
+};
+
+// Slice data: the two towns a run reaches so far. Viridian's Gym stays closed.
+static const struct RoguelikeTownInfo sTowns[ROGUELIKE_TOWN_COUNT] =
+{
+    [ROGUELIKE_TOWN_VIRIDIAN] =
+    {
+        .map = MAP_VIRIDIAN_CITY,
+        .centerWarp = 0,
+        .gymWarp = 2,
+    },
+    [ROGUELIKE_TOWN_PEWTER] =
+    {
+        .map = MAP_PEWTER_CITY,
+        .centerWarp = 5,
+        .gymWarp = 2,
+        .gymTrainers = 1,
+        .gymTrainerIds = {TRAINER_CAMPER_LIAM},
+        .leader = TRAINER_LEADER_BROCK,
+        .badgeFlag = FLAG_BADGE01_GET,
+    },
+};
+
 static void CB2_HandleRouteNode(void);
 static void CB2_ReturnFromRouteBattle(void);
-
 static const struct WildPokemonInfo *GetRouteLandMons(u32 map)
 {
     u32 i;
@@ -80,10 +117,8 @@ static bool32 StartRouteWildBattle(void)
     return TRUE;
 }
 
-static void StartRouteTrainerBattle(void)
+static void StartRouteTrainerBattle(u32 trainerId)
 {
-    u32 trainerId = sSliceTrainers[Random() % ARRAY_COUNT(sSliceTrainers)];
-
     gBattleTypeFlags = BATTLE_TYPE_TRAINER;
     TRAINER_BATTLE_PARAM.opponentA = trainerId;
     TRAINER_BATTLE_PARAM.opponentB = 0xFFFF;
@@ -111,7 +146,7 @@ static void CB2_HandleRouteNode(void)
 {
     struct RouteMap map;
 
-    GenerateRouteMap(&map, gRoguelikeRun.routeSeed);
+    GetCurrentRunMap(&map);
     switch (map.type[gRoguelikeRun.column][gRoguelikeRun.row])
     {
     case ROUTE_NODE_WILD:
@@ -119,7 +154,13 @@ static void CB2_HandleRouteNode(void)
             ReopenRouteMap(ROUTE_MESSAGE_NONE);
         break;
     case ROUTE_NODE_TRAINER:
-        StartRouteTrainerBattle();
+        StartRouteTrainerBattle(sSliceTrainers[Random() % ARRAY_COUNT(sSliceTrainers)]);
+        break;
+    case ROUTE_NODE_GYM_TRAINER:
+        StartRouteTrainerBattle(sTowns[gRoguelikeRun.town].gymTrainerIds[gRoguelikeRun.column - 1]);
+        break;
+    case ROUTE_NODE_LEADER:
+        StartRouteTrainerBattle(sTowns[gRoguelikeRun.town].leader);
         break;
     case ROUTE_NODE_EVENT:
         // Placeholder until events exist.
@@ -153,12 +194,66 @@ static void CB2_ReturnFromRouteBattle(void)
         ReopenRouteMap(ROUTE_MESSAGE_WIPED_OUT);
         return;
     }
+    if (gRoguelikeRun.inGym && gRoguelikeRun.column + 1 == gRoguelikeRun.gymTrainers + 2)
+    {
+        // Beat the Leader.
+        SetMainCallback2(gRoguelikeRun.onRouteEnd);
+        return;
+    }
     ReopenRouteMap(ROUTE_MESSAGE_NONE);
 }
 
-// Debug boot (ROGUELIKE_DEBUG_BOOT): play Route 1 maps back to back with a
-// level 7 Bulbasaur, starting a new route at each transition.
-void CB2_RoguelikeDebugBoot(void)
+// Leaves the route or Gym screens for the overworld, at a warp in a town.
+static void WarpIntoTown(u32 town, u32 warpId)
+{
+    SetWarpDestination(MAP_GROUP(sTowns[town].map), MAP_NUM(sTowns[town].map), warpId, -1, -1);
+    DmaFillLarge16(3, 0, (void *)VRAM, VRAM_SIZE, 0x1000);
+    DmaFill32Defvars(3, 0, (void *)OAM, OAM_SIZE);
+    DmaFill16Defvars(3, 0, (void *)PLTT, PLTT_SIZE);
+    WarpIntoMap();
+    gFieldCallback = FieldCB_DefaultWarpExit;
+    SetMainCallback2(CB2_LoadMap);
+}
+
+static void CB2_EndRouteIntoTown(void)
+{
+    // Viridian's old man blocks the north road until FRLG's tutorial is done.
+    VarSet(VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN, 2);
+    WarpIntoTown(gRoguelikeRun.town, sTowns[gRoguelikeRun.town].centerWarp);
+}
+
+static void CB2_EndGym(void)
+{
+    FlagSet(sTowns[gRoguelikeRun.town].badgeFlag);
+    gRoguelikeRun.inGym = FALSE;
+    WarpIntoTown(gRoguelikeRun.town, sTowns[gRoguelikeRun.town].gymWarp);
+}
+
+// Special, called by a map script after fading out: VAR_0x8004 is the FRLG
+// route whose encounters to use, VAR_0x8005 the town the route leads to.
+void RoguelikeStartRoute(void)
+{
+    if (gRoguelikeRun.runSeed == 0)
+        gRoguelikeRun.runSeed = Random32() | 1;
+    gRoguelikeRun.stop++;
+    gRoguelikeRun.town = gSpecialVar_0x8005;
+    StartRouteOnMap(gRoguelikeRun.runSeed + gRoguelikeRun.stop, gSpecialVar_0x8004, CB2_EndRouteIntoTown);
+}
+
+// Special, called by a Gym's map script on entry: VAR_0x8005 is the town.
+void RoguelikeStartGym(void)
+{
+    gRoguelikeRun.town = gSpecialVar_0x8005;
+    gRoguelikeRun.inGym = TRUE;
+    gRoguelikeRun.gymTrainers = sTowns[gRoguelikeRun.town].gymTrainers;
+    gRoguelikeRun.onRouteEnd = CB2_EndGym;
+    gRoguelikeRun.column = 0;
+    gRoguelikeRun.row = GYM_MAP_ROW;
+    ReopenRouteMap(ROUTE_MESSAGE_NONE);
+}
+
+
+static void GiveDebugStarter(void)
 {
     if (CalculatePlayerPartyCount() == 0)
     {
@@ -166,6 +261,45 @@ void CB2_RoguelikeDebugBoot(void)
         GiveMonInitialMoveset(&gParties[B_TRAINER_PLAYER][0]);
         CalculatePlayerPartyCount();
     }
+}
+
+// Debug boot mode 2: a new game with a name and gender already set.
+static void CB2_DebugFieldStart(void)
+{
+    static const u8 sText_Player[] = _("RED");
+    static const u8 sText_Rival[] = _("BLUE");
+
+    gSaveBlock2Ptr->playerGender = MALE;
+    StringCopy_PlayerName(gSaveBlock2Ptr->playerName, sText_Player);
+    StringCopy_PlayerName(gSaveBlock1Ptr->rivalName, sText_Rival);
+    SetMainCallback2(CB2_NewGame);
+}
+
+// Called at the end of NewGameInitData. Starts a fresh run; in debug boot
+// mode 2 it also skips Oak's cutscene, gives a level 7 Bulbasaur and starts
+// the player just south of Pallet Town's north road.
+void RoguelikeOnNewGame(void)
+{
+    memset(&gRoguelikeRun, 0, sizeof(gRoguelikeRun));
+    if (ROGUELIKE_DEBUG_BOOT == 2)
+    {
+        VarSet(VAR_MAP_SCENE_PALLET_TOWN_OAK, 3);
+        GiveDebugStarter();
+        SetWarpDestination(MAP_GROUP(MAP_PALLET_TOWN), MAP_NUM(MAP_PALLET_TOWN), WARP_ID_NONE, 12, 4);
+        WarpIntoMap();
+    }
+}
+
+// Debug boot (ROGUELIKE_DEBUG_BOOT): mode 1 plays Route 1 maps back to back
+// with a level 7 Bulbasaur; mode 2 starts a new game in Pallet Town.
+void CB2_RoguelikeDebugBoot(void)
+{
+    if (ROGUELIKE_DEBUG_BOOT == 2)
+    {
+        CB2_DebugFieldStart();
+        return;
+    }
+    GiveDebugStarter();
     StartRouteOnMap(gRoguelikeRun.routeSeed + 1, MAP_ROUTE1, CB2_RoguelikeDebugBoot);
 }
 
@@ -173,6 +307,18 @@ void CB2_RoguelikeDebugBoot(void)
 
 // The roguelike only runs in the FireRed/LeafGreen build.
 void CB2_RoguelikeDebugBoot(void)
+{
+}
+
+void RoguelikeStartRoute(void)
+{
+}
+
+void RoguelikeStartGym(void)
+{
+}
+
+void RoguelikeOnNewGame(void)
 {
 }
 

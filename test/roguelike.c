@@ -147,3 +147,20 @@ TEST("GetSnapshotJumpCost scales with growth rate")
     EXPECT_LT(GetSnapshotJumpCost(1, GROWTH_MEDIUM_SLOW, 14), GetSnapshotJumpCost(1, GROWTH_MEDIUM_FAST, 14));
     EXPECT_GT(GetSnapshotJumpCost(6, GROWTH_MEDIUM_SLOW, 60), GetSnapshotJumpCost(1, GROWTH_MEDIUM_SLOW, 14));
 }
+
+TEST("GenerateGymMap is a straight line of Gym trainers ending in the Leader")
+{
+    u32 trainers, column;
+    struct RouteMap map;
+
+    for (trainers = 1; trainers <= 2; trainers++)
+    {
+        GenerateGymMap(&map, trainers);
+        EXPECT_EQ(map.numColumns, trainers + 2);
+        EXPECT_EQ(map.type[0][GYM_MAP_ROW], ROUTE_NODE_START);
+        for (column = 1; column <= trainers; column++)
+            EXPECT_EQ(map.type[column][GYM_MAP_ROW], ROUTE_NODE_GYM_TRAINER);
+        EXPECT_EQ(map.type[trainers + 1][GYM_MAP_ROW], ROUTE_NODE_LEADER);
+        EXPECT(RouteMapCanReach(&map, 0, GYM_MAP_ROW, trainers + 1, GYM_MAP_ROW));
+    }
+}

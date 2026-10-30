@@ -2,6 +2,7 @@
 #define GUARD_ROGUELIKE_H
 
 #include "main.h"
+#include "constants/roguelike.h"
 
 // Route maps: an FTL-style node map read left to right. Column 0 holds the
 // start node, the last column the transition into the next town, and the
@@ -23,6 +24,8 @@ enum RouteNodeType
     ROUTE_NODE_CENTER,
     ROUTE_NODE_MART,
     ROUTE_NODE_TRANSITION,
+    ROUTE_NODE_GYM_TRAINER,
+    ROUTE_NODE_LEADER,
     ROUTE_NODE_TYPE_COUNT,
 };
 
@@ -30,14 +33,19 @@ struct RouteMap
 {
     u8 type[ROUTE_MAP_COLUMNS][ROUTE_MAP_ROWS];  // enum RouteNodeType
     u8 links[ROUTE_MAP_COLUMNS][ROUTE_MAP_ROWS]; // bit n set: links to row n of the next column
+    u8 numColumns; // routes use all of them; Gyms are shorter
 };
 
+// A Gym: a straight line of Gym trainers ending in the Leader.
+#define GYM_MAP_ROW 1
+
 void GenerateRouteMap(struct RouteMap *map, u32 seed);
+void GenerateGymMap(struct RouteMap *map, u32 numTrainers);
 bool32 RouteMapCanReach(const struct RouteMap *map, u32 fromColumn, u32 fromRow, u32 toColumn, u32 toRow);
 u32 GetRouteMapStartRow(const struct RouteMap *map);
 
-// Debug only: TRUE skips the title screen and opens a route map at boot,
-// reopening it after every choice. Keep FALSE in commits.
+// Debug only: 1 skips the title screen and plays route maps back to back;
+// 2 starts a new game in Pallet Town past Oak, with a starter. Keep FALSE in commits.
 #define ROGUELIKE_DEBUG_BOOT FALSE
 
 // Team Rocket reaches a route's transition after this many moves: 2.4 times
@@ -57,10 +65,15 @@ enum RouteMessage
 
 struct RoguelikeRun
 {
+    u32 runSeed;   // set when the run starts; every route's seed derives from it
     u32 routeSeed; // the route map is regenerated from this, not stored
-    MainCallback onRouteEnd; // runs when the player takes the transition
+    MainCallback onRouteEnd; // runs when the player takes the transition or beats the Leader
     u16 routeMapId; // the FRLG route whose encounters this route uses
-    u8 column;     // where the player is on the route map
+    u8 stop;        // routes started so far this run
+    u8 town;        // the town this route or Gym belongs to (ROGUELIKE_TOWN_*)
+    u8 inGym;       // TRUE while on a Gym map
+    u8 gymTrainers; // Gym trainers before the Leader
+    u8 column;      // where the player is on the map
     u8 row;
     u8 rocketMoves; // moves taken on this route; Team Rocket's pursuit counts these
     u8 message;     // enum RouteMessage
@@ -68,10 +81,14 @@ struct RoguelikeRun
 
 extern struct RoguelikeRun gRoguelikeRun;
 
+void GetCurrentRunMap(struct RouteMap *map);
 void StartRoguelikeRoute(u32 seed);
 void StartRouteOnMap(u32 seed, u32 routeMapId, MainCallback onRouteEnd);
 void OpenRouteMap(MainCallback onNodeChosen);
 void CB2_RoguelikeDebugBoot(void);
+void RoguelikeStartRoute(void);
+void RoguelikeStartGym(void);
+void RoguelikeOnNewGame(void);
 
 // Snapshot levelling: Pokémon level in fixed jumps, one per tier of ten levels.
 // A jump's cost is counted in battle points (see src/data/roguelike.h) and

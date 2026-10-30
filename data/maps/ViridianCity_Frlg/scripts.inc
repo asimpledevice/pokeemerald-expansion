@@ -357,3 +357,14 @@ ViridianCity_Text_GymSign::
 ViridianCity_Text_GymDoorsAreLocked::
 	.string "VIRIDIAN GYM's doors are locked…$"
 
+
+@ Roguelike: the north road opens a route map that leads to Pewter City.
+ViridianCity_EventScript_RoguelikeRoute::
+	lockall
+	setvar VAR_0x8004, MAP_ROUTE2
+	setvar VAR_0x8005, ROGUELIKE_TOWN_PEWTER
+	fadescreen FADE_TO_BLACK
+	special RoguelikeStartRoute
+	waitstate
+	releaseall
+	end

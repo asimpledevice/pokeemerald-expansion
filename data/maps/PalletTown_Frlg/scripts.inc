@@ -546,3 +546,14 @@ PalletTown_Text_PressStartToOpenMenuCopy::
 	.string "Press START to open the MENU!$"
 
 
+
+@ Roguelike: the north road opens Route 1's route map, which leads to Viridian City.
+PalletTown_EventScript_RoguelikeRoute::
+	lockall
+	setvar VAR_0x8004, MAP_ROUTE1
+	setvar VAR_0x8005, ROGUELIKE_TOWN_VIRIDIAN
+	fadescreen FADE_TO_BLACK
+	special RoguelikeStartRoute
+	waitstate
+	releaseall
+	end

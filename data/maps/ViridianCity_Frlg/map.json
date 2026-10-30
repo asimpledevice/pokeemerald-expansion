@@ -14,23 +14,7 @@
   "show_map_name": true,
   "floor_number": 0,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
-  "connections": [
-    {
-      "map": "MAP_ROUTE2",
-      "offset": 12,
-      "direction": "up"
-    },
-    {
-      "map": "MAP_ROUTE1",
-      "offset": 12,
-      "direction": "down"
-    },
-    {
-      "map": "MAP_ROUTE22",
-      "offset": 10,
-      "direction": "left"
-    }
-  ],
+  "connections": [],
   "object_events": [
     {
       "type": "object",
@@ -236,6 +220,51 @@
       "var": "VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN",
       "var_value": "1",
       "script": "ViridianCity_EventScript_TutorialTriggerRight"
+    },
+    {
+      "type": "trigger",
+      "x": 19,
+      "y": 0,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "0",
+      "script": "ViridianCity_EventScript_RoguelikeRoute"
+    },
+    {
+      "type": "trigger",
+      "x": 20,
+      "y": 0,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "0",
+      "script": "ViridianCity_EventScript_RoguelikeRoute"
+    },
+    {
+      "type": "trigger",
+      "x": 21,
+      "y": 0,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "0",
+      "script": "ViridianCity_EventScript_RoguelikeRoute"
+    },
+    {
+      "type": "trigger",
+      "x": 22,
+      "y": 0,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "0",
+      "script": "ViridianCity_EventScript_RoguelikeRoute"
+    },
+    {
+      "type": "trigger",
+      "x": 23,
+      "y": 0,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "0",
+      "script": "ViridianCity_EventScript_RoguelikeRoute"
     }
   ],
   "bg_events": [

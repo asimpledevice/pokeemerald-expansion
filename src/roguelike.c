@@ -148,6 +148,7 @@ void GenerateRouteMap(struct RouteMap *map, u32 seed)
     bool32 hasCenter = FALSE, hasMart = FALSE;
 
     memset(map, 0, sizeof(*map));
+    map->numColumns = ROUTE_MAP_COLUMNS;
 
     // Start and exit sit in the middle two rows, so both have room for branches.
     startRow = 1 + RandomBelow(&rng, 2);
@@ -204,6 +205,21 @@ void GenerateRouteMap(struct RouteMap *map, u32 seed)
     }
 }
 
+void GenerateGymMap(struct RouteMap *map, u32 numTrainers)
+{
+    u32 column;
+
+    memset(map, 0, sizeof(*map));
+    numTrainers = min(numTrainers, ROUTE_MAP_COLUMNS - 2);
+    map->numColumns = numTrainers + 2;
+    map->type[0][GYM_MAP_ROW] = ROUTE_NODE_START;
+    for (column = 1; column <= numTrainers; column++)
+        map->type[column][GYM_MAP_ROW] = ROUTE_NODE_GYM_TRAINER;
+    map->type[numTrainers + 1][GYM_MAP_ROW] = ROUTE_NODE_LEADER;
+    for (column = 0; column <= numTrainers; column++)
+        map->links[column][GYM_MAP_ROW] = 1 << GYM_MAP_ROW;
+}
+
 u32 GetRouteMapStartRow(const struct RouteMap *map)
 {
     u32 row;
@@ -216,11 +232,20 @@ u32 GetRouteMapStartRow(const struct RouteMap *map)
     return 0;
 }
 
+void GetCurrentRunMap(struct RouteMap *map)
+{
+    if (gRoguelikeRun.inGym)
+        GenerateGymMap(map, gRoguelikeRun.gymTrainers);
+    else
+        GenerateRouteMap(map, gRoguelikeRun.routeSeed);
+}
+
 void StartRoguelikeRoute(u32 seed)
 {
     struct RouteMap map;
 
     GenerateRouteMap(&map, seed);
+    gRoguelikeRun.inGym = FALSE;
     gRoguelikeRun.routeSeed = seed;
     gRoguelikeRun.column = 0;
     gRoguelikeRun.row = GetRouteMapStartRow(&map);

@@ -123,6 +123,8 @@ static const u16 sNodeColors[ROUTE_NODE_TYPE_COUNT + 1] =
     [ROUTE_NODE_CENTER] = RGB(31, 16, 22),
     [ROUTE_NODE_MART] = RGB(8, 14, 30),
     [ROUTE_NODE_TRANSITION] = RGB(31, 31, 31),
+    [ROUTE_NODE_GYM_TRAINER] = RGB(22, 12, 4),
+    [ROUTE_NODE_LEADER] = RGB(20, 6, 26),
     [PAL_PLAYER] = RGB(6, 26, 31),
 };
 
@@ -136,6 +138,8 @@ static const u8 *const sNodeNames[ROUTE_NODE_TYPE_COUNT] =
     [ROUTE_NODE_CENTER] = COMPOUND_STRING("POKéMON CENTER"),
     [ROUTE_NODE_MART] = COMPOUND_STRING("POKé MART"),
     [ROUTE_NODE_TRANSITION] = COMPOUND_STRING("Next town"),
+    [ROUTE_NODE_GYM_TRAINER] = COMPOUND_STRING("GYM TRAINER"),
+    [ROUTE_NODE_LEADER] = COMPOUND_STRING("GYM LEADER"),
 };
 
 static const u8 *const sMessages[] =
@@ -264,7 +268,7 @@ static void DrawRouteMap(void)
     u32 column, row, next, i;
 
     FillBgTilemapBufferRect(1, TILE_GROUND, 0, 0, 32, 32, 0);
-    for (column = 0; column < ROUTE_MAP_EXIT_COLUMN; column++)
+    for (column = 0; column + 1 < map->numColumns; column++)
     {
         for (row = 0; row < ROUTE_MAP_ROWS; row++)
         {
@@ -293,7 +297,7 @@ static void DrawRouteMap(void)
             }
         }
     }
-    for (column = 0; column < ROUTE_MAP_COLUMNS; column++)
+    for (column = 0; column < map->numColumns; column++)
     {
         for (row = 0; row < ROUTE_MAP_ROWS; row++)
         {
@@ -358,9 +362,16 @@ static void PrintInfo(void)
         StringCopy(end, sNodeNames[sRouteMap->map.type[column][GetChosenRow()]]);
     }
     AddTextPrinterParameterized3(WIN_INFO, FONT_NORMAL, 4, 1, sTextColors, TEXT_SKIP_DRAW, text);
-    end = StringCopy(text, COMPOUND_STRING("ROCKET arrives in "));
-    end = ConvertIntToDecimalStringN(end, movesLeft, STR_CONV_MODE_LEFT_ALIGN, 2);
-    StringCopy(end, COMPOUND_STRING(" moves"));
+    if (gRoguelikeRun.inGym)
+    {
+        StringCopy(text, COMPOUND_STRING("GYM: TEAM ROCKET can't follow you here."));
+    }
+    else
+    {
+        end = StringCopy(text, COMPOUND_STRING("ROCKET arrives in "));
+        end = ConvertIntToDecimalStringN(end, movesLeft, STR_CONV_MODE_LEFT_ALIGN, 2);
+        StringCopy(end, COMPOUND_STRING(" moves"));
+    }
     AddTextPrinterParameterized3(WIN_INFO, FONT_NORMAL, 4, 13, sTextColors, TEXT_SKIP_DRAW, text);
     CopyWindowToVram(WIN_INFO, COPYWIN_FULL);
 }
@@ -383,7 +394,7 @@ void OpenRouteMap(MainCallback onNodeChosen)
     SetVBlankCallback(NULL);
     sRouteMap = AllocZeroed(sizeof(*sRouteMap));
     sRouteMap->onNodeChosen = onNodeChosen;
-    GenerateRouteMap(&sRouteMap->map, gRoguelikeRun.routeSeed);
+    GetCurrentRunMap(&sRouteMap->map);
     SetMainCallback2(CB2_InitRouteMap);
 }
 

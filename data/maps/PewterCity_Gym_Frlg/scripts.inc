@@ -1,5 +1,21 @@
 PewterCity_Gym_Frlg_MapScripts::
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, PewterCity_Gym_OnFrame
 	.byte 0
+
+@ Roguelike: entering the Gym opens it as a short node map of Gym trainers and Brock.
+PewterCity_Gym_OnFrame:
+	map_script_2 VAR_TEMP_1, 0, PewterCity_Gym_EventScript_RoguelikeGym
+	.2byte 0
+
+PewterCity_Gym_EventScript_RoguelikeGym::
+	lockall
+	setvar VAR_TEMP_1, 1
+	setvar VAR_0x8005, ROGUELIKE_TOWN_PEWTER
+	fadescreen FADE_TO_BLACK
+	special RoguelikeStartGym
+	waitstate
+	releaseall
+	end
 
 PewterCity_Gym_EventScript_Brock::
 	famechecker FAMECHECKER_BROCK, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005

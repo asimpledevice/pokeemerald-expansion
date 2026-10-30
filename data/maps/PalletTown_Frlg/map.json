@@ -16,11 +16,6 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "map": "MAP_ROUTE1",
-      "offset": 0,
-      "direction": "up"
-    },
-    {
       "map": "MAP_ROUTE21_NORTH",
       "offset": 0,
       "direction": "down"
@@ -123,6 +118,24 @@
       "var": "VAR_TEMP_2",
       "var_value": "1",
       "script": "PalletTown_EventScript_SignLadyTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 12,
+      "y": 0,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "0",
+      "script": "PalletTown_EventScript_RoguelikeRoute"
+    },
+    {
+      "type": "trigger",
+      "x": 13,
+      "y": 0,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "0",
+      "script": "PalletTown_EventScript_RoguelikeRoute"
     }
   ],
   "bg_events": [
