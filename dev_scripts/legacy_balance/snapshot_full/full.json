@@ -1,0 +1,9064 @@
+{
+ "averages": {
+  "basic": 306.01851851851853,
+  "middle": 369,
+  "final": 487.625,
+  "single": 488.4
+ },
+ "sd": {
+  "basic": 39.97012344458775,
+  "middle": 64.5658578507248,
+  "final": 39.60319363925808,
+  "single": 79.8207992944195
+ },
+ "lines": [
+  {
+   "base": "BULBASAUR",
+   "forms": [
+    {
+     "name": "BULBASAUR",
+     "kind": "basic",
+     "bst": 318,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    },
+    {
+     "name": "IVYSAUR",
+     "kind": "middle",
+     "bst": 405,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    },
+    {
+     "name": "VENUSAUR",
+     "kind": "final",
+     "bst": 525,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 3
+    }
+   ],
+   "start_floor": 7,
+   "first_stab": [
+    3,
+    "VINE_WHIP"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "IVYSAUR",
+     "evolves_into": [
+      "IVYSAUR"
+     ],
+     "new_moves": [
+      "LEECH_SEED",
+      "RAZOR_LEAF"
+     ],
+     "jump_cost": 0.59
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "IVYSAUR",
+     "evolves_into": [],
+     "new_moves": [
+      "POISON_POWDER",
+      "SLEEP_POWDER",
+      "SEED_BOMB"
+     ],
+     "jump_cost": 0.74
+    },
+    {
+     "tier": 3,
+     "level": 32,
+     "form": "VENUSAUR",
+     "evolves_into": [
+      "VENUSAUR"
+     ],
+     "new_moves": [
+      "PETAL_BLIZZARD",
+      "TAKE_DOWN",
+      "SWEET_SCENT"
+     ],
+     "jump_cost": 0.82
+    },
+    {
+     "tier": 4,
+     "level": 44,
+     "form": "VENUSAUR",
+     "evolves_into": [],
+     "new_moves": [
+      "SYNTHESIS",
+      "WORRY_SEED"
+     ],
+     "jump_cost": 0.91
+    },
+    {
+     "tier": 5,
+     "level": 51,
+     "form": "VENUSAUR",
+     "evolves_into": [],
+     "new_moves": [
+      "POWER_WHIP"
+     ],
+     "jump_cost": 0.94
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "VENUSAUR",
+     "evolves_into": [],
+     "new_moves": [
+      "SOLAR_BEAM"
+     ],
+     "jump_cost": 0.98
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "CHARMANDER",
+   "forms": [
+    {
+     "name": "CHARMANDER",
+     "kind": "basic",
+     "bst": 309,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 5
+    },
+    {
+     "name": "CHARMELEON",
+     "kind": "middle",
+     "bst": 405,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    },
+    {
+     "name": "CHARIZARD",
+     "kind": "final",
+     "bst": 534,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 2
+    }
+   ],
+   "start_floor": 9,
+   "first_stab": [
+    4,
+    "EMBER"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 18,
+     "form": "CHARMELEON",
+     "evolves_into": [
+      "CHARMELEON"
+     ],
+     "new_moves": [
+      "DRAGON_BREATH"
+     ],
+     "jump_cost": 0.65
+    },
+    {
+     "tier": 2,
+     "level": 28,
+     "form": "CHARMELEON",
+     "evolves_into": [],
+     "new_moves": [
+      "FIRE_FANG",
+      "SLASH"
+     ],
+     "jump_cost": 0.79
+    },
+    {
+     "tier": 3,
+     "level": 36,
+     "form": "CHARIZARD",
+     "evolves_into": [
+      "CHARIZARD"
+     ],
+     "new_moves": [
+      "AIR_SLASH",
+      "FLAMETHROWER"
+     ],
+     "jump_cost": 0.86
+    },
+    {
+     "tier": 4,
+     "level": 46,
+     "form": "CHARIZARD",
+     "evolves_into": [],
+     "new_moves": [
+      "SCARY_FACE",
+      "FIRE_SPIN"
+     ],
+     "jump_cost": 0.92
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "CHARIZARD",
+     "evolves_into": [],
+     "new_moves": [
+      "INFERNO"
+     ],
+     "jump_cost": 0.96
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "CHARIZARD",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 0.98
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "CHARIZARD",
+     "FLARE_BLITZ",
+     62
+    ]
+   ]
+  },
+  {
+   "base": "SQUIRTLE",
+   "forms": [
+    {
+     "name": "SQUIRTLE",
+     "kind": "basic",
+     "bst": 314,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 5
+    },
+    {
+     "name": "WARTORTLE",
+     "kind": "middle",
+     "bst": 405,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    },
+    {
+     "name": "BLASTOISE",
+     "kind": "final",
+     "bst": 530,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 2
+    }
+   ],
+   "start_floor": 8,
+   "first_stab": [
+    3,
+    "WATER_GUN"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 16,
+     "form": "WARTORTLE",
+     "evolves_into": [
+      "WARTORTLE"
+     ],
+     "new_moves": [
+      "RAPID_SPIN",
+      "BITE",
+      "WATER_PULSE"
+     ],
+     "jump_cost": 0.62
+    },
+    {
+     "tier": 2,
+     "level": 26,
+     "form": "WARTORTLE",
+     "evolves_into": [],
+     "new_moves": [
+      "PROTECT",
+      "RAIN_DANCE"
+     ],
+     "jump_cost": 0.76
+    },
+    {
+     "tier": 3,
+     "level": 34,
+     "form": "BLASTOISE",
+     "evolves_into": [
+      "BLASTOISE"
+     ],
+     "new_moves": [
+      "FLASH_CANNON",
+      "AQUA_TAIL"
+     ],
+     "jump_cost": 0.84
+    },
+    {
+     "tier": 4,
+     "level": 42,
+     "form": "BLASTOISE",
+     "evolves_into": [],
+     "new_moves": [
+      "SHELL_SMASH",
+      "IRON_DEFENSE"
+     ],
+     "jump_cost": 0.9
+    },
+    {
+     "tier": 5,
+     "level": 49,
+     "form": "BLASTOISE",
+     "evolves_into": [],
+     "new_moves": [
+      "HYDRO_PUMP"
+     ],
+     "jump_cost": 0.93
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "BLASTOISE",
+     "evolves_into": [],
+     "new_moves": [
+      "WAVE_CRASH"
+     ],
+     "jump_cost": 0.98
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "CATERPIE",
+   "forms": [
+    {
+     "name": "CATERPIE",
+     "kind": "basic",
+     "bst": 195,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 9
+    },
+    {
+     "name": "METAPOD",
+     "kind": "middle",
+     "bst": 205,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 9
+    },
+    {
+     "name": "BUTTERFREE",
+     "kind": "final",
+     "bst": 395,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 9
+    }
+   ],
+   "start_floor": 9,
+   "first_stab": [
+    9,
+    "BUG_BITE"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 13,
+     "form": "BUTTERFREE",
+     "evolves_into": [
+      "METAPOD",
+      "BUTTERFREE"
+     ],
+     "new_moves": [
+      "GUST",
+      "POISON_POWDER",
+      "STUN_SPORE",
+      "SLEEP_POWDER"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 29,
+     "form": "BUTTERFREE",
+     "evolves_into": [],
+     "new_moves": [
+      "PSYBEAM",
+      "WHIRLWIND",
+      "AIR_SLASH",
+      "SAFEGUARD"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 39,
+     "form": "BUTTERFREE",
+     "evolves_into": [],
+     "new_moves": [
+      "BUG_BUZZ",
+      "TAILWIND"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 49,
+     "form": "BUTTERFREE",
+     "evolves_into": [],
+     "new_moves": [
+      "RAGE_POWDER",
+      "QUIVER_DANCE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 59,
+     "form": "BUTTERFREE",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "BUTTERFREE",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "WEEDLE",
+   "forms": [
+    {
+     "name": "WEEDLE",
+     "kind": "basic",
+     "bst": 195,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 9
+    },
+    {
+     "name": "KAKUNA",
+     "kind": "middle",
+     "bst": 205,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 9
+    },
+    {
+     "name": "BEEDRILL",
+     "kind": "final",
+     "bst": 395,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 9
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "POISON_STING"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 13,
+     "form": "BEEDRILL",
+     "evolves_into": [
+      "KAKUNA",
+      "BEEDRILL"
+     ],
+     "new_moves": [
+      "FURY_ATTACK",
+      "FURY_CUTTER"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 29,
+     "form": "BEEDRILL",
+     "evolves_into": [],
+     "new_moves": [
+      "LASER_FOCUS",
+      "POISON_STING",
+      "FOCUS_ENERGY",
+      "VENOSHOCK",
+      "ASSURANCE",
+      "TOXIC_SPIKES"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 39,
+     "form": "BEEDRILL",
+     "evolves_into": [],
+     "new_moves": [
+      "PIN_MISSILE",
+      "POISON_JAB",
+      "AGILITY"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 49,
+     "form": "BEEDRILL",
+     "evolves_into": [],
+     "new_moves": [
+      "ENDEAVOR",
+      "FELL_STINGER"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 59,
+     "form": "BEEDRILL",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "BEEDRILL",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "PIDGEY",
+   "forms": [
+    {
+     "name": "PIDGEY",
+     "kind": "basic",
+     "bst": 251,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 8
+    },
+    {
+     "name": "PIDGEOTTO",
+     "kind": "middle",
+     "bst": 349,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 6
+    },
+    {
+     "name": "PIDGEOT",
+     "kind": "final",
+     "bst": 479,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 6
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "TACKLE"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 16,
+     "form": "PIDGEOTTO",
+     "evolves_into": [
+      "PIDGEOTTO"
+     ],
+     "new_moves": [
+      "SAND_ATTACK",
+      "GUST",
+      "QUICK_ATTACK"
+     ],
+     "jump_cost": 0.62
+    },
+    {
+     "tier": 2,
+     "level": 26,
+     "form": "PIDGEOTTO",
+     "evolves_into": [],
+     "new_moves": [
+      "WHIRLWIND",
+      "TWISTER"
+     ],
+     "jump_cost": 0.76
+    },
+    {
+     "tier": 3,
+     "level": 36,
+     "form": "PIDGEOT",
+     "evolves_into": [
+      "PIDGEOT"
+     ],
+     "new_moves": [
+      "FEATHER_DANCE",
+      "AGILITY"
+     ],
+     "jump_cost": 0.86
+    },
+    {
+     "tier": 4,
+     "level": 46,
+     "form": "PIDGEOT",
+     "evolves_into": [],
+     "new_moves": [
+      "WING_ATTACK",
+      "ROOST"
+     ],
+     "jump_cost": 0.92
+    },
+    {
+     "tier": 5,
+     "level": 56,
+     "form": "PIDGEOT",
+     "evolves_into": [],
+     "new_moves": [
+      "TAILWIND",
+      "AERIAL_ACE"
+     ],
+     "jump_cost": 0.96
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "PIDGEOT",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 0.98
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "PIDGEOT",
+     "AIR_SLASH",
+     62
+    ],
+    [
+     "PIDGEOT",
+     "HURRICANE",
+     68
+    ],
+    [
+     "PIDGEOTTO",
+     "HURRICANE",
+     62
+    ]
+   ]
+  },
+  {
+   "base": "RATTATA",
+   "forms": [
+    {
+     "name": "RATTATA",
+     "kind": "basic",
+     "bst": 253,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 8
+    },
+    {
+     "name": "RATICATE",
+     "kind": "final",
+     "bst": 413,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 9
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "TACKLE"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 18,
+     "form": "RATTATA",
+     "evolves_into": [],
+     "new_moves": [
+      "QUICK_ATTACK",
+      "FOCUS_ENERGY",
+      "BITE",
+      "LASER_FOCUS",
+      "TAKE_DOWN"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 23,
+     "form": "RATICATE",
+     "evolves_into": [
+      "RATICATE"
+     ],
+     "new_moves": [
+      "SCARY_FACE",
+      "ASSURANCE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 39,
+     "form": "RATICATE",
+     "evolves_into": [],
+     "new_moves": [
+      "CRUNCH",
+      "SUCKER_PUNCH",
+      "SUPER_FANG",
+      "DOUBLE_EDGE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 49,
+     "form": "RATICATE",
+     "evolves_into": [],
+     "new_moves": [
+      "ENDEAVOR"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 59,
+     "form": "RATICATE",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "RATICATE",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "SPEAROW",
+   "forms": [
+    {
+     "name": "SPEAROW",
+     "kind": "basic",
+     "bst": 262,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 8
+    },
+    {
+     "name": "FEAROW",
+     "kind": "final",
+     "bst": 442,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 8
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "PECK"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 18,
+     "form": "SPEAROW",
+     "evolves_into": [],
+     "new_moves": [
+      "LEER",
+      "ASSURANCE",
+      "FURY_ATTACK",
+      "AERIAL_ACE",
+      "WING_ATTACK"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 23,
+     "form": "FEAROW",
+     "evolves_into": [
+      "FEAROW"
+     ],
+     "new_moves": [
+      "TAKE_DOWN"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 38,
+     "form": "FEAROW",
+     "evolves_into": [],
+     "new_moves": [
+      "AGILITY",
+      "FOCUS_ENERGY",
+      "ROOST"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 48,
+     "form": "FEAROW",
+     "evolves_into": [],
+     "new_moves": [
+      "DRILL_PECK",
+      "DRILL_RUN"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 58,
+     "form": "FEAROW",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "FEAROW",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "EKANS",
+   "forms": [
+    {
+     "name": "EKANS",
+     "kind": "basic",
+     "bst": 303,
+     "el_delta": [
+      5,
+      5,
+      0,
+      0,
+      0,
+      5
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 5
+    },
+    {
+     "name": "ARBOK",
+     "kind": "final",
+     "bst": 470,
+     "el_delta": [
+      2,
+      10,
+      0,
+      0,
+      0,
+      10
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 6
+    }
+   ],
+   "start_floor": 4,
+   "first_stab": [
+    4,
+    "POISON_STING"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "EKANS",
+     "evolves_into": [],
+     "new_moves": [
+      "BITE",
+      "GLARE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 25,
+     "form": "ARBOK",
+     "evolves_into": [
+      "ARBOK"
+     ],
+     "new_moves": [
+      "CRUNCH",
+      "SCREECH",
+      "ACID"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 36,
+     "form": "ARBOK",
+     "evolves_into": [],
+     "new_moves": [
+      "SWALLOW",
+      "STOCKPILE",
+      "SPIT_UP",
+      "ACID_SPRAY"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 46,
+     "form": "ARBOK",
+     "evolves_into": [],
+     "new_moves": [
+      "SLUDGE_BOMB",
+      "GASTRO_ACID"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 56,
+     "form": "ARBOK",
+     "evolves_into": [],
+     "new_moves": [
+      "BELCH",
+      "HAZE",
+      "COIL"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "ARBOK",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "ARBOK",
+     "GUNK_SHOT",
+     63
+    ]
+   ]
+  },
+  {
+   "base": "PIKACHU",
+   "forms": [
+    {
+     "name": "PIKACHU",
+     "kind": "basic",
+     "bst": 340,
+     "el_delta": [
+      0,
+      0,
+      10,
+      0,
+      10,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 3
+    },
+    {
+     "name": "RAICHU",
+     "kind": "final",
+     "bst": 485,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 5
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "NUZZLE"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 13,
+     "form": "PIKACHU",
+     "evolves_into": [],
+     "new_moves": [
+      "THUNDER_WAVE",
+      "DOUBLE_TEAM",
+      "ELECTRO_BALL"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 23,
+     "form": "PIKACHU",
+     "evolves_into": [],
+     "new_moves": [
+      "FEINT",
+      "SPARK"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 33,
+     "form": "PIKACHU",
+     "evolves_into": [],
+     "new_moves": [
+      "AGILITY",
+      "IRON_TAIL",
+      "DISCHARGE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 43,
+     "form": "PIKACHU",
+     "evolves_into": [],
+     "new_moves": [
+      "THUNDERBOLT",
+      "LIGHT_SCREEN"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 53,
+     "form": "PIKACHU",
+     "evolves_into": [],
+     "new_moves": [
+      "THUNDER"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "PIKACHU",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {
+    "RAICHU": [
+     "EVO_ITEM",
+     "ITEM_THUNDER_STONE"
+    ]
+   },
+   "moves_above_60": []
+  },
+  {
+   "base": "SANDSHREW",
+   "forms": [
+    {
+     "name": "SANDSHREW",
+     "kind": "basic",
+     "bst": 300,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 5
+    },
+    {
+     "name": "SANDSLASH",
+     "kind": "final",
+     "bst": 450,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 7
+    }
+   ],
+   "start_floor": 18,
+   "first_stab": [
+    18,
+    "BULLDOZE"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "SANDSHREW",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 25,
+     "form": "SANDSLASH",
+     "evolves_into": [
+      "SANDSLASH"
+     ],
+     "new_moves": [
+      "BULLDOZE",
+      "SWIFT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 37,
+     "form": "SANDSLASH",
+     "evolves_into": [],
+     "new_moves": [
+      "FURY_SWIPES",
+      "SAND_TOMB",
+      "SLASH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 47,
+     "form": "SANDSLASH",
+     "evolves_into": [],
+     "new_moves": [
+      "DIG",
+      "GYRO_BALL"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 57,
+     "form": "SANDSLASH",
+     "evolves_into": [],
+     "new_moves": [
+      "SWORDS_DANCE",
+      "SANDSTORM"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "SANDSLASH",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "SANDSLASH",
+     "EARTHQUAKE",
+     61
+    ]
+   ]
+  },
+  {
+   "base": "NIDORAN_F",
+   "forms": [
+    {
+     "name": "NIDORAN_F",
+     "kind": "basic",
+     "bst": 275,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 7
+    },
+    {
+     "name": "NIDORINA",
+     "kind": "middle",
+     "bst": 365,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 5
+    },
+    {
+     "name": "NIDOQUEEN",
+     "kind": "final",
+     "bst": 505,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "POISON_STING"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "NIDORINA",
+     "evolves_into": [
+      "NIDORINA"
+     ],
+     "new_moves": [
+      "FURY_SWIPES"
+     ],
+     "jump_cost": 0.6
+    },
+    {
+     "tier": 2,
+     "level": 25,
+     "form": "NIDORINA",
+     "evolves_into": [],
+     "new_moves": [
+      "TOXIC_SPIKES"
+     ],
+     "jump_cost": 0.75
+    },
+    {
+     "tier": 3,
+     "level": 35,
+     "form": "NIDORINA",
+     "evolves_into": [],
+     "new_moves": [
+      "DOUBLE_KICK"
+     ],
+     "jump_cost": 0.85
+    },
+    {
+     "tier": 4,
+     "level": 45,
+     "form": "NIDORINA",
+     "evolves_into": [],
+     "new_moves": [
+      "BITE",
+      "HELPING_HAND"
+     ],
+     "jump_cost": 0.91
+    },
+    {
+     "tier": 5,
+     "level": 55,
+     "form": "NIDORINA",
+     "evolves_into": [],
+     "new_moves": [
+      "TOXIC"
+     ],
+     "jump_cost": 0.96
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "NIDORINA",
+     "evolves_into": [],
+     "new_moves": [
+      "FLATTER"
+     ],
+     "jump_cost": 0.98
+    }
+   ],
+   "other_evolutions": {
+    "NIDOQUEEN": [
+     "EVO_ITEM",
+     "ITEM_MOON_STONE"
+    ]
+   },
+   "moves_above_60": [
+    [
+     "NIDORINA",
+     "CRUNCH",
+     64
+    ],
+    [
+     "NIDORINA",
+     "EARTH_POWER",
+     71
+    ]
+   ]
+  },
+  {
+   "base": "NIDORAN_M",
+   "forms": [
+    {
+     "name": "NIDORAN_M",
+     "kind": "basic",
+     "bst": 273,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 7
+    },
+    {
+     "name": "NIDORINO",
+     "kind": "middle",
+     "bst": 365,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 5
+    },
+    {
+     "name": "NIDOKING",
+     "kind": "final",
+     "bst": 505,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "POISON_STING"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "NIDORINO",
+     "evolves_into": [
+      "NIDORINO"
+     ],
+     "new_moves": [
+      "FURY_ATTACK"
+     ],
+     "jump_cost": 0.6
+    },
+    {
+     "tier": 2,
+     "level": 25,
+     "form": "NIDORINO",
+     "evolves_into": [],
+     "new_moves": [
+      "TOXIC_SPIKES"
+     ],
+     "jump_cost": 0.75
+    },
+    {
+     "tier": 3,
+     "level": 35,
+     "form": "NIDORINO",
+     "evolves_into": [],
+     "new_moves": [
+      "DOUBLE_KICK"
+     ],
+     "jump_cost": 0.85
+    },
+    {
+     "tier": 4,
+     "level": 45,
+     "form": "NIDORINO",
+     "evolves_into": [],
+     "new_moves": [
+      "HORN_ATTACK",
+      "HELPING_HAND"
+     ],
+     "jump_cost": 0.91
+    },
+    {
+     "tier": 5,
+     "level": 55,
+     "form": "NIDORINO",
+     "evolves_into": [],
+     "new_moves": [
+      "TOXIC"
+     ],
+     "jump_cost": 0.96
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "NIDORINO",
+     "evolves_into": [],
+     "new_moves": [
+      "FLATTER"
+     ],
+     "jump_cost": 0.98
+    }
+   ],
+   "other_evolutions": {
+    "NIDOKING": [
+     "EVO_ITEM",
+     "ITEM_MOON_STONE"
+    ]
+   },
+   "moves_above_60": [
+    [
+     "NIDORINO",
+     "EARTH_POWER",
+     71
+    ],
+    [
+     "NIDORINO",
+     "POISON_JAB",
+     64
+    ]
+   ]
+  },
+  {
+   "base": "CLEFAIRY",
+   "forms": [
+    {
+     "name": "CLEFAIRY",
+     "kind": "basic",
+     "bst": 323,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "FAST",
+     "offset": 4
+    },
+    {
+     "name": "CLEFABLE",
+     "kind": "final",
+     "bst": 493,
+     "el_delta": [
+      0,
+      0,
+      0,
+      10,
+      0,
+      0
+     ],
+     "growth": "FAST",
+     "offset": 5
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "DISARMING_VOICE"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "CLEFAIRY",
+     "evolves_into": [],
+     "new_moves": [
+      "STORED_POWER",
+      "ENCORE",
+      "AFTER_YOU"
+     ],
+     "jump_cost": 0.8
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "CLEFAIRY",
+     "evolves_into": [],
+     "new_moves": [
+      "LIFE_DEW",
+      "METRONOME",
+      "MOONLIGHT"
+     ],
+     "jump_cost": 0.8
+    },
+    {
+     "tier": 3,
+     "level": 34,
+     "form": "CLEFAIRY",
+     "evolves_into": [],
+     "new_moves": [
+      "GRAVITY",
+      "METEOR_MASH"
+     ],
+     "jump_cost": 0.8
+    },
+    {
+     "tier": 4,
+     "level": 44,
+     "form": "CLEFAIRY",
+     "evolves_into": [],
+     "new_moves": [
+      "FOLLOW_ME",
+      "COSMIC_POWER",
+      "MOONBLAST"
+     ],
+     "jump_cost": 0.8
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "CLEFAIRY",
+     "evolves_into": [],
+     "new_moves": [
+      "HEALING_WISH"
+     ],
+     "jump_cost": 0.8
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "CLEFAIRY",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 0.8
+    }
+   ],
+   "other_evolutions": {
+    "CLEFABLE": [
+     "EVO_ITEM",
+     "ITEM_MOON_STONE"
+    ]
+   },
+   "moves_above_60": []
+  },
+  {
+   "base": "VULPIX",
+   "forms": [
+    {
+     "name": "VULPIX",
+     "kind": "basic",
+     "bst": 336,
+     "el_delta": [
+      7,
+      0,
+      5,
+      10,
+      5,
+      10
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 3
+    },
+    {
+     "name": "NINETALES",
+     "kind": "final",
+     "bst": 515,
+     "el_delta": [
+      5,
+      -5,
+      5,
+      5,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 3
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "EMBER"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 13,
+     "form": "VULPIX",
+     "evolves_into": [],
+     "new_moves": [
+      "DISABLE",
+      "QUICK_ATTACK",
+      "SPITE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 23,
+     "form": "VULPIX",
+     "evolves_into": [],
+     "new_moves": [
+      "INCINERATE",
+      "CONFUSE_RAY"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 33,
+     "form": "VULPIX",
+     "evolves_into": [],
+     "new_moves": [
+      "WILL_O_WISP",
+      "EXTRASENSORY",
+      "FLAMETHROWER"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 43,
+     "form": "VULPIX",
+     "evolves_into": [],
+     "new_moves": [
+      "IMPRISON",
+      "FIRE_SPIN"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 53,
+     "form": "VULPIX",
+     "evolves_into": [],
+     "new_moves": [
+      "SAFEGUARD",
+      "INFERNO",
+      "FIRE_BLAST"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "VULPIX",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {
+    "NINETALES": [
+     "EVO_ITEM",
+     "ITEM_FIRE_STONE"
+    ]
+   },
+   "moves_above_60": []
+  },
+  {
+   "base": "JIGGLYPUFF",
+   "forms": [
+    {
+     "name": "JIGGLYPUFF",
+     "kind": "basic",
+     "bst": 270,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "FAST",
+     "offset": 7
+    },
+    {
+     "name": "WIGGLYTUFF",
+     "kind": "final",
+     "bst": 460,
+     "el_delta": [
+      0,
+      0,
+      10,
+      10,
+      5,
+      0
+     ],
+     "growth": "FAST",
+     "offset": 7
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "DISARMING_VOICE"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 17,
+     "form": "JIGGLYPUFF",
+     "evolves_into": [],
+     "new_moves": [
+      "ECHOED_VOICE",
+      "COVET",
+      "STOCKPILE",
+      "SPIT_UP",
+      "SWALLOW",
+      "ROUND"
+     ],
+     "jump_cost": 0.8
+    },
+    {
+     "tier": 2,
+     "level": 27,
+     "form": "JIGGLYPUFF",
+     "evolves_into": [],
+     "new_moves": [
+      "REST",
+      "BODY_SLAM"
+     ],
+     "jump_cost": 0.8
+    },
+    {
+     "tier": 3,
+     "level": 37,
+     "form": "JIGGLYPUFF",
+     "evolves_into": [],
+     "new_moves": [
+      "MIMIC",
+      "GYRO_BALL",
+      "HYPER_VOICE"
+     ],
+     "jump_cost": 0.8
+    },
+    {
+     "tier": 4,
+     "level": 47,
+     "form": "JIGGLYPUFF",
+     "evolves_into": [],
+     "new_moves": [
+      "DOUBLE_EDGE"
+     ],
+     "jump_cost": 0.8
+    },
+    {
+     "tier": 5,
+     "level": 57,
+     "form": "JIGGLYPUFF",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 0.8
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "JIGGLYPUFF",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 0.8
+    }
+   ],
+   "other_evolutions": {
+    "WIGGLYTUFF": [
+     "EVO_ITEM",
+     "ITEM_MOON_STONE"
+    ]
+   },
+   "moves_above_60": []
+  },
+  {
+   "base": "ZUBAT",
+   "forms": [
+    {
+     "name": "ZUBAT",
+     "kind": "basic",
+     "bst": 245,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 9
+    },
+    {
+     "name": "GOLBAT",
+     "kind": "final",
+     "bst": 455,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 7
+    }
+   ],
+   "start_floor": 15,
+   "first_stab": [
+    15,
+    "POISON_FANG"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 19,
+     "form": "ZUBAT",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 25,
+     "form": "GOLBAT",
+     "evolves_into": [
+      "GOLBAT"
+     ],
+     "new_moves": [
+      "QUICK_GUARD"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 37,
+     "form": "GOLBAT",
+     "evolves_into": [],
+     "new_moves": [
+      "AIR_CUTTER",
+      "BITE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 47,
+     "form": "GOLBAT",
+     "evolves_into": [],
+     "new_moves": [
+      "HAZE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 57,
+     "form": "GOLBAT",
+     "evolves_into": [],
+     "new_moves": [
+      "VENOSHOCK",
+      "CONFUSE_RAY"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "GOLBAT",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "GOLBAT",
+     "AIR_SLASH",
+     62
+    ],
+    [
+     "GOLBAT",
+     "LEECH_LIFE",
+     69
+    ]
+   ]
+  },
+  {
+   "base": "ODDISH",
+   "forms": [
+    {
+     "name": "ODDISH",
+     "kind": "basic",
+     "bst": 325,
+     "el_delta": [
+      5,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    },
+    {
+     "name": "GLOOM",
+     "kind": "middle",
+     "bst": 405,
+     "el_delta": [
+      10,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    },
+    {
+     "name": "VILEPLUME",
+     "kind": "final",
+     "bst": 515,
+     "el_delta": [
+      15,
+      0,
+      10,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 3
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "ABSORB"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "ODDISH",
+     "evolves_into": [],
+     "new_moves": [
+      "ACID",
+      "SWEET_SCENT",
+      "MEGA_DRAIN",
+      "POISON_POWDER"
+     ],
+     "jump_cost": 0.59
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "GLOOM",
+     "evolves_into": [
+      "GLOOM"
+     ],
+     "new_moves": [
+      "STUN_SPORE",
+      "SLEEP_POWDER",
+      "GIGA_DRAIN"
+     ],
+     "jump_cost": 0.74
+    },
+    {
+     "tier": 3,
+     "level": 34,
+     "form": "GLOOM",
+     "evolves_into": [],
+     "new_moves": [
+      "TOXIC",
+      "MOONBLAST"
+     ],
+     "jump_cost": 0.84
+    },
+    {
+     "tier": 4,
+     "level": 44,
+     "form": "GLOOM",
+     "evolves_into": [],
+     "new_moves": [
+      "GRASSY_TERRAIN",
+      "MOONLIGHT"
+     ],
+     "jump_cost": 0.91
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "GLOOM",
+     "evolves_into": [],
+     "new_moves": [
+      "PETAL_DANCE"
+     ],
+     "jump_cost": 0.96
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "GLOOM",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 0.98
+    }
+   ],
+   "other_evolutions": {
+    "VILEPLUME": [
+     "EVO_ITEM",
+     "ITEM_LEAF_STONE"
+    ]
+   },
+   "moves_above_60": []
+  },
+  {
+   "base": "PARAS",
+   "forms": [
+    {
+     "name": "PARAS",
+     "kind": "basic",
+     "bst": 285,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 6
+    },
+    {
+     "name": "PARASECT",
+     "kind": "final",
+     "bst": 405,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 9
+    }
+   ],
+   "start_floor": 11,
+   "first_stab": [
+    11,
+    "ABSORB"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 16,
+     "form": "PARAS",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 27,
+     "form": "PARASECT",
+     "evolves_into": [
+      "PARASECT"
+     ],
+     "new_moves": [
+      "FURY_CUTTER",
+      "SPORE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 39,
+     "form": "PARASECT",
+     "evolves_into": [],
+     "new_moves": [
+      "SLASH",
+      "GROWTH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 49,
+     "form": "PARASECT",
+     "evolves_into": [],
+     "new_moves": [
+      "GIGA_DRAIN"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 59,
+     "form": "PARASECT",
+     "evolves_into": [],
+     "new_moves": [
+      "AROMATHERAPY",
+      "RAGE_POWDER"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "PARASECT",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "PARASECT",
+     "X_SCISSOR",
+     66
+    ]
+   ]
+  },
+  {
+   "base": "VENONAT",
+   "forms": [
+    {
+     "name": "VENONAT",
+     "kind": "basic",
+     "bst": 305,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 5
+    },
+    {
+     "name": "VENOMOTH",
+     "kind": "final",
+     "bst": 475,
+     "el_delta": [
+      0,
+      10,
+      0,
+      5,
+      0,
+      10
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 6
+    }
+   ],
+   "start_floor": 25,
+   "first_stab": [
+    25,
+    "BUG_BUZZ"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "VENONAT",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 25,
+     "form": "VENONAT",
+     "evolves_into": [],
+     "new_moves": [
+      "PSYBEAM",
+      "STUN_SPORE",
+      "BUG_BUZZ"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 34,
+     "form": "VENOMOTH",
+     "evolves_into": [
+      "VENOMOTH"
+     ],
+     "new_moves": [
+      "AIR_SLASH",
+      "SLEEP_POWDER"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 46,
+     "form": "VENOMOTH",
+     "evolves_into": [],
+     "new_moves": [
+      "LEECH_LIFE",
+      "ZEN_HEADBUTT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 56,
+     "form": "VENOMOTH",
+     "evolves_into": [],
+     "new_moves": [
+      "POISON_FANG",
+      "PSYCHIC"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "VENOMOTH",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "DIGLETT",
+   "forms": [
+    {
+     "name": "DIGLETT",
+     "kind": "basic",
+     "bst": 265,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 8
+    },
+    {
+     "name": "DUGTRIO",
+     "kind": "final",
+     "bst": 435,
+     "el_delta": [
+      0,
+      10,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 8
+    }
+   ],
+   "start_floor": 12,
+   "first_stab": [
+    12,
+    "MUD_SLAP"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 18,
+     "form": "DIGLETT",
+     "evolves_into": [],
+     "new_moves": [
+      "BULLDOZE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 28,
+     "form": "DUGTRIO",
+     "evolves_into": [
+      "DUGTRIO"
+     ],
+     "new_moves": [
+      "SAND_TOMB",
+      "SUCKER_PUNCH",
+      "SLASH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 38,
+     "form": "DUGTRIO",
+     "evolves_into": [],
+     "new_moves": [
+      "SANDSTORM",
+      "DIG"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 48,
+     "form": "DUGTRIO",
+     "evolves_into": [],
+     "new_moves": [
+      "EARTH_POWER",
+      "EARTHQUAKE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 58,
+     "form": "DUGTRIO",
+     "evolves_into": [],
+     "new_moves": [
+      "FISSURE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "DUGTRIO",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "MEOWTH",
+   "forms": [
+    {
+     "name": "MEOWTH",
+     "kind": "basic",
+     "bst": 290,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 6
+    },
+    {
+     "name": "PERSIAN",
+     "kind": "final",
+     "bst": 440,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 8
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "FAKE_OUT"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 16,
+     "form": "MEOWTH",
+     "evolves_into": [],
+     "new_moves": [
+      "FEINT",
+      "SCRATCH",
+      "PAY_DAY",
+      "BITE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 28,
+     "form": "PERSIAN",
+     "evolves_into": [
+      "PERSIAN"
+     ],
+     "new_moves": [
+      "POWER_GEM",
+      "TAUNT",
+      "ASSURANCE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 38,
+     "form": "PERSIAN",
+     "evolves_into": [],
+     "new_moves": [
+      "FURY_SWIPES",
+      "SCREECH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 48,
+     "form": "PERSIAN",
+     "evolves_into": [],
+     "new_moves": [
+      "SLASH",
+      "NASTY_PLOT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 58,
+     "form": "PERSIAN",
+     "evolves_into": [],
+     "new_moves": [
+      "PLAY_ROUGH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "PERSIAN",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "PSYDUCK",
+   "forms": [
+    {
+     "name": "PSYDUCK",
+     "kind": "basic",
+     "bst": 320,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 4
+    },
+    {
+     "name": "GOLDUCK",
+     "kind": "final",
+     "bst": 500,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 4
+    }
+   ],
+   "start_floor": 3,
+   "first_stab": [
+    3,
+    "WATER_GUN"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "PSYDUCK",
+     "evolves_into": [],
+     "new_moves": [
+      "CONFUSION",
+      "FURY_SWIPES",
+      "WATER_PULSE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "PSYDUCK",
+     "evolves_into": [],
+     "new_moves": [
+      "DISABLE",
+      "ZEN_HEADBUTT",
+      "SCREECH",
+      "AQUA_TAIL"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 34,
+     "form": "GOLDUCK",
+     "evolves_into": [
+      "GOLDUCK"
+     ],
+     "new_moves": [
+      "SOAK",
+      "PSYCH_UP"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 44,
+     "form": "GOLDUCK",
+     "evolves_into": [],
+     "new_moves": [
+      "AMNESIA",
+      "HYDRO_PUMP"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "GOLDUCK",
+     "evolves_into": [],
+     "new_moves": [
+      "WONDER_ROOM"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "GOLDUCK",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "MANKEY",
+   "forms": [
+    {
+     "name": "MANKEY",
+     "kind": "basic",
+     "bst": 305,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 5
+    },
+    {
+     "name": "PRIMEAPE",
+     "kind": "final",
+     "bst": 455,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 7
+    }
+   ],
+   "start_floor": 22,
+   "first_stab": [
+    22,
+    "CROSS_CHOP"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "MANKEY",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 27,
+     "form": "PRIMEAPE",
+     "evolves_into": [
+      "PRIMEAPE"
+     ],
+     "new_moves": [
+      "SWAGGER",
+      "CROSS_CHOP",
+      "ASSURANCE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 37,
+     "form": "PRIMEAPE",
+     "evolves_into": [],
+     "new_moves": [
+      "THRASH",
+      "RAGE_FIST"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 47,
+     "form": "PRIMEAPE",
+     "evolves_into": [],
+     "new_moves": [
+      "CLOSE_COMBAT",
+      "SCREECH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 57,
+     "form": "PRIMEAPE",
+     "evolves_into": [],
+     "new_moves": [
+      "STOMPING_TANTRUM",
+      "OUTRAGE",
+      "FINAL_GAMBIT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "PRIMEAPE",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "GROWLITHE",
+   "forms": [
+    {
+     "name": "GROWLITHE",
+     "kind": "basic",
+     "bst": 350,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 2
+    },
+    {
+     "name": "ARCANINE",
+     "kind": "final",
+     "bst": 555,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 1
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "EMBER"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 12,
+     "form": "GROWLITHE",
+     "evolves_into": [],
+     "new_moves": [
+      "HOWL",
+      "BITE",
+      "FLAME_WHEEL"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 22,
+     "form": "GROWLITHE",
+     "evolves_into": [],
+     "new_moves": [
+      "HELPING_HAND",
+      "AGILITY"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 32,
+     "form": "GROWLITHE",
+     "evolves_into": [],
+     "new_moves": [
+      "FIRE_FANG",
+      "RETALIATE",
+      "CRUNCH"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 42,
+     "form": "GROWLITHE",
+     "evolves_into": [],
+     "new_moves": [
+      "TAKE_DOWN",
+      "FLAMETHROWER"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 52,
+     "form": "GROWLITHE",
+     "evolves_into": [],
+     "new_moves": [
+      "ROAR",
+      "PLAY_ROUGH",
+      "REVERSAL"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "GROWLITHE",
+     "evolves_into": [],
+     "new_moves": [
+      "FLARE_BLITZ"
+     ],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {
+    "ARCANINE": [
+     "EVO_ITEM",
+     "ITEM_FIRE_STONE"
+    ]
+   },
+   "moves_above_60": []
+  },
+  {
+   "base": "POLIWAG",
+   "forms": [
+    {
+     "name": "POLIWAG",
+     "kind": "basic",
+     "bst": 300,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 5
+    },
+    {
+     "name": "POLIWHIRL",
+     "kind": "middle",
+     "bst": 385,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    },
+    {
+     "name": "POLIWRATH",
+     "kind": "final",
+     "bst": 510,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "WATER_GUN"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "POLIWAG",
+     "evolves_into": [],
+     "new_moves": [
+      "POUND",
+      "MUD_SHOT"
+     ],
+     "jump_cost": 0.6
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "POLIWHIRL",
+     "evolves_into": [
+      "POLIWHIRL"
+     ],
+     "new_moves": [
+      "BUBBLE_BEAM",
+      "RAIN_DANCE"
+     ],
+     "jump_cost": 0.74
+    },
+    {
+     "tier": 3,
+     "level": 34,
+     "form": "POLIWHIRL",
+     "evolves_into": [],
+     "new_moves": [
+      "BODY_SLAM"
+     ],
+     "jump_cost": 0.84
+    },
+    {
+     "tier": 4,
+     "level": 44,
+     "form": "POLIWHIRL",
+     "evolves_into": [],
+     "new_moves": [
+      "EARTH_POWER"
+     ],
+     "jump_cost": 0.91
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "POLIWHIRL",
+     "evolves_into": [],
+     "new_moves": [
+      "HYDRO_PUMP"
+     ],
+     "jump_cost": 0.96
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "POLIWHIRL",
+     "evolves_into": [],
+     "new_moves": [
+      "BELLY_DRUM"
+     ],
+     "jump_cost": 0.98
+    }
+   ],
+   "other_evolutions": {
+    "POLIWRATH": [
+     "EVO_ITEM",
+     "ITEM_WATER_STONE"
+    ]
+   },
+   "moves_above_60": [
+    [
+     "POLIWHIRL",
+     "DOUBLE_EDGE",
+     66
+    ]
+   ]
+  },
+  {
+   "base": "ABRA",
+   "forms": [
+    {
+     "name": "ABRA",
+     "kind": "basic",
+     "bst": 310,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 5
+    },
+    {
+     "name": "KADABRA",
+     "kind": "middle",
+     "bst": 400,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    },
+    {
+     "name": "ALAKAZAM",
+     "kind": "final",
+     "bst": 500,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    }
+   ],
+   "start_floor": null,
+   "first_stab": null,
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "KADABRA",
+     "evolves_into": [
+      "KADABRA"
+     ],
+     "new_moves": [
+      "CONFUSION",
+      "PSYBEAM",
+      "REFLECT"
+     ],
+     "jump_cost": 0.59
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "KADABRA",
+     "evolves_into": [],
+     "new_moves": [
+      "ALLY_SWITCH",
+      "PSYCHO_CUT"
+     ],
+     "jump_cost": 0.74
+    },
+    {
+     "tier": 3,
+     "level": 34,
+     "form": "KADABRA",
+     "evolves_into": [],
+     "new_moves": [
+      "RECOVER",
+      "PSYSHOCK"
+     ],
+     "jump_cost": 0.84
+    },
+    {
+     "tier": 4,
+     "level": 44,
+     "form": "ALAKAZAM",
+     "evolves_into": [
+      "ALAKAZAM"
+     ],
+     "new_moves": [
+      "PSYCHIC",
+      "ROLE_PLAY"
+     ],
+     "jump_cost": 0.91
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "ALAKAZAM",
+     "evolves_into": [],
+     "new_moves": [
+      "FUTURE_SIGHT",
+      "CALM_MIND"
+     ],
+     "jump_cost": 0.96
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "ALAKAZAM",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 0.98
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "MACHOP",
+   "forms": [
+    {
+     "name": "MACHOP",
+     "kind": "basic",
+     "bst": 305,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 5
+    },
+    {
+     "name": "MACHOKE",
+     "kind": "middle",
+     "bst": 405,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    },
+    {
+     "name": "MACHAMP",
+     "kind": "final",
+     "bst": 505,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    }
+   ],
+   "start_floor": 8,
+   "first_stab": [
+    8,
+    "REVENGE"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "MACHOP",
+     "evolves_into": [],
+     "new_moves": [
+      "LOW_SWEEP"
+     ],
+     "jump_cost": 0.6
+    },
+    {
+     "tier": 2,
+     "level": 25,
+     "form": "MACHOKE",
+     "evolves_into": [
+      "MACHOKE"
+     ],
+     "new_moves": [
+      "KNOCK_OFF",
+      "SCARY_FACE",
+      "VITAL_THROW"
+     ],
+     "jump_cost": 0.75
+    },
+    {
+     "tier": 3,
+     "level": 35,
+     "form": "MACHAMP",
+     "evolves_into": [
+      "MACHAMP"
+     ],
+     "new_moves": [
+      "STRENGTH"
+     ],
+     "jump_cost": 0.85
+    },
+    {
+     "tier": 4,
+     "level": 44,
+     "form": "MACHAMP",
+     "evolves_into": [],
+     "new_moves": [
+      "DUAL_CHOP",
+      "BULK_UP"
+     ],
+     "jump_cost": 0.91
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "MACHAMP",
+     "evolves_into": [],
+     "new_moves": [
+      "SEISMIC_TOSS",
+      "DYNAMIC_PUNCH"
+     ],
+     "jump_cost": 0.96
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "MACHAMP",
+     "evolves_into": [],
+     "new_moves": [
+      "CROSS_CHOP"
+     ],
+     "jump_cost": 0.98
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "MACHAMP",
+     "DOUBLE_EDGE",
+     66
+    ],
+    [
+     "MACHOKE",
+     "DOUBLE_EDGE",
+     66
+    ]
+   ]
+  },
+  {
+   "base": "BELLSPROUT",
+   "forms": [
+    {
+     "name": "BELLSPROUT",
+     "kind": "basic",
+     "bst": 300,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 5
+    },
+    {
+     "name": "WEEPINBELL",
+     "kind": "middle",
+     "bst": 390,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    },
+    {
+     "name": "VICTREEBEL",
+     "kind": "final",
+     "bst": 490,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 5
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "VINE_WHIP"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "BELLSPROUT",
+     "evolves_into": [],
+     "new_moves": [
+      "GROWTH",
+      "WRAP",
+      "SLEEP_POWDER",
+      "POISON_POWDER"
+     ],
+     "jump_cost": 0.6
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "WEEPINBELL",
+     "evolves_into": [
+      "WEEPINBELL"
+     ],
+     "new_moves": [
+      "STUN_SPORE",
+      "ACID"
+     ],
+     "jump_cost": 0.74
+    },
+    {
+     "tier": 3,
+     "level": 34,
+     "form": "WEEPINBELL",
+     "evolves_into": [],
+     "new_moves": [
+      "KNOCK_OFF",
+      "SWEET_SCENT"
+     ],
+     "jump_cost": 0.84
+    },
+    {
+     "tier": 4,
+     "level": 44,
+     "form": "WEEPINBELL",
+     "evolves_into": [],
+     "new_moves": [
+      "GASTRO_ACID",
+      "RAZOR_LEAF"
+     ],
+     "jump_cost": 0.91
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "WEEPINBELL",
+     "evolves_into": [],
+     "new_moves": [
+      "POISON_JAB",
+      "SLAM"
+     ],
+     "jump_cost": 0.96
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "WEEPINBELL",
+     "evolves_into": [],
+     "new_moves": [
+      "POWER_WHIP"
+     ],
+     "jump_cost": 0.98
+    }
+   ],
+   "other_evolutions": {
+    "VICTREEBEL": [
+     "EVO_ITEM",
+     "ITEM_LEAF_STONE"
+    ]
+   },
+   "moves_above_60": []
+  },
+  {
+   "base": "TENTACOOL",
+   "forms": [
+    {
+     "name": "TENTACOOL",
+     "kind": "basic",
+     "bst": 335,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 3
+    },
+    {
+     "name": "TENTACRUEL",
+     "kind": "final",
+     "bst": 515,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 3
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "POISON_STING"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 13,
+     "form": "TENTACOOL",
+     "evolves_into": [],
+     "new_moves": [
+      "ACID",
+      "WRAP",
+      "SUPERSONIC"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 23,
+     "form": "TENTACOOL",
+     "evolves_into": [],
+     "new_moves": [
+      "WATER_PULSE",
+      "SCREECH"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 33,
+     "form": "TENTACRUEL",
+     "evolves_into": [
+      "TENTACRUEL"
+     ],
+     "new_moves": [
+      "BUBBLE_BEAM",
+      "HEX"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 43,
+     "form": "TENTACRUEL",
+     "evolves_into": [],
+     "new_moves": [
+      "ACID_ARMOR",
+      "POISON_JAB"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 53,
+     "form": "TENTACRUEL",
+     "evolves_into": [],
+     "new_moves": [
+      "SURF",
+      "SLUDGE_WAVE"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "TENTACRUEL",
+     "evolves_into": [],
+     "new_moves": [
+      "HYDRO_PUMP"
+     ],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "GEODUDE",
+   "forms": [
+    {
+     "name": "GEODUDE",
+     "kind": "basic",
+     "bst": 300,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 5
+    },
+    {
+     "name": "GRAVELER",
+     "kind": "middle",
+     "bst": 390,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    },
+    {
+     "name": "GOLEM",
+     "kind": "final",
+     "bst": 495,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 5
+    }
+   ],
+   "start_floor": 10,
+   "first_stab": [
+    10,
+    "ROLLOUT"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "GEODUDE",
+     "evolves_into": [],
+     "new_moves": [
+      "BULLDOZE"
+     ],
+     "jump_cost": 0.6
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "GRAVELER",
+     "evolves_into": [
+      "GRAVELER"
+     ],
+     "new_moves": [
+      "ROCK_THROW",
+      "SMACK_DOWN",
+      "SELF_DESTRUCT"
+     ],
+     "jump_cost": 0.74
+    },
+    {
+     "tier": 3,
+     "level": 35,
+     "form": "GOLEM",
+     "evolves_into": [
+      "GOLEM"
+     ],
+     "new_moves": [
+      "STEALTH_ROCK",
+      "ROCK_BLAST"
+     ],
+     "jump_cost": 0.85
+    },
+    {
+     "tier": 4,
+     "level": 45,
+     "form": "GOLEM",
+     "evolves_into": [],
+     "new_moves": [
+      "EARTHQUAKE",
+      "EXPLOSION"
+     ],
+     "jump_cost": 0.91
+    },
+    {
+     "tier": 5,
+     "level": 55,
+     "form": "GOLEM",
+     "evolves_into": [],
+     "new_moves": [
+      "DOUBLE_EDGE",
+      "STONE_EDGE"
+     ],
+     "jump_cost": 0.96
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "GOLEM",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 0.98
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "PONYTA",
+   "forms": [
+    {
+     "name": "PONYTA",
+     "kind": "basic",
+     "bst": 420,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      10
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 1
+    },
+    {
+     "name": "RAPIDASH",
+     "kind": "final",
+     "bst": 510,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      10
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 4
+    }
+   ],
+   "start_floor": 10,
+   "first_stab": [
+    10,
+    "EMBER"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 11,
+     "form": "PONYTA",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 21,
+     "form": "PONYTA",
+     "evolves_into": [],
+     "new_moves": [
+      "FLAME_CHARGE",
+      "AGILITY"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 31,
+     "form": "PONYTA",
+     "evolves_into": [],
+     "new_moves": [
+      "FLAME_WHEEL",
+      "STOMP"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 43,
+     "form": "RAPIDASH",
+     "evolves_into": [
+      "RAPIDASH"
+     ],
+     "new_moves": [
+      "SMART_STRIKE",
+      "FIRE_SPIN",
+      "TAKE_DOWN"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "RAPIDASH",
+     "evolves_into": [],
+     "new_moves": [
+      "INFERNO"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "RAPIDASH",
+     "evolves_into": [],
+     "new_moves": [
+      "FIRE_BLAST"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "RAPIDASH",
+     "FLARE_BLITZ",
+     63
+    ]
+   ]
+  },
+  {
+   "base": "SLOWPOKE",
+   "forms": [
+    {
+     "name": "SLOWPOKE",
+     "kind": "basic",
+     "bst": 315,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 4
+    },
+    {
+     "name": "SLOWBRO",
+     "kind": "final",
+     "bst": 490,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 5
+    }
+   ],
+   "start_floor": 6,
+   "first_stab": [
+    6,
+    "WATER_GUN"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "SLOWPOKE",
+     "evolves_into": [],
+     "new_moves": [
+      "YAWN",
+      "CONFUSION"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "SLOWPOKE",
+     "evolves_into": [],
+     "new_moves": [
+      "DISABLE",
+      "WATER_PULSE",
+      "HEADBUTT",
+      "ZEN_HEADBUTT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 35,
+     "form": "SLOWBRO",
+     "evolves_into": [
+      "SLOWBRO"
+     ],
+     "new_moves": [
+      "AMNESIA",
+      "SURF",
+      "SLACK_OFF"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 45,
+     "form": "SLOWBRO",
+     "evolves_into": [],
+     "new_moves": [
+      "PSYCHIC",
+      "PSYCH_UP"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 55,
+     "form": "SLOWBRO",
+     "evolves_into": [],
+     "new_moves": [
+      "RAIN_DANCE",
+      "HEAL_PULSE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "SLOWBRO",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "MAGNEMITE",
+   "forms": [
+    {
+     "name": "MAGNEMITE",
+     "kind": "basic",
+     "bst": 325,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 4
+    },
+    {
+     "name": "MAGNETON",
+     "kind": "final",
+     "bst": 465,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 6
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "THUNDER_SHOCK"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "MAGNEMITE",
+     "evolves_into": [],
+     "new_moves": [
+      "SUPERSONIC",
+      "THUNDER_WAVE",
+      "ELECTRO_BALL"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "MAGNEMITE",
+     "evolves_into": [],
+     "new_moves": [
+      "GYRO_BALL",
+      "SPARK",
+      "SCREECH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 33,
+     "form": "MAGNETON",
+     "evolves_into": [
+      "MAGNETON"
+     ],
+     "new_moves": [
+      "TRI_ATTACK",
+      "MAGNET_RISE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 46,
+     "form": "MAGNETON",
+     "evolves_into": [],
+     "new_moves": [
+      "FLASH_CANNON",
+      "DISCHARGE",
+      "METAL_SOUND"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 56,
+     "form": "MAGNETON",
+     "evolves_into": [],
+     "new_moves": [
+      "LIGHT_SCREEN"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "MAGNETON",
+     "evolves_into": [],
+     "new_moves": [
+      "LOCK_ON"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "MAGNETON",
+     "ZAP_CANNON",
+     64
+    ]
+   ]
+  },
+  {
+   "base": "FARFETCHD",
+   "forms": [
+    {
+     "name": "FARFETCHD",
+     "kind": "single",
+     "bst": 377,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 8
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "PECK"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 18,
+     "form": "FARFETCHD",
+     "evolves_into": [],
+     "new_moves": [
+      "LEER",
+      "FURY_CUTTER",
+      "CUT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 28,
+     "form": "FARFETCHD",
+     "evolves_into": [],
+     "new_moves": [
+      "AERIAL_ACE",
+      "AIR_CUTTER"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 38,
+     "form": "FARFETCHD",
+     "evolves_into": [],
+     "new_moves": [
+      "KNOCK_OFF",
+      "FALSE_SWIPE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 48,
+     "form": "FARFETCHD",
+     "evolves_into": [],
+     "new_moves": [
+      "SLASH",
+      "SWORDS_DANCE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 58,
+     "form": "FARFETCHD",
+     "evolves_into": [],
+     "new_moves": [
+      "AIR_SLASH",
+      "LEAF_BLADE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "FARFETCHD",
+     "evolves_into": [],
+     "new_moves": [
+      "AGILITY"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "FARFETCHD",
+     "BRAVE_BIRD",
+     65
+    ]
+   ]
+  },
+  {
+   "base": "DODUO",
+   "forms": [
+    {
+     "name": "DODUO",
+     "kind": "basic",
+     "bst": 310,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 5
+    },
+    {
+     "name": "DODRIO",
+     "kind": "final",
+     "bst": 470,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 6
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "PECK"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "DODUO",
+     "evolves_into": [],
+     "new_moves": [
+      "QUICK_ATTACK",
+      "FURY_ATTACK",
+      "PLUCK"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 25,
+     "form": "DODUO",
+     "evolves_into": [],
+     "new_moves": [
+      "DOUBLE_HIT",
+      "AGILITY"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 34,
+     "form": "DODRIO",
+     "evolves_into": [
+      "DODRIO"
+     ],
+     "new_moves": [
+      "TRI_ATTACK",
+      "UPROAR",
+      "ACUPRESSURE",
+      "SWORDS_DANCE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 46,
+     "form": "DODRIO",
+     "evolves_into": [],
+     "new_moves": [
+      "DRILL_PECK",
+      "ENDEAVOR"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 56,
+     "form": "DODRIO",
+     "evolves_into": [],
+     "new_moves": [
+      "THRASH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "DODRIO",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "SEEL",
+   "forms": [
+    {
+     "name": "SEEL",
+     "kind": "basic",
+     "bst": 325,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 4
+    },
+    {
+     "name": "DEWGONG",
+     "kind": "final",
+     "bst": 485,
+     "el_delta": [
+      0,
+      0,
+      0,
+      10,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 5
+    }
+   ],
+   "start_floor": 31,
+   "first_stab": [
+    31,
+    "AQUA_JET"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "SEEL",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "SEEL",
+     "evolves_into": [],
+     "new_moves": [
+      "ICE_SHARD",
+      "REST",
+      "AQUA_RING"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 35,
+     "form": "DEWGONG",
+     "evolves_into": [
+      "DEWGONG"
+     ],
+     "new_moves": [
+      "SHEER_COLD",
+      "AURORA_BEAM",
+      "AQUA_JET",
+      "BRINE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 45,
+     "form": "DEWGONG",
+     "evolves_into": [],
+     "new_moves": [
+      "TAKE_DOWN",
+      "DIVE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 55,
+     "form": "DEWGONG",
+     "evolves_into": [],
+     "new_moves": [
+      "AQUA_TAIL",
+      "ICE_BEAM"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "DEWGONG",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "DEWGONG",
+     "SAFEGUARD",
+     61
+    ],
+    [
+     "DEWGONG",
+     "SNOWSCAPE",
+     65
+    ]
+   ]
+  },
+  {
+   "base": "GRIMER",
+   "forms": [
+    {
+     "name": "GRIMER",
+     "kind": "basic",
+     "bst": 350,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      25,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 2
+    },
+    {
+     "name": "MUK",
+     "kind": "final",
+     "bst": 500,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 4
+    }
+   ],
+   "start_floor": 15,
+   "first_stab": [
+    15,
+    "SLUDGE"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 12,
+     "form": "GRIMER",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 22,
+     "form": "GRIMER",
+     "evolves_into": [],
+     "new_moves": [
+      "SLUDGE",
+      "MUD_SHOT",
+      "MINIMIZE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 35,
+     "form": "MUK",
+     "evolves_into": [
+      "MUK"
+     ],
+     "new_moves": [
+      "TOXIC",
+      "SLUDGE_BOMB",
+      "SLUDGE_WAVE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 44,
+     "form": "MUK",
+     "evolves_into": [],
+     "new_moves": [
+      "SCREECH",
+      "GUNK_SHOT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "MUK",
+     "evolves_into": [],
+     "new_moves": [
+      "ACID_ARMOR",
+      "BELCH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "MUK",
+     "evolves_into": [],
+     "new_moves": [
+      "MEMENTO"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "SHELLDER",
+   "forms": [
+    {
+     "name": "SHELLDER",
+     "kind": "basic",
+     "bst": 310,
+     "el_delta": [
+      5,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 5
+    },
+    {
+     "name": "CLOYSTER",
+     "kind": "final",
+     "bst": 525,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 3
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "WATER_GUN"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "SHELLDER",
+     "evolves_into": [],
+     "new_moves": [
+      "WITHDRAW",
+      "ICE_SHARD",
+      "LEER"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 25,
+     "form": "SHELLDER",
+     "evolves_into": [],
+     "new_moves": [
+      "WHIRLPOOL",
+      "SUPERSONIC",
+      "AURORA_BEAM"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 35,
+     "form": "SHELLDER",
+     "evolves_into": [],
+     "new_moves": [
+      "PROTECT",
+      "RAZOR_SHELL"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 45,
+     "form": "SHELLDER",
+     "evolves_into": [],
+     "new_moves": [
+      "IRON_DEFENSE",
+      "ICE_BEAM",
+      "SHELL_SMASH"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 55,
+     "form": "SHELLDER",
+     "evolves_into": [],
+     "new_moves": [
+      "HYDRO_PUMP"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "SHELLDER",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {
+    "CLOYSTER": [
+     "EVO_ITEM",
+     "ITEM_WATER_STONE"
+    ]
+   },
+   "moves_above_60": []
+  },
+  {
+   "base": "GASTLY",
+   "forms": [
+    {
+     "name": "GASTLY",
+     "kind": "basic",
+     "bst": 310,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 5
+    },
+    {
+     "name": "HAUNTER",
+     "kind": "middle",
+     "bst": 405,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    },
+    {
+     "name": "GENGAR",
+     "kind": "final",
+     "bst": 500,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 4
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "LICK"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "GASTLY",
+     "evolves_into": [],
+     "new_moves": [
+      "HYPNOSIS",
+      "MEAN_LOOK",
+      "PAYBACK"
+     ],
+     "jump_cost": 0.6
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "HAUNTER",
+     "evolves_into": [
+      "HAUNTER"
+     ],
+     "new_moves": [
+      "SHADOW_PUNCH",
+      "SPITE",
+      "CURSE",
+      "HEX"
+     ],
+     "jump_cost": 0.74
+    },
+    {
+     "tier": 3,
+     "level": 34,
+     "form": "HAUNTER",
+     "evolves_into": [],
+     "new_moves": [
+      "NIGHT_SHADE"
+     ],
+     "jump_cost": 0.84
+    },
+    {
+     "tier": 4,
+     "level": 44,
+     "form": "GENGAR",
+     "evolves_into": [
+      "GENGAR"
+     ],
+     "new_moves": [
+      "SUCKER_PUNCH",
+      "DARK_PULSE"
+     ],
+     "jump_cost": 0.91
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "GENGAR",
+     "evolves_into": [],
+     "new_moves": [
+      "SHADOW_BALL",
+      "DESTINY_BOND"
+     ],
+     "jump_cost": 0.96
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "GENGAR",
+     "evolves_into": [],
+     "new_moves": [
+      "DREAM_EATER"
+     ],
+     "jump_cost": 0.98
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "ONIX",
+   "forms": [
+    {
+     "name": "ONIX",
+     "kind": "single",
+     "bst": 385,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 8
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "ROCK_THROW"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 18,
+     "form": "ONIX",
+     "evolves_into": [],
+     "new_moves": [
+      "SMACK_DOWN",
+      "ROCK_POLISH",
+      "DRAGON_BREATH",
+      "CURSE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 28,
+     "form": "ONIX",
+     "evolves_into": [],
+     "new_moves": [
+      "ROCK_SLIDE",
+      "SCREECH",
+      "SAND_TOMB"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 38,
+     "form": "ONIX",
+     "evolves_into": [],
+     "new_moves": [
+      "STEALTH_ROCK",
+      "SLAM"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 48,
+     "form": "ONIX",
+     "evolves_into": [],
+     "new_moves": [
+      "SANDSTORM",
+      "DIG",
+      "IRON_TAIL"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 58,
+     "form": "ONIX",
+     "evolves_into": [],
+     "new_moves": [
+      "STONE_EDGE",
+      "DOUBLE_EDGE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "ONIX",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "DROWZEE",
+   "forms": [
+    {
+     "name": "DROWZEE",
+     "kind": "basic",
+     "bst": 328,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 4
+    },
+    {
+     "name": "HYPNO",
+     "kind": "final",
+     "bst": 483,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 5
+    }
+   ],
+   "start_floor": 9,
+   "first_stab": [
+    9,
+    "CONFUSION"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "DROWZEE",
+     "evolves_into": [],
+     "new_moves": [
+      "HEADBUTT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 25,
+     "form": "HYPNO",
+     "evolves_into": [
+      "HYPNO"
+     ],
+     "new_moves": [
+      "POISON_GAS",
+      "PSYBEAM",
+      "PSYCH_UP"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 35,
+     "form": "HYPNO",
+     "evolves_into": [],
+     "new_moves": [
+      "ZEN_HEADBUTT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 45,
+     "form": "HYPNO",
+     "evolves_into": [],
+     "new_moves": [
+      "SWAGGER",
+      "PSYCHIC"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 55,
+     "form": "HYPNO",
+     "evolves_into": [],
+     "new_moves": [
+      "NASTY_PLOT",
+      "PSYSHOCK"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "HYPNO",
+     "evolves_into": [],
+     "new_moves": [
+      "FUTURE_SIGHT"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "KRABBY",
+   "forms": [
+    {
+     "name": "KRABBY",
+     "kind": "basic",
+     "bst": 325,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 4
+    },
+    {
+     "name": "KINGLER",
+     "kind": "final",
+     "bst": 475,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 6
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "WATER_GUN"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "KRABBY",
+     "evolves_into": [],
+     "new_moves": [
+      "HARDEN",
+      "METAL_CLAW",
+      "MUD_SHOT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 26,
+     "form": "KINGLER",
+     "evolves_into": [
+      "KINGLER"
+     ],
+     "new_moves": [
+      "PROTECT",
+      "BUBBLE_BEAM",
+      "STOMP"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 36,
+     "form": "KINGLER",
+     "evolves_into": [],
+     "new_moves": [
+      "FLAIL",
+      "RAZOR_SHELL"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 46,
+     "form": "KINGLER",
+     "evolves_into": [],
+     "new_moves": [
+      "SLAM"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 56,
+     "form": "KINGLER",
+     "evolves_into": [],
+     "new_moves": [
+      "SWORDS_DANCE",
+      "CRABHAMMER"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "KINGLER",
+     "evolves_into": [],
+     "new_moves": [
+      "GUILLOTINE"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "VOLTORB",
+   "forms": [
+    {
+     "name": "VOLTORB",
+     "kind": "basic",
+     "bst": 330,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 4
+    },
+    {
+     "name": "ELECTRODE",
+     "kind": "final",
+     "bst": 490,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 5
+    }
+   ],
+   "start_floor": 4,
+   "first_stab": [
+    4,
+    "THUNDER_SHOCK"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "VOLTORB",
+     "evolves_into": [],
+     "new_moves": [
+      "EERIE_IMPULSE",
+      "SPARK",
+      "ROLLOUT",
+      "SCREECH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "VOLTORB",
+     "evolves_into": [],
+     "new_moves": [
+      "CHARGE_BEAM",
+      "SWIFT",
+      "ELECTRO_BALL"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 33,
+     "form": "ELECTRODE",
+     "evolves_into": [
+      "ELECTRODE"
+     ],
+     "new_moves": [
+      "SELF_DESTRUCT",
+      "LIGHT_SCREEN"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 45,
+     "form": "ELECTRODE",
+     "evolves_into": [],
+     "new_moves": [
+      "MAGNET_RISE",
+      "DISCHARGE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 55,
+     "form": "ELECTRODE",
+     "evolves_into": [],
+     "new_moves": [
+      "EXPLOSION",
+      "GYRO_BALL"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "ELECTRODE",
+     "evolves_into": [],
+     "new_moves": [
+      "MIRROR_COAT"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "EXEGGCUTE",
+   "forms": [
+    {
+     "name": "EXEGGCUTE",
+     "kind": "basic",
+     "bst": 325,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 4
+    },
+    {
+     "name": "EXEGGUTOR",
+     "kind": "final",
+     "bst": 530,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 2
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "ABSORB"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "EXEGGCUTE",
+     "evolves_into": [],
+     "new_moves": [
+      "REFLECT",
+      "LEECH_SEED"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "EXEGGCUTE",
+     "evolves_into": [],
+     "new_moves": [
+      "MEGA_DRAIN",
+      "CONFUSION"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 34,
+     "form": "EXEGGCUTE",
+     "evolves_into": [],
+     "new_moves": [
+      "SYNTHESIS",
+      "BULLET_SEED"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 44,
+     "form": "EXEGGCUTE",
+     "evolves_into": [],
+     "new_moves": [
+      "GIGA_DRAIN",
+      "EXTRASENSORY"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "EXEGGCUTE",
+     "evolves_into": [],
+     "new_moves": [
+      "UPROAR",
+      "WORRY_SEED"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "EXEGGCUTE",
+     "evolves_into": [],
+     "new_moves": [
+      "SOLAR_BEAM"
+     ],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {
+    "EXEGGUTOR": [
+     "EVO_ITEM",
+     "ITEM_LEAF_STONE"
+    ]
+   },
+   "moves_above_60": []
+  },
+  {
+   "base": "CUBONE",
+   "forms": [
+    {
+     "name": "CUBONE",
+     "kind": "basic",
+     "bst": 320,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 4
+    },
+    {
+     "name": "MAROWAK",
+     "kind": "final",
+     "bst": 430,
+     "el_delta": [
+      5,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 9
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "MUD_SLAP"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "CUBONE",
+     "evolves_into": [],
+     "new_moves": [
+      "TAIL_WHIP",
+      "FALSE_SWIPE",
+      "HEADBUTT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 29,
+     "form": "MAROWAK",
+     "evolves_into": [
+      "MAROWAK"
+     ],
+     "new_moves": [
+      "RETALIATE",
+      "FLING",
+      "STOMPING_TANTRUM"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 39,
+     "form": "MAROWAK",
+     "evolves_into": [],
+     "new_moves": [
+      "BONE_RUSH",
+      "FOCUS_ENERGY"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 49,
+     "form": "MAROWAK",
+     "evolves_into": [],
+     "new_moves": [
+      "ENDEAVOR",
+      "BONEMERANG"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 59,
+     "form": "MAROWAK",
+     "evolves_into": [],
+     "new_moves": [
+      "THRASH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "MAROWAK",
+     "evolves_into": [],
+     "new_moves": [
+      "DOUBLE_EDGE"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "HITMONLEE",
+   "forms": [
+    {
+     "name": "HITMONLEE",
+     "kind": "single",
+     "bst": 460,
+     "el_delta": [
+      0,
+      0,
+      5,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 6
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    0,
+    "BRICK_BREAK"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 16,
+     "form": "HITMONLEE",
+     "evolves_into": [],
+     "new_moves": [
+      "DOUBLE_KICK",
+      "LOW_KICK",
+      "ENDURE",
+      "SUCKER_PUNCH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 26,
+     "form": "HITMONLEE",
+     "evolves_into": [],
+     "new_moves": [
+      "WIDE_GUARD",
+      "BLAZE_KICK"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 36,
+     "form": "HITMONLEE",
+     "evolves_into": [],
+     "new_moves": [
+      "FEINT",
+      "MEGA_KICK",
+      "CLOSE_COMBAT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 46,
+     "form": "HITMONLEE",
+     "evolves_into": [],
+     "new_moves": [
+      "REVERSAL",
+      "HIGH_JUMP_KICK"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 56,
+     "form": "HITMONLEE",
+     "evolves_into": [],
+     "new_moves": [
+      "AXE_KICK"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "HITMONLEE",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "HITMONCHAN",
+   "forms": [
+    {
+     "name": "HITMONCHAN",
+     "kind": "single",
+     "bst": 460,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      5
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 6
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    0,
+    "DRAIN_PUNCH"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 16,
+     "form": "HITMONCHAN",
+     "evolves_into": [],
+     "new_moves": [
+      "MACH_PUNCH",
+      "VACUUM_WAVE",
+      "DETECT",
+      "BULLET_PUNCH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 26,
+     "form": "HITMONCHAN",
+     "evolves_into": [],
+     "new_moves": [
+      "QUICK_GUARD",
+      "THUNDER_PUNCH",
+      "ICE_PUNCH",
+      "FIRE_PUNCH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 36,
+     "form": "HITMONCHAN",
+     "evolves_into": [],
+     "new_moves": [
+      "AGILITY",
+      "MEGA_PUNCH",
+      "CLOSE_COMBAT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 46,
+     "form": "HITMONCHAN",
+     "evolves_into": [],
+     "new_moves": [
+      "COUNTER",
+      "FOCUS_PUNCH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 56,
+     "form": "HITMONCHAN",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "HITMONCHAN",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "LICKITUNG",
+   "forms": [
+    {
+     "name": "LICKITUNG",
+     "kind": "single",
+     "bst": 440,
+     "el_delta": [
+      5,
+      15,
+      10,
+      15,
+      10,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 7
+    }
+   ],
+   "start_floor": 18,
+   "first_stab": [
+    18,
+    "WRAP"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 17,
+     "form": "LICKITUNG",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 27,
+     "form": "LICKITUNG",
+     "evolves_into": [],
+     "new_moves": [
+      "WRAP",
+      "DISABLE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 37,
+     "form": "LICKITUNG",
+     "evolves_into": [],
+     "new_moves": [
+      "STOMP",
+      "KNOCK_OFF"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 47,
+     "form": "LICKITUNG",
+     "evolves_into": [],
+     "new_moves": [
+      "SCREECH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 57,
+     "form": "LICKITUNG",
+     "evolves_into": [],
+     "new_moves": [
+      "SLAM",
+      "POWER_WHIP"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "LICKITUNG",
+     "evolves_into": [],
+     "new_moves": [
+      "BELLY_DRUM"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "KOFFING",
+   "forms": [
+    {
+     "name": "KOFFING",
+     "kind": "basic",
+     "bst": 340,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 3
+    },
+    {
+     "name": "WEEZING",
+     "kind": "final",
+     "bst": 500,
+     "el_delta": [
+      10,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 4
+    }
+   ],
+   "start_floor": 4,
+   "first_stab": [
+    4,
+    "SMOG"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 13,
+     "form": "KOFFING",
+     "evolves_into": [],
+     "new_moves": [
+      "SMOKESCREEN",
+      "CLEAR_SMOG"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 23,
+     "form": "KOFFING",
+     "evolves_into": [],
+     "new_moves": [
+      "ASSURANCE",
+      "SLUDGE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 34,
+     "form": "WEEZING",
+     "evolves_into": [
+      "WEEZING"
+     ],
+     "new_moves": [
+      "DOUBLE_HIT",
+      "HAZE",
+      "SELF_DESTRUCT",
+      "SLUDGE_BOMB"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 44,
+     "form": "WEEZING",
+     "evolves_into": [],
+     "new_moves": [
+      "TOXIC",
+      "BELCH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "WEEZING",
+     "evolves_into": [],
+     "new_moves": [
+      "EXPLOSION"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "WEEZING",
+     "evolves_into": [],
+     "new_moves": [
+      "MEMENTO"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "WEEZING",
+     "DESTINY_BOND",
+     62
+    ]
+   ]
+  },
+  {
+   "base": "RHYHORN",
+   "forms": [
+    {
+     "name": "RHYHORN",
+     "kind": "basic",
+     "bst": 345,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 3
+    },
+    {
+     "name": "RHYDON",
+     "kind": "final",
+     "bst": 485,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 5
+    }
+   ],
+   "start_floor": 5,
+   "first_stab": [
+    5,
+    "SMACK_DOWN"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 13,
+     "form": "RHYHORN",
+     "evolves_into": [],
+     "new_moves": [
+      "BULLDOZE"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 23,
+     "form": "RHYHORN",
+     "evolves_into": [],
+     "new_moves": [
+      "HORN_ATTACK",
+      "SCARY_FACE"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 33,
+     "form": "RHYHORN",
+     "evolves_into": [],
+     "new_moves": [
+      "STOMP",
+      "ROCK_BLAST"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 45,
+     "form": "RHYDON",
+     "evolves_into": [
+      "RHYDON"
+     ],
+     "new_moves": [
+      "HAMMER_ARM",
+      "DRILL_RUN",
+      "TAKE_DOWN"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 55,
+     "form": "RHYDON",
+     "evolves_into": [],
+     "new_moves": [
+      "EARTHQUAKE",
+      "STONE_EDGE"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "RHYDON",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "RHYDON",
+     "HORN_DRILL",
+     68
+    ],
+    [
+     "RHYDON",
+     "MEGAHORN",
+     61
+    ]
+   ]
+  },
+  {
+   "base": "CHANSEY",
+   "forms": [
+    {
+     "name": "CHANSEY",
+     "kind": "single",
+     "bst": 450,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "FAST",
+     "offset": 6
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "COVET"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 16,
+     "form": "CHANSEY",
+     "evolves_into": [],
+     "new_moves": [
+      "TAIL_WHIP",
+      "ECHOED_VOICE",
+      "LIFE_DEW",
+      "SING"
+     ],
+     "jump_cost": 0.8
+    },
+    {
+     "tier": 2,
+     "level": 26,
+     "form": "CHANSEY",
+     "evolves_into": [],
+     "new_moves": [
+      "FLING",
+      "TAKE_DOWN"
+     ],
+     "jump_cost": 0.8
+    },
+    {
+     "tier": 3,
+     "level": 36,
+     "form": "CHANSEY",
+     "evolves_into": [],
+     "new_moves": [
+      "HEAL_PULSE",
+      "HELPING_HAND",
+      "LIGHT_SCREEN"
+     ],
+     "jump_cost": 0.8
+    },
+    {
+     "tier": 4,
+     "level": 46,
+     "form": "CHANSEY",
+     "evolves_into": [],
+     "new_moves": [
+      "DOUBLE_EDGE",
+      "SOFT_BOILED"
+     ],
+     "jump_cost": 0.8
+    },
+    {
+     "tier": 5,
+     "level": 56,
+     "form": "CHANSEY",
+     "evolves_into": [],
+     "new_moves": [
+      "LAST_RESORT",
+      "HEALING_WISH"
+     ],
+     "jump_cost": 0.8
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "CHANSEY",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 0.8
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "TANGELA",
+   "forms": [
+    {
+     "name": "TANGELA",
+     "kind": "single",
+     "bst": 435,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 7
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "ABSORB"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 17,
+     "form": "TANGELA",
+     "evolves_into": [],
+     "new_moves": [
+      "STUN_SPORE",
+      "GROWTH",
+      "MEGA_DRAIN",
+      "VINE_WHIP"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 27,
+     "form": "TANGELA",
+     "evolves_into": [],
+     "new_moves": [
+      "POISON_POWDER",
+      "ANCIENT_POWER"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 37,
+     "form": "TANGELA",
+     "evolves_into": [],
+     "new_moves": [
+      "KNOCK_OFF",
+      "GIGA_DRAIN",
+      "SLEEP_POWDER"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 47,
+     "form": "TANGELA",
+     "evolves_into": [],
+     "new_moves": [
+      "SLAM",
+      "TICKLE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 57,
+     "form": "TANGELA",
+     "evolves_into": [],
+     "new_moves": [
+      "POWER_WHIP",
+      "INGRAIN",
+      "GRASSY_TERRAIN"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "TANGELA",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "KANGASKHAN",
+   "forms": [
+    {
+     "name": "KANGASKHAN",
+     "kind": "single",
+     "bst": 490,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 5
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "POUND"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "KANGASKHAN",
+     "evolves_into": [],
+     "new_moves": [
+      "GROWL",
+      "FAKE_OUT",
+      "BITE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 25,
+     "form": "KANGASKHAN",
+     "evolves_into": [],
+     "new_moves": [
+      "STOMP",
+      "FOCUS_ENERGY",
+      "HEADBUTT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 35,
+     "form": "KANGASKHAN",
+     "evolves_into": [],
+     "new_moves": [
+      "SUCKER_PUNCH",
+      "DOUBLE_HIT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 45,
+     "form": "KANGASKHAN",
+     "evolves_into": [],
+     "new_moves": [
+      "CRUNCH",
+      "ENDURE",
+      "REVERSAL"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 55,
+     "form": "KANGASKHAN",
+     "evolves_into": [],
+     "new_moves": [
+      "OUTRAGE",
+      "LAST_RESORT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "KANGASKHAN",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "HORSEA",
+   "forms": [
+    {
+     "name": "HORSEA",
+     "kind": "basic",
+     "bst": 295,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 6
+    },
+    {
+     "name": "SEADRA",
+     "kind": "final",
+     "bst": 440,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 8
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "WATER_GUN"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 16,
+     "form": "HORSEA",
+     "evolves_into": [],
+     "new_moves": [
+      "SMOKESCREEN",
+      "TWISTER",
+      "FOCUS_ENERGY"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 26,
+     "form": "HORSEA",
+     "evolves_into": [],
+     "new_moves": [
+      "DRAGON_BREATH",
+      "BUBBLE_BEAM"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 35,
+     "form": "SEADRA",
+     "evolves_into": [
+      "SEADRA"
+     ],
+     "new_moves": [
+      "AGILITY"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 48,
+     "form": "SEADRA",
+     "evolves_into": [],
+     "new_moves": [
+      "WATER_PULSE",
+      "DRAGON_PULSE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 58,
+     "form": "SEADRA",
+     "evolves_into": [],
+     "new_moves": [
+      "HYDRO_PUMP",
+      "DRAGON_DANCE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "SEADRA",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "SEADRA",
+     "RAIN_DANCE",
+     65
+    ]
+   ]
+  },
+  {
+   "base": "GOLDEEN",
+   "forms": [
+    {
+     "name": "GOLDEEN",
+     "kind": "basic",
+     "bst": 320,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 4
+    },
+    {
+     "name": "SEAKING",
+     "kind": "final",
+     "bst": 458,
+     "el_delta": [
+      0,
+      8,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 7
+    }
+   ],
+   "start_floor": 10,
+   "first_stab": [
+    10,
+    "WATER_PULSE"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "GOLDEEN",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 27,
+     "form": "SEAKING",
+     "evolves_into": [
+      "SEAKING"
+     ],
+     "new_moves": [
+      "HORN_ATTACK",
+      "AGILITY",
+      "AQUA_RING"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 37,
+     "form": "SEAKING",
+     "evolves_into": [],
+     "new_moves": [
+      "FLAIL",
+      "WATERFALL"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 47,
+     "form": "SEAKING",
+     "evolves_into": [],
+     "new_moves": [
+      "SOAK"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 57,
+     "form": "SEAKING",
+     "evolves_into": [],
+     "new_moves": [
+      "MEGAHORN"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "SEAKING",
+     "evolves_into": [],
+     "new_moves": [
+      "HORN_DRILL"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "STARYU",
+   "forms": [
+    {
+     "name": "STARYU",
+     "kind": "basic",
+     "bst": 340,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 3
+    },
+    {
+     "name": "STARMIE",
+     "kind": "final",
+     "bst": 520,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 3
+    }
+   ],
+   "start_floor": 4,
+   "first_stab": [
+    4,
+    "WATER_GUN"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 13,
+     "form": "STARYU",
+     "evolves_into": [],
+     "new_moves": [
+      "CONFUSE_RAY",
+      "RAPID_SPIN"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 23,
+     "form": "STARYU",
+     "evolves_into": [],
+     "new_moves": [
+      "MINIMIZE",
+      "SWIFT"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 33,
+     "form": "STARYU",
+     "evolves_into": [],
+     "new_moves": [
+      "PSYBEAM",
+      "BRINE",
+      "LIGHT_SCREEN"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 43,
+     "form": "STARYU",
+     "evolves_into": [],
+     "new_moves": [
+      "POWER_GEM",
+      "PSYCHIC"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 53,
+     "form": "STARYU",
+     "evolves_into": [],
+     "new_moves": [
+      "SURF",
+      "RECOVER",
+      "COSMIC_POWER"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "STARYU",
+     "evolves_into": [],
+     "new_moves": [
+      "HYDRO_PUMP"
+     ],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {
+    "STARMIE": [
+     "EVO_ITEM",
+     "ITEM_WATER_STONE"
+    ]
+   },
+   "moves_above_60": []
+  },
+  {
+   "base": "MR_MIME",
+   "forms": [
+    {
+     "name": "MR_MIME",
+     "kind": "single",
+     "bst": 460,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 6
+    }
+   ],
+   "start_floor": 12,
+   "first_stab": [
+    12,
+    "CONFUSION"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 16,
+     "form": "MR_MIME",
+     "evolves_into": [],
+     "new_moves": [
+      "ROLE_PLAY"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 26,
+     "form": "MR_MIME",
+     "evolves_into": [],
+     "new_moves": [
+      "PROTECT",
+      "RECYCLE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 36,
+     "form": "MR_MIME",
+     "evolves_into": [],
+     "new_moves": [
+      "PSYBEAM",
+      "MIMIC",
+      "LIGHT_SCREEN",
+      "REFLECT",
+      "SAFEGUARD"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 46,
+     "form": "MR_MIME",
+     "evolves_into": [],
+     "new_moves": [
+      "SUCKER_PUNCH",
+      "DAZZLING_GLEAM"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 56,
+     "form": "MR_MIME",
+     "evolves_into": [],
+     "new_moves": [
+      "PSYCHIC",
+      "TEETER_DANCE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "MR_MIME",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "SCYTHER",
+   "forms": [
+    {
+     "name": "SCYTHER",
+     "kind": "single",
+     "bst": 500,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 5
+    }
+   ],
+   "start_floor": 4,
+   "first_stab": [
+    4,
+    "FURY_CUTTER"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "SCYTHER",
+     "evolves_into": [],
+     "new_moves": [
+      "FALSE_SWIPE",
+      "WING_ATTACK"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 25,
+     "form": "SCYTHER",
+     "evolves_into": [],
+     "new_moves": [
+      "DOUBLE_TEAM",
+      "DOUBLE_HIT",
+      "SLASH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 35,
+     "form": "SCYTHER",
+     "evolves_into": [],
+     "new_moves": [
+      "FOCUS_ENERGY",
+      "AGILITY"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 45,
+     "form": "SCYTHER",
+     "evolves_into": [],
+     "new_moves": [
+      "AIR_SLASH",
+      "X_SCISSOR",
+      "SWORDS_DANCE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 55,
+     "form": "SCYTHER",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "SCYTHER",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "JYNX",
+   "forms": [
+    {
+     "name": "JYNX",
+     "kind": "single",
+     "bst": 455,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 6
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "POWDER_SNOW"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 16,
+     "form": "JYNX",
+     "evolves_into": [],
+     "new_moves": [
+      "CONFUSION",
+      "COVET"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 26,
+     "form": "JYNX",
+     "evolves_into": [],
+     "new_moves": [
+      "SING",
+      "FAKE_TEARS"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 36,
+     "form": "JYNX",
+     "evolves_into": [],
+     "new_moves": [
+      "ICE_PUNCH",
+      "PSYCHIC"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 46,
+     "form": "JYNX",
+     "evolves_into": [],
+     "new_moves": [
+      "LOVELY_KISS",
+      "MEAN_LOOK"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 56,
+     "form": "JYNX",
+     "evolves_into": [],
+     "new_moves": [
+      "PERISH_SONG"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "JYNX",
+     "evolves_into": [],
+     "new_moves": [
+      "BLIZZARD"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "ELECTABUZZ",
+   "forms": [
+    {
+     "name": "ELECTABUZZ",
+     "kind": "single",
+     "bst": 490,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 5
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "THUNDER_SHOCK"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "ELECTABUZZ",
+     "evolves_into": [],
+     "new_moves": [
+      "SWIFT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 25,
+     "form": "ELECTABUZZ",
+     "evolves_into": [],
+     "new_moves": [
+      "SHOCK_WAVE",
+      "THUNDER_WAVE",
+      "SCREECH"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 35,
+     "form": "ELECTABUZZ",
+     "evolves_into": [],
+     "new_moves": [
+      "THUNDER_PUNCH",
+      "DISCHARGE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 45,
+     "form": "ELECTABUZZ",
+     "evolves_into": [],
+     "new_moves": [
+      "LOW_KICK"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 55,
+     "form": "ELECTABUZZ",
+     "evolves_into": [],
+     "new_moves": [
+      "THUNDERBOLT",
+      "LIGHT_SCREEN"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "ELECTABUZZ",
+     "evolves_into": [],
+     "new_moves": [
+      "THUNDER"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "ELECTABUZZ",
+     "GIGA_IMPACT",
+     64
+    ]
+   ]
+  },
+  {
+   "base": "MAGMAR",
+   "forms": [
+    {
+     "name": "MAGMAR",
+     "kind": "single",
+     "bst": 505,
+     "el_delta": [
+      10,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 4
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "EMBER"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "MAGMAR",
+     "evolves_into": [],
+     "new_moves": [
+      "CLEAR_SMOG"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "MAGMAR",
+     "evolves_into": [],
+     "new_moves": [
+      "FLAME_WHEEL",
+      "CONFUSE_RAY",
+      "SCARY_FACE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 34,
+     "form": "MAGMAR",
+     "evolves_into": [],
+     "new_moves": [
+      "FIRE_PUNCH",
+      "LAVA_PLUME"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 44,
+     "form": "MAGMAR",
+     "evolves_into": [],
+     "new_moves": [
+      "LOW_KICK"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "MAGMAR",
+     "evolves_into": [],
+     "new_moves": [
+      "FLAMETHROWER",
+      "SUNNY_DAY"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "MAGMAR",
+     "evolves_into": [],
+     "new_moves": [
+      "FIRE_BLAST"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "MAGMAR",
+     "HYPER_BEAM",
+     64
+    ]
+   ]
+  },
+  {
+   "base": "PINSIR",
+   "forms": [
+    {
+     "name": "PINSIR",
+     "kind": "single",
+     "bst": 500,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 5
+    }
+   ],
+   "start_floor": 16,
+   "first_stab": [
+    16,
+    "BUG_BITE"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "PINSIR",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 25,
+     "form": "PINSIR",
+     "evolves_into": [],
+     "new_moves": [
+      "BUG_BITE",
+      "STORM_THROW",
+      "DOUBLE_HIT"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 35,
+     "form": "PINSIR",
+     "evolves_into": [],
+     "new_moves": [
+      "VITAL_THROW",
+      "X_SCISSOR"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 45,
+     "form": "PINSIR",
+     "evolves_into": [],
+     "new_moves": [
+      "STRENGTH",
+      "SWORDS_DANCE",
+      "SUBMISSION"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 55,
+     "form": "PINSIR",
+     "evolves_into": [],
+     "new_moves": [
+      "GUILLOTINE",
+      "SUPERPOWER"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "PINSIR",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "TAUROS",
+   "forms": [
+    {
+     "name": "TAUROS",
+     "kind": "single",
+     "bst": 490,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 5
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "TACKLE"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "TAUROS",
+     "evolves_into": [],
+     "new_moves": [
+      "WORK_UP",
+      "PAYBACK",
+      "ASSURANCE"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 25,
+     "form": "TAUROS",
+     "evolves_into": [],
+     "new_moves": [
+      "HORN_ATTACK",
+      "SCARY_FACE"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 35,
+     "form": "TAUROS",
+     "evolves_into": [],
+     "new_moves": [
+      "ZEN_HEADBUTT",
+      "RAGING_BULL"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 45,
+     "form": "TAUROS",
+     "evolves_into": [],
+     "new_moves": [
+      "REST",
+      "SWAGGER"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 55,
+     "form": "TAUROS",
+     "evolves_into": [],
+     "new_moves": [
+      "THRASH",
+      "DOUBLE_EDGE"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "TAUROS",
+     "evolves_into": [],
+     "new_moves": [
+      "GIGA_IMPACT"
+     ],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "MAGIKARP",
+   "forms": [
+    {
+     "name": "MAGIKARP",
+     "kind": "basic",
+     "bst": 200,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 9
+    },
+    {
+     "name": "GYARADOS",
+     "kind": "final",
+     "bst": 540,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 2
+    }
+   ],
+   "start_floor": null,
+   "first_stab": null,
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 19,
+     "form": "MAGIKARP",
+     "evolves_into": [],
+     "new_moves": [
+      "TACKLE"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 22,
+     "form": "GYARADOS",
+     "evolves_into": [
+      "GYARADOS"
+     ],
+     "new_moves": [
+      "BITE",
+      "WATERFALL"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 32,
+     "form": "GYARADOS",
+     "evolves_into": [],
+     "new_moves": [
+      "CRUNCH",
+      "RAIN_DANCE",
+      "AQUA_TAIL"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 42,
+     "form": "GYARADOS",
+     "evolves_into": [],
+     "new_moves": [
+      "DRAGON_DANCE",
+      "HYDRO_PUMP"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 52,
+     "form": "GYARADOS",
+     "evolves_into": [],
+     "new_moves": [
+      "HURRICANE",
+      "THRASH",
+      "HYPER_BEAM"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "GYARADOS",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "LAPRAS",
+   "forms": [
+    {
+     "name": "LAPRAS",
+     "kind": "single",
+     "bst": 535,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 4
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "WATER_GUN"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "LAPRAS",
+     "evolves_into": [],
+     "new_moves": [
+      "SING",
+      "MIST"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "LAPRAS",
+     "evolves_into": [],
+     "new_moves": [
+      "LIFE_DEW",
+      "ICE_SHARD"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 34,
+     "form": "LAPRAS",
+     "evolves_into": [],
+     "new_moves": [
+      "CONFUSE_RAY",
+      "WATER_PULSE"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 44,
+     "form": "LAPRAS",
+     "evolves_into": [],
+     "new_moves": [
+      "BRINE",
+      "BODY_SLAM"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "LAPRAS",
+     "evolves_into": [],
+     "new_moves": [
+      "ICE_BEAM",
+      "RAIN_DANCE"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "LAPRAS",
+     "evolves_into": [],
+     "new_moves": [
+      "HYDRO_PUMP",
+      "PERISH_SONG"
+     ],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "LAPRAS",
+     "SHEER_COLD",
+     65
+    ]
+   ]
+  },
+  {
+   "base": "DITTO",
+   "forms": [
+    {
+     "name": "DITTO",
+     "kind": "single",
+     "bst": 288,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 9
+    }
+   ],
+   "start_floor": null,
+   "first_stab": null,
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 19,
+     "form": "DITTO",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 29,
+     "form": "DITTO",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 39,
+     "form": "DITTO",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 49,
+     "form": "DITTO",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 59,
+     "form": "DITTO",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "DITTO",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "EEVEE",
+   "forms": [
+    {
+     "name": "EEVEE",
+     "kind": "basic",
+     "bst": 325,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 4
+    },
+    {
+     "name": "JOLTEON",
+     "kind": "final",
+     "bst": 525,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 3
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "TACKLE"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "EEVEE",
+     "evolves_into": [],
+     "new_moves": [
+      "SAND_ATTACK",
+      "QUICK_ATTACK"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "EEVEE",
+     "evolves_into": [],
+     "new_moves": [
+      "BABY_DOLL_EYES",
+      "SWIFT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 34,
+     "form": "EEVEE",
+     "evolves_into": [],
+     "new_moves": [
+      "BITE",
+      "COPYCAT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 44,
+     "form": "EEVEE",
+     "evolves_into": [],
+     "new_moves": [
+      "BATON_PASS",
+      "TAKE_DOWN"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "EEVEE",
+     "evolves_into": [],
+     "new_moves": [
+      "CHARM",
+      "DOUBLE_EDGE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "EEVEE",
+     "evolves_into": [],
+     "new_moves": [
+      "LAST_RESORT"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {
+    "JOLTEON": [
+     "EVO_ITEM",
+     "ITEM_THUNDER_STONE"
+    ]
+   },
+   "moves_above_60": []
+  },
+  {
+   "base": "PORYGON",
+   "forms": [
+    {
+     "name": "PORYGON",
+     "kind": "single",
+     "bst": 415,
+     "el_delta": [
+      10,
+      10,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 7
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "TACKLE"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 17,
+     "form": "PORYGON",
+     "evolves_into": [],
+     "new_moves": [
+      "RECYCLE",
+      "MAGNET_RISE",
+      "THUNDER_SHOCK"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 27,
+     "form": "PORYGON",
+     "evolves_into": [],
+     "new_moves": [
+      "PSYBEAM",
+      "CONVERSION_2"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 37,
+     "form": "PORYGON",
+     "evolves_into": [],
+     "new_moves": [
+      "AGILITY",
+      "RECOVER"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 47,
+     "form": "PORYGON",
+     "evolves_into": [],
+     "new_moves": [
+      "DISCHARGE",
+      "TRI_ATTACK"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 57,
+     "form": "PORYGON",
+     "evolves_into": [],
+     "new_moves": [
+      "DOUBLE_EDGE",
+      "LOCK_ON"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "PORYGON",
+     "evolves_into": [],
+     "new_moves": [
+      "ZAP_CANNON"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "OMANYTE",
+   "forms": [
+    {
+     "name": "OMANYTE",
+     "kind": "basic",
+     "bst": 355,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 2
+    },
+    {
+     "name": "OMASTAR",
+     "kind": "final",
+     "bst": 495,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 5
+    }
+   ],
+   "start_floor": 5,
+   "first_stab": [
+    5,
+    "ROLLOUT"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 12,
+     "form": "OMANYTE",
+     "evolves_into": [],
+     "new_moves": [
+      "SAND_ATTACK"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 22,
+     "form": "OMANYTE",
+     "evolves_into": [],
+     "new_moves": [
+      "WATER_GUN",
+      "LEER"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 32,
+     "form": "OMANYTE",
+     "evolves_into": [],
+     "new_moves": [
+      "MUD_SHOT",
+      "ANCIENT_POWER"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 43,
+     "form": "OMASTAR",
+     "evolves_into": [
+      "OMASTAR"
+     ],
+     "new_moves": [
+      "CRUNCH",
+      "BRINE",
+      "PROTECT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 55,
+     "form": "OMASTAR",
+     "evolves_into": [],
+     "new_moves": [
+      "ROCK_BLAST"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "OMASTAR",
+     "evolves_into": [],
+     "new_moves": [
+      "SURF"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "OMASTAR",
+     "HYDRO_PUMP",
+     70
+    ],
+    [
+     "OMASTAR",
+     "SHELL_SMASH",
+     63
+    ]
+   ]
+  },
+  {
+   "base": "KABUTO",
+   "forms": [
+    {
+     "name": "KABUTO",
+     "kind": "basic",
+     "bst": 355,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 2
+    },
+    {
+     "name": "KABUTOPS",
+     "kind": "final",
+     "bst": 495,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_FAST",
+     "offset": 5
+    }
+   ],
+   "start_floor": 15,
+   "first_stab": [
+    15,
+    "AQUA_JET"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 12,
+     "form": "KABUTO",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 2,
+     "level": 22,
+     "form": "KABUTO",
+     "evolves_into": [],
+     "new_moves": [
+      "AQUA_JET",
+      "LEER"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 3,
+     "level": 32,
+     "form": "KABUTO",
+     "evolves_into": [],
+     "new_moves": [
+      "MUD_SHOT",
+      "ANCIENT_POWER"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 4,
+     "level": 43,
+     "form": "KABUTOPS",
+     "evolves_into": [
+      "KABUTOPS"
+     ],
+     "new_moves": [
+      "SLASH",
+      "BRINE",
+      "PROTECT"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 5,
+     "level": 55,
+     "form": "KABUTOPS",
+     "evolves_into": [],
+     "new_moves": [
+      "LEECH_LIFE"
+     ],
+     "jump_cost": 1.0
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "KABUTOPS",
+     "evolves_into": [],
+     "new_moves": [
+      "LIQUIDATION"
+     ],
+     "jump_cost": 1.0
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "KABUTOPS",
+     "METAL_SOUND",
+     63
+    ],
+    [
+     "KABUTOPS",
+     "STONE_EDGE",
+     70
+    ]
+   ]
+  },
+  {
+   "base": "AERODACTYL",
+   "forms": [
+    {
+     "name": "AERODACTYL",
+     "kind": "single",
+     "bst": 515,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 4
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "ANCIENT_POWER"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 14,
+     "form": "AERODACTYL",
+     "evolves_into": [],
+     "new_moves": [
+      "SUPERSONIC",
+      "WING_ATTACK"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 24,
+     "form": "AERODACTYL",
+     "evolves_into": [],
+     "new_moves": [
+      "SCARY_FACE",
+      "ROCK_SLIDE"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 34,
+     "form": "AERODACTYL",
+     "evolves_into": [],
+     "new_moves": [
+      "ROAR",
+      "CRUNCH"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 44,
+     "form": "AERODACTYL",
+     "evolves_into": [],
+     "new_moves": [
+      "IRON_HEAD",
+      "TAKE_DOWN"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 54,
+     "form": "AERODACTYL",
+     "evolves_into": [],
+     "new_moves": [
+      "STONE_EDGE",
+      "AGILITY"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "AERODACTYL",
+     "evolves_into": [],
+     "new_moves": [
+      "HYPER_BEAM",
+      "GIGA_IMPACT"
+     ],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "SNORLAX",
+   "forms": [
+    {
+     "name": "SNORLAX",
+     "kind": "single",
+     "bst": 540,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 3
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "TACKLE"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 13,
+     "form": "SNORLAX",
+     "evolves_into": [],
+     "new_moves": [
+      "YAWN"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 23,
+     "form": "SNORLAX",
+     "evolves_into": [],
+     "new_moves": [
+      "BITE",
+      "SNORE",
+      "SLEEP_TALK",
+      "REST"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 33,
+     "form": "SNORLAX",
+     "evolves_into": [],
+     "new_moves": [
+      "CRUNCH",
+      "BODY_SLAM",
+      "HEAVY_SLAM"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 43,
+     "form": "SNORLAX",
+     "evolves_into": [],
+     "new_moves": [
+      "AMNESIA",
+      "HIGH_HORSEPOWER"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 53,
+     "form": "SNORLAX",
+     "evolves_into": [],
+     "new_moves": [
+      "HAMMER_ARM",
+      "BELLY_DRUM",
+      "BELCH"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "SNORLAX",
+     "evolves_into": [],
+     "new_moves": [
+      "GIGA_IMPACT"
+     ],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": []
+  },
+  {
+   "base": "ARTICUNO",
+   "forms": [
+    {
+     "name": "ARTICUNO",
+     "kind": "single",
+     "bst": 580,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 2
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "GUST"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 12,
+     "form": "ARTICUNO",
+     "evolves_into": [],
+     "new_moves": [
+      "POWDER_SNOW",
+      "REFLECT"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 22,
+     "form": "ARTICUNO",
+     "evolves_into": [],
+     "new_moves": [
+      "ICE_SHARD",
+      "AGILITY"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 32,
+     "form": "ARTICUNO",
+     "evolves_into": [],
+     "new_moves": [
+      "ANCIENT_POWER",
+      "TAILWIND"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 42,
+     "form": "ARTICUNO",
+     "evolves_into": [],
+     "new_moves": [
+      "FREEZE_DRY",
+      "ROOST"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 52,
+     "form": "ARTICUNO",
+     "evolves_into": [],
+     "new_moves": [
+      "ICE_BEAM",
+      "SNOWSCAPE"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "ARTICUNO",
+     "evolves_into": [],
+     "new_moves": [
+      "HURRICANE",
+      "HAZE"
+     ],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "ARTICUNO",
+     "BLIZZARD",
+     65
+    ],
+    [
+     "ARTICUNO",
+     "SHEER_COLD",
+     70
+    ]
+   ]
+  },
+  {
+   "base": "ZAPDOS",
+   "forms": [
+    {
+     "name": "ZAPDOS",
+     "kind": "single",
+     "bst": 580,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 2
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "PECK"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 12,
+     "form": "ZAPDOS",
+     "evolves_into": [],
+     "new_moves": [
+      "THUNDER_SHOCK",
+      "LIGHT_SCREEN"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 22,
+     "form": "ZAPDOS",
+     "evolves_into": [],
+     "new_moves": [
+      "PLUCK",
+      "AGILITY"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 32,
+     "form": "ZAPDOS",
+     "evolves_into": [],
+     "new_moves": [
+      "ANCIENT_POWER",
+      "CHARGE"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 42,
+     "form": "ZAPDOS",
+     "evolves_into": [],
+     "new_moves": [
+      "DRILL_PECK",
+      "ROOST"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 52,
+     "form": "ZAPDOS",
+     "evolves_into": [],
+     "new_moves": [
+      "DISCHARGE",
+      "RAIN_DANCE"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "ZAPDOS",
+     "evolves_into": [],
+     "new_moves": [
+      "THUNDER",
+      "DETECT"
+     ],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "ZAPDOS",
+     "MAGNETIC_FLUX",
+     65
+    ],
+    [
+     "ZAPDOS",
+     "ZAP_CANNON",
+     70
+    ]
+   ]
+  },
+  {
+   "base": "MOLTRES",
+   "forms": [
+    {
+     "name": "MOLTRES",
+     "kind": "single",
+     "bst": 580,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 2
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "GUST"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 12,
+     "form": "MOLTRES",
+     "evolves_into": [],
+     "new_moves": [
+      "EMBER",
+      "SAFEGUARD"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 22,
+     "form": "MOLTRES",
+     "evolves_into": [],
+     "new_moves": [
+      "WING_ATTACK",
+      "AGILITY"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 32,
+     "form": "MOLTRES",
+     "evolves_into": [],
+     "new_moves": [
+      "ANCIENT_POWER",
+      "INCINERATE"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 42,
+     "form": "MOLTRES",
+     "evolves_into": [],
+     "new_moves": [
+      "AIR_SLASH",
+      "ROOST"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 52,
+     "form": "MOLTRES",
+     "evolves_into": [],
+     "new_moves": [
+      "HEAT_WAVE",
+      "SUNNY_DAY"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "MOLTRES",
+     "evolves_into": [],
+     "new_moves": [
+      "HURRICANE",
+      "ENDURE"
+     ],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "MOLTRES",
+     "OVERHEAT",
+     65
+    ],
+    [
+     "MOLTRES",
+     "SKY_ATTACK",
+     70
+    ]
+   ]
+  },
+  {
+   "base": "DRATINI",
+   "forms": [
+    {
+     "name": "DRATINI",
+     "kind": "basic",
+     "bst": 300,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 5
+    },
+    {
+     "name": "DRAGONAIR",
+     "kind": "middle",
+     "bst": 420,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 3
+    },
+    {
+     "name": "DRAGONITE",
+     "kind": "final",
+     "bst": 600,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 1
+    }
+   ],
+   "start_floor": 5,
+   "first_stab": [
+    5,
+    "TWISTER"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 15,
+     "form": "DRATINI",
+     "evolves_into": [],
+     "new_moves": [
+      "THUNDER_WAVE",
+      "DRAGON_TAIL"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 25,
+     "form": "DRATINI",
+     "evolves_into": [],
+     "new_moves": [
+      "AGILITY",
+      "SLAM"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 33,
+     "form": "DRAGONAIR",
+     "evolves_into": [
+      "DRAGONAIR"
+     ],
+     "new_moves": [
+      "AQUA_TAIL"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 43,
+     "form": "DRAGONAIR",
+     "evolves_into": [],
+     "new_moves": [
+      "DRAGON_RUSH"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 52,
+     "form": "DRAGONITE",
+     "evolves_into": [
+      "DRAGONITE"
+     ],
+     "new_moves": [
+      "HURRICANE",
+      "SAFEGUARD"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "DRAGONITE",
+     "evolves_into": [],
+     "new_moves": [
+      "RAIN_DANCE"
+     ],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "DRAGONAIR",
+     "HYPER_BEAM",
+     74
+    ],
+    [
+     "DRAGONAIR",
+     "OUTRAGE",
+     67
+    ],
+    [
+     "DRAGONITE",
+     "DRAGON_DANCE",
+     62
+    ],
+    [
+     "DRAGONITE",
+     "HYPER_BEAM",
+     80
+    ]
+   ]
+  },
+  {
+   "base": "MEWTWO",
+   "forms": [
+    {
+     "name": "MEWTWO",
+     "kind": "single",
+     "bst": 680,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "SLOW",
+     "offset": 1
+    }
+   ],
+   "start_floor": 1,
+   "first_stab": [
+    1,
+    "CONFUSION"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 11,
+     "form": "MEWTWO",
+     "evolves_into": [],
+     "new_moves": [
+      "ANCIENT_POWER"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 2,
+     "level": 21,
+     "form": "MEWTWO",
+     "evolves_into": [],
+     "new_moves": [
+      "PSYCHO_CUT"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 3,
+     "level": 31,
+     "form": "MEWTWO",
+     "evolves_into": [],
+     "new_moves": [
+      "SAFEGUARD"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 4,
+     "level": 41,
+     "form": "MEWTWO",
+     "evolves_into": [],
+     "new_moves": [
+      "AMNESIA",
+      "AURA_SPHERE"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 5,
+     "level": 51,
+     "form": "MEWTWO",
+     "evolves_into": [],
+     "new_moves": [
+      "PSYCHIC"
+     ],
+     "jump_cost": 1.25
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "MEWTWO",
+     "evolves_into": [],
+     "new_moves": [
+      "POWER_SWAP",
+      "GUARD_SWAP"
+     ],
+     "jump_cost": 1.25
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "MEWTWO",
+     "FUTURE_SIGHT",
+     88
+    ],
+    [
+     "MEWTWO",
+     "MIST",
+     64
+    ],
+    [
+     "MEWTWO",
+     "PSYSTRIKE",
+     72
+    ],
+    [
+     "MEWTWO",
+     "RECOVER",
+     80
+    ]
+   ]
+  },
+  {
+   "base": "MEW",
+   "forms": [
+    {
+     "name": "MEW",
+     "kind": "single",
+     "bst": 600,
+     "el_delta": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "growth": "MEDIUM_SLOW",
+     "offset": 2
+    }
+   ],
+   "start_floor": 100,
+   "first_stab": [
+    100,
+    "PSYCHIC"
+   ],
+   "tiers": [
+    {
+     "tier": 1,
+     "level": 12,
+     "form": "MEW",
+     "evolves_into": [],
+     "new_moves": [],
+     "jump_cost": 0.56
+    },
+    {
+     "tier": 2,
+     "level": 22,
+     "form": "MEW",
+     "evolves_into": [],
+     "new_moves": [
+      "BATON_PASS"
+     ],
+     "jump_cost": 0.71
+    },
+    {
+     "tier": 3,
+     "level": 32,
+     "form": "MEW",
+     "evolves_into": [],
+     "new_moves": [
+      "ANCIENT_POWER"
+     ],
+     "jump_cost": 0.82
+    },
+    {
+     "tier": 4,
+     "level": 42,
+     "form": "MEW",
+     "evolves_into": [],
+     "new_moves": [
+      "LIFE_DEW"
+     ],
+     "jump_cost": 0.9
+    },
+    {
+     "tier": 5,
+     "level": 52,
+     "form": "MEW",
+     "evolves_into": [],
+     "new_moves": [
+      "NASTY_PLOT"
+     ],
+     "jump_cost": 0.95
+    },
+    {
+     "tier": 6,
+     "level": 60,
+     "form": "MEW",
+     "evolves_into": [],
+     "new_moves": [
+      "METRONOME"
+     ],
+     "jump_cost": 0.98
+    }
+   ],
+   "other_evolutions": {},
+   "moves_above_60": [
+    [
+     "MEW",
+     "AURA_SPHERE",
+     90
+    ],
+    [
+     "MEW",
+     "IMPRISON",
+     70
+    ],
+    [
+     "MEW",
+     "PSYCHIC",
+     100
+    ],
+    [
+     "MEW",
+     "TRANSFORM",
+     80
+    ]
+   ]
+  }
+ ],
+ "flags": [
+  [
+   "CHARMANDER",
+   "1 moves above 60 to pull down"
+  ],
+  [
+   "CATERPIE",
+   "tier 1 evolves twice (METAPOD, BUTTERFREE)"
+  ],
+  [
+   "CATERPIE",
+   "METAPOD evolves at 13, usual 7"
+  ],
+  [
+   "WEEDLE",
+   "tier 1 evolves twice (KAKUNA, BEEDRILL)"
+  ],
+  [
+   "WEEDLE",
+   "KAKUNA evolves at 13, usual 7"
+  ],
+  [
+   "PIDGEY",
+   "3 moves above 60 to pull down"
+  ],
+  [
+   "EKANS",
+   "1 moves above 60 to pull down"
+  ],
+  [
+   "PIKACHU",
+   "RAICHU evolves by item ITEM_THUNDER_STONE: not placed on a snapshot"
+  ],
+  [
+   "SANDSHREW",
+   "1 moves above 60 to pull down"
+  ],
+  [
+   "NIDORAN_F",
+   "NIDOQUEEN evolves by item ITEM_MOON_STONE: not placed on a snapshot"
+  ],
+  [
+   "NIDORAN_F",
+   "2 moves above 60 to pull down"
+  ],
+  [
+   "NIDORAN_M",
+   "NIDOKING evolves by item ITEM_MOON_STONE: not placed on a snapshot"
+  ],
+  [
+   "NIDORAN_M",
+   "2 moves above 60 to pull down"
+  ],
+  [
+   "CLEFAIRY",
+   "CLEFABLE evolves by item ITEM_MOON_STONE: not placed on a snapshot"
+  ],
+  [
+   "VULPIX",
+   "NINETALES evolves by item ITEM_FIRE_STONE: not placed on a snapshot"
+  ],
+  [
+   "JIGGLYPUFF",
+   "WIGGLYTUFF evolves by item ITEM_MOON_STONE: not placed on a snapshot"
+  ],
+  [
+   "ZUBAT",
+   "2 moves above 60 to pull down"
+  ],
+  [
+   "ODDISH",
+   "VILEPLUME evolves by item ITEM_LEAF_STONE: not placed on a snapshot"
+  ],
+  [
+   "PARAS",
+   "1 moves above 60 to pull down"
+  ],
+  [
+   "GROWLITHE",
+   "ARCANINE evolves by item ITEM_FIRE_STONE: not placed on a snapshot"
+  ],
+  [
+   "POLIWAG",
+   "POLIWRATH evolves by item ITEM_WATER_STONE: not placed on a snapshot"
+  ],
+  [
+   "POLIWAG",
+   "1 moves above 60 to pull down"
+  ],
+  [
+   "ABRA",
+   "no damaging same-type move before evolving: exempt from the start rule"
+  ],
+  [
+   "MACHOP",
+   "2 moves above 60 to pull down"
+  ],
+  [
+   "BELLSPROUT",
+   "VICTREEBEL evolves by item ITEM_LEAF_STONE: not placed on a snapshot"
+  ],
+  [
+   "PONYTA",
+   "1 moves above 60 to pull down"
+  ],
+  [
+   "MAGNEMITE",
+   "1 moves above 60 to pull down"
+  ],
+  [
+   "FARFETCHD",
+   "1 moves above 60 to pull down"
+  ],
+  [
+   "SEEL",
+   "2 moves above 60 to pull down"
+  ],
+  [
+   "SHELLDER",
+   "CLOYSTER evolves by item ITEM_WATER_STONE: not placed on a snapshot"
+  ],
+  [
+   "EXEGGCUTE",
+   "EXEGGUTOR evolves by item ITEM_LEAF_STONE: not placed on a snapshot"
+  ],
+  [
+   "KOFFING",
+   "1 moves above 60 to pull down"
+  ],
+  [
+   "RHYHORN",
+   "2 moves above 60 to pull down"
+  ],
+  [
+   "HORSEA",
+   "1 moves above 60 to pull down"
+  ],
+  [
+   "STARYU",
+   "STARMIE evolves by item ITEM_WATER_STONE: not placed on a snapshot"
+  ],
+  [
+   "ELECTABUZZ",
+   "1 moves above 60 to pull down"
+  ],
+  [
+   "MAGMAR",
+   "1 moves above 60 to pull down"
+  ],
+  [
+   "MAGIKARP",
+   "no damaging same-type move before evolving: exempt from the start rule"
+  ],
+  [
+   "LAPRAS",
+   "1 moves above 60 to pull down"
+  ],
+  [
+   "DITTO",
+   "no damaging same-type move before evolving: exempt from the start rule"
+  ],
+  [
+   "EEVEE",
+   "JOLTEON evolves by item ITEM_THUNDER_STONE: not placed on a snapshot"
+  ],
+  [
+   "OMANYTE",
+   "2 moves above 60 to pull down"
+  ],
+  [
+   "KABUTO",
+   "2 moves above 60 to pull down"
+  ],
+  [
+   "ARTICUNO",
+   "2 moves above 60 to pull down"
+  ],
+  [
+   "ZAPDOS",
+   "2 moves above 60 to pull down"
+  ],
+  [
+   "MOLTRES",
+   "2 moves above 60 to pull down"
+  ],
+  [
+   "DRATINI",
+   "4 moves above 60 to pull down"
+  ],
+  [
+   "MEWTWO",
+   "4 moves above 60 to pull down"
+  ],
+  [
+   "MEW",
+   "4 moves above 60 to pull down"
+  ]
+ ]
+}
