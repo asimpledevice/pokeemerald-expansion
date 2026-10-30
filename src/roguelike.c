@@ -405,6 +405,25 @@ bool32 GetNextSnapshotJump(u32 species, u32 level, struct SnapshotJump *jump)
     return FALSE;
 }
 
+// The lowest level a Pokémon of this line joins at (tier 0), or 0 when it
+// has no floor (exempt, or not on any snapshot line).
+u32 GetSnapshotCatchFloor(u32 species)
+{
+    u32 line, form;
+
+    if (species == SPECIES_NONE)
+        return 0;
+    for (line = 0; line < ARRAY_COUNT(sSnapshotLines); line++)
+    {
+        for (form = 0; form < ARRAY_COUNT(sSnapshotLines[line].species); form++)
+        {
+            if (sSnapshotLines[line].species[form] == species)
+                return sSnapshotLines[line].level[0];
+        }
+    }
+    return 0;
+}
+
 u32 GetRoguelikeObedienceLevel(u32 badges)
 {
     return sObedienceLevels[min(badges, ARRAY_COUNT(sObedienceLevels) - 1)];

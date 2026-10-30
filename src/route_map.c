@@ -155,7 +155,6 @@ static const u8 *const sMessages[] =
     [ROUTE_MESSAGE_NONE] = NULL,
     [ROUTE_MESSAGE_FOUND_POTION] = COMPOUND_STRING("You found a POTION!"),
     [ROUTE_MESSAGE_HEALED] = COMPOUND_STRING("Your POKéMON are fully healed."),
-    [ROUTE_MESSAGE_MART_CLOSED] = COMPOUND_STRING("The MART is closed for now."),
     [ROUTE_MESSAGE_WIPED_OUT] = COMPOUND_STRING("Your team was wiped out."),
     [ROUTE_MESSAGE_SAVED] = COMPOUND_STRING("Your progress was saved."),
     [ROUTE_MESSAGE_SAVE_FAILED] = COMPOUND_STRING("The save failed."),
@@ -378,6 +377,11 @@ static u8 *GetMessageText(u8 *text)
         end = StringCopy(end, COMPOUND_STRING(" jumped to Lv. "));
         end = ConvertIntToDecimalStringN(end, gRoguelikeRun.jumpLevel, STR_CONV_MODE_LEFT_ALIGN, 3);
         return StringCopy(end, COMPOUND_STRING("!"));
+    case ROUTE_MESSAGE_CAUGHT:
+        end = StringCopy(text, GetSpeciesName(gRoguelikeRun.jumpSpecies));
+        end = StringCopy(end, COMPOUND_STRING(" joined at Lv. "));
+        end = ConvertIntToDecimalStringN(end, gRoguelikeRun.jumpLevel, STR_CONV_MODE_LEFT_ALIGN, 3);
+        return StringCopy(end, COMPOUND_STRING("!"));
     case ROUTE_MESSAGE_LOST_MONS:
         end = ConvertIntToDecimalStringN(text, gRoguelikeRun.lostMons, STR_CONV_MODE_LEFT_ALIGN, 1);
         return StringCopy(end, COMPOUND_STRING(" POKéMON lost for good."));
@@ -405,7 +409,8 @@ static void PrintInfo(void)
         end = StringCopy(text, COMPOUND_STRING("Next: "));
         if (!gRoguelikeRun.inGym && RouteNodeIsOvertaken(&sRouteMap->map, chosen.column, gRoguelikeRun.rocketMoves + 1))
             StringCopy(end, COMPOUND_STRING("TEAM ROCKET"));
-        else if (RouteNodeWasVisited(chosen.column, chosen.row))
+        else if (RouteNodeWasVisited(chosen.column, chosen.row)
+              && sRouteMap->map.type[chosen.column][chosen.row] != ROUTE_NODE_MART)
             StringCopy(end, COMPOUND_STRING("Nothing new"));
         else
             StringCopy(end, sNodeNames[sRouteMap->map.type[chosen.column][chosen.row]]);

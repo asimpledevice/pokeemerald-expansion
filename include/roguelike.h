@@ -61,10 +61,10 @@ enum RouteMessage
     ROUTE_MESSAGE_NONE,
     ROUTE_MESSAGE_FOUND_POTION,
     ROUTE_MESSAGE_HEALED,
-    ROUTE_MESSAGE_MART_CLOSED,
     ROUTE_MESSAGE_WIPED_OUT,
     ROUTE_MESSAGE_JUMPED,
     ROUTE_MESSAGE_LOST_MONS,
+    ROUTE_MESSAGE_CAUGHT,
     ROUTE_MESSAGE_SAVED,
     ROUTE_MESSAGE_SAVE_FAILED,
 };
@@ -142,6 +142,13 @@ struct SnapshotJump
 // The next jump for a Pokémon: the first tier above its level. FALSE when it
 // has none (top tier, or not on any snapshot line).
 bool32 GetNextSnapshotJump(u32 species, u32 level, struct SnapshotJump *jump);
+
+// Tier 0: a caught Pokémon below its line's floor joins at the floor, so it
+// can use a damaging move of its own type. 0 when there's no floor.
+u32 GetSnapshotCatchFloor(u32 species);
+
+// Poké Balls given when a run starts.
+#define ROGUELIKE_STARTING_BALLS 5
 
 // Battle points per knockout, in hundredths.
 #define SNAPSHOT_POINTS_PER_KNOCKOUT 100

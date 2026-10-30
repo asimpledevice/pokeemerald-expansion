@@ -118,6 +118,10 @@ EWRAM_DATA struct ItemSlot gMartPurchaseHistory[SMARTSHOPPER_NUM_ITEMS] = {0};
 static void Task_ShopMenu(u8 taskId);
 static void Task_HandleShopMenuQuit(u8 taskId);
 static void CB2_InitBuyMenu(void);
+static void ClearItemPurchases(void);
+
+// Set while the buy menu was opened from a full screen rather than a clerk.
+static EWRAM_DATA MainCallback sBuyMenuExitCallback = NULL;
 static void Task_GoToBuyOrSellMenu(u8 taskId);
 static void MapPostLoadHook_ReturnToShopMenu(void);
 static void Task_ReturnToShopMenu(u8 taskId);
@@ -534,6 +538,13 @@ static void CB2_InitBuyMenu(void)
             TryBuildDynamicShopItemList(&sMartInfo.itemList, &sMartInfo.itemCount);
         BuyMenuBuildListMenuTemplate();
         BuyMenuInitBgs();
+        if (sBuyMenuExitCallback != NULL)
+        {
+            // Opened from a full screen, which replaced the field's tiles and
+            // palettes: reload them for the map drawn behind the menu.
+            CopyMapTilesetsToVram(gMapHeader.mapLayout);
+            LoadMapTilesetPalettes(gMapHeader.mapLayout);
+        }
         FillBgTilemapBufferRect_Palette0(0, 0, 0, 0, 0x20, 0x20);
         FillBgTilemapBufferRect_Palette0(1, 0, 0, 0, 0x20, 0x20);
         FillBgTilemapBufferRect_Palette0(2, 0, 0, 0, 0x20, 0x20);
@@ -1257,7 +1268,8 @@ static void BuyMenuPrintItemQuantityAndPrice(u8 taskId)
 
 static void ExitBuyMenu(u8 taskId)
 {
-    gFieldCallback = MapPostLoadHook_ReturnToShopMenu;
+    if (sBuyMenuExitCallback == NULL)
+        gFieldCallback = MapPostLoadHook_ReturnToShopMenu;
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_ExitBuyMenu;
 }
@@ -1268,7 +1280,15 @@ static void Task_ExitBuyMenu(u8 taskId)
     {
         RemoveMoneyLabelObject();
         BuyMenuFreeMemory();
-        SetMainCallback2(CB2_ReturnToField);
+        if (sBuyMenuExitCallback != NULL)
+        {
+            SetMainCallback2(sBuyMenuExitCallback);
+            sBuyMenuExitCallback = NULL;
+        }
+        else
+        {
+            SetMainCallback2(CB2_ReturnToField);
+        }
         DestroyTask(taskId);
     }
 }
@@ -1331,4 +1351,17 @@ void CreateDecorationShop2Menu(const u16 *itemsForSale)
     CreateShopMenu(MART_TYPE_DECOR2);
     SetShopItemsForSale(itemsForSale);
     SetShopMenuCallback(ScriptContext_Enable);
+}
+
+// Opens the buy menu straight from a full screen (the roguelike's route map)
+// rather than from a clerk in the field. Leaving it runs exitCallback instead
+// of returning to the field.
+void CreateBuyMenuFromScreen(const u16 *itemsForSale, MainCallback exitCallback)
+{
+    sMartInfo.martType = MART_TYPE_NORMAL;
+    sMartInfo.callback = NULL;
+    sBuyMenuExitCallback = exitCallback;
+    SetShopItemsForSale(itemsForSale);
+    ClearItemPurchases();
+    SetMainCallback2(CB2_InitBuyMenu);
 }

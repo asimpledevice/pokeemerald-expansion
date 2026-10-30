@@ -11,6 +11,7 @@
 #include "task.h"
 #include "roguelike.h"
 #include "script_pokemon_util.h"
+#include "shop.h"
 #include "wild_encounter.h"
 #include "event_data.h"
 #include "field_screen_effect.h"
@@ -81,6 +82,25 @@ static const struct RoguelikeTownInfo sTowns[ROGUELIKE_TOWN_COUNT] =
     },
 };
 
+// The random part of a route Mart's shelf. The design doc's pool also holds
+// HMs and tools (Fishing Rod, Bug-Catching Net); they join it once they exist.
+static const u16 sMartPool[] =
+{
+    ITEM_TM_BULLET_SEED,
+    ITEM_TM_WATER_PULSE,
+    ITEM_TM_ROCK_TOMB,
+    ITEM_TM_AERIAL_ACE,
+    ITEM_TM_DIG,
+    ITEM_TM_PROTECT,
+    ITEM_MIRACLE_SEED,
+    ITEM_CHARCOAL,
+    ITEM_MYSTIC_WATER,
+    ITEM_SILK_SCARF,
+};
+
+#define MART_RANDOM_ITEMS 2
+static EWRAM_DATA u16 sMartStock[2 + MART_RANDOM_ITEMS + 1] = {0};
+
 // Team Rocket's slice trainers, for overtaken nodes.
 static const u16 sRocketTrainers[] =
 {
@@ -91,6 +111,8 @@ static const u16 sRocketTrainers[] =
 static void CB2_HandleRouteNode(void);
 static void CB2_ReturnFromRouteBattle(void);
 static void CB2_ProcessJumps(void);
+static void LearnSkippedMoves(struct Pokemon *mon, u32 species, u32 fromLevel, u32 toLevel);
+static void ApplyCatchFloor(void);
 static void CB2_EndRun(void);
 static void CB2_EndRouteIntoTown(void);
 static void CB2_EndGym(void);
@@ -178,6 +200,33 @@ void StartRouteOnMap(u32 seed, u32 routeMapId, u32 routeEnd)
     ReopenRouteMap(ROUTE_MESSAGE_NONE);
 }
 
+static void CB2_ReturnFromRouteMart(void)
+{
+    ReopenRouteMap(ROUTE_MESSAGE_NONE);
+}
+
+// A route Mart: Potions and Poké Balls always, plus a draw from the pool.
+// The draw is seeded by the route and node, so revisiting shows the same shelf.
+static void OpenRouteMart(void)
+{
+    rng_value_t rng = LocalRandomSeed(gRoguelikeRun.routeSeed * 31 + gRoguelikeRun.column * ROUTE_MAP_ROWS + gRoguelikeRun.row);
+    u32 count = 0, i;
+
+    sMartStock[count++] = ITEM_POKE_BALL;
+    sMartStock[count++] = ITEM_POTION;
+    while (count < ARRAY_COUNT(sMartStock) - 1)
+    {
+        u16 item = sMartPool[LocalRandom(&rng) % ARRAY_COUNT(sMartPool)];
+
+        for (i = 0; i < count && sMartStock[i] != item; i++)
+            ;
+        if (i == count)
+            sMartStock[count++] = item;
+    }
+    sMartStock[count] = ITEM_NONE;
+    CreateBuyMenuFromScreen(sMartStock, CB2_ReturnFromRouteMart);
+}
+
 static void CB2_HandleRouteNode(void)
 {
     struct RouteMap map;
@@ -191,7 +240,14 @@ static void CB2_HandleRouteNode(void)
         StartRouteTrainerBattle(sRocketTrainers[Random() % ARRAY_COUNT(sRocketTrainers)]);
         return;
     }
-    // Sideways moves can return to a node: it only plays once.
+    // Sideways moves can return to a node: it only plays once, though a
+    // Mart opens again.
+    if (map.type[column][row] == ROUTE_NODE_MART)
+    {
+        MarkRouteNodeVisited(column, row);
+        OpenRouteMart();
+        return;
+    }
     if (RouteNodeWasVisited(column, row))
     {
         ReopenRouteMap(ROUTE_MESSAGE_NONE);
@@ -221,9 +277,6 @@ static void CB2_HandleRouteNode(void)
     case ROUTE_NODE_CENTER:
         HealPlayerParty();
         ReopenRouteMap(ROUTE_MESSAGE_HEALED);
-        break;
-    case ROUTE_NODE_MART:
-        ReopenRouteMap(ROUTE_MESSAGE_MART_CLOSED);
         break;
     case ROUTE_NODE_TRANSITION:
         SetMainCallback2(GetRouteEndCallback());
@@ -274,12 +327,48 @@ static void CB2_ReturnFromRouteBattle(void)
     }
     gRoguelikeRun.lostMons = lost;
     gRoguelikeRun.message = lost ? ROUTE_MESSAGE_LOST_MONS : ROUTE_MESSAGE_NONE;
+    if (gBattleOutcome == B_OUTCOME_CAUGHT)
+        ApplyCatchFloor();
     if (gRoguelikeRun.inGym && gRoguelikeRun.column + 1 == gRoguelikeRun.gymTrainers + 2)
         sAfterJumps = GetRouteEndCallback(); // beat the Leader
     else
         sAfterJumps = ReopenRouteMapAfterBattle;
     sJumpPartyId = 0;
     SetMainCallback2(CB2_ProcessJumps);
+}
+
+// A Pokémon caught below its line's floor joins at the floor (tier 0). The
+// newest party member of the caught species is the one just caught; one sent
+// to the PC keeps its level for now.
+static void ApplyCatchFloor(void)
+{
+    s32 i;
+
+    for (i = PARTY_SIZE - 1; i >= 0; i--)
+    {
+        struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][i];
+        u32 species = GetMonData(mon, MON_DATA_SPECIES);
+        u32 level, floor;
+
+        if (species == SPECIES_NONE || species != gBattleResults.caughtMonSpecies)
+            continue;
+        level = GetMonData(mon, MON_DATA_LEVEL);
+        floor = GetSnapshotCatchFloor(species);
+        if (level < floor)
+        {
+            u32 exp = gExperienceTables[gSpeciesInfo[species].growthRate][floor];
+
+            SetMonData(mon, MON_DATA_EXP, &exp);
+            CalculateMonStats(mon);
+            LearnSkippedMoves(mon, species, level, floor);
+            level = floor;
+        }
+        gRoguelikeRun.jumpSpecies = species;
+        gRoguelikeRun.jumpLevel = level;
+        if (gRoguelikeRun.message == ROUTE_MESSAGE_NONE)
+            gRoguelikeRun.message = ROUTE_MESSAGE_CAUGHT;
+        return;
+    }
 }
 
 // Teaches the moves a Pokémon would have learned on the levels it skipped.
@@ -408,6 +497,8 @@ void RoguelikeStartRoute(void)
         gRoguelikeRun.runSeed = Random32() | 1;
         gRoguelikeRun.starterSpecies = GetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_SPECIES);
         gRoguelikeRun.starterLevel = GetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_LEVEL);
+        // A run starts with a few Poké Balls; route Marts sell more.
+        AddBagItem(ITEM_POKE_BALL, ROGUELIKE_STARTING_BALLS);
     }
     gRoguelikeRun.stop++;
     gRoguelikeRun.town = gSpecialVar_0x8005;

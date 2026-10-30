@@ -264,3 +264,12 @@ TEST("GetRoguelikeObedienceLevel rises with badges")
     EXPECT_EQ(GetRoguelikeObedienceLevel(7), 59);
     EXPECT_GE(GetRoguelikeObedienceLevel(8), MAX_LEVEL);
 }
+
+TEST("GetSnapshotCatchFloor gives a line's tier 0 level for every form")
+{
+    EXPECT_EQ(GetSnapshotCatchFloor(SPECIES_SANDSHREW), 18);
+    EXPECT_EQ(GetSnapshotCatchFloor(SPECIES_SANDSLASH), 18);
+    EXPECT_EQ(GetSnapshotCatchFloor(SPECIES_BULBASAUR), 7);
+    EXPECT_EQ(GetSnapshotCatchFloor(SPECIES_PIDGEY), 1);
+    EXPECT_EQ(GetSnapshotCatchFloor(SPECIES_NONE), 0);
+}
