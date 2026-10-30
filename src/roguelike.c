@@ -1,8 +1,10 @@
 #include "global.h"
+#include "pokemon.h"
 #include "random.h"
 #include "roguelike.h"
 #include "constants/pokemon.h"
 #include "data/roguelike.h"
+#include "data/roguelike_snapshots.h"
 
 EWRAM_DATA struct RoguelikeRun gRoguelikeRun = {0};
 
@@ -203,6 +205,18 @@ void GenerateRouteMap(struct RouteMap *map, u32 seed)
             }
         }
     }
+
+    // Sideways links between neighbouring nodes in the same middle column.
+    for (column = ROUTE_MAP_FIRST_MIDDLE_COLUMN; column <= ROUTE_MAP_LAST_MIDDLE_COLUMN; column++)
+    {
+        for (row = 0; row + 1 < ROUTE_MAP_ROWS; row++)
+        {
+            if (map->type[column][row] != ROUTE_NODE_EMPTY
+             && map->type[column][row + 1] != ROUTE_NODE_EMPTY
+             && RandomBelow(&rng, 100) < ROUTE_SIDE_LINK_CHANCE)
+                map->sideLinks[column] |= 1 << row;
+        }
+    }
 }
 
 void GenerateGymMap(struct RouteMap *map, u32 numTrainers)
@@ -240,6 +254,60 @@ void GetCurrentRunMap(struct RouteMap *map)
         GenerateRouteMap(map, gRoguelikeRun.routeSeed);
 }
 
+bool32 RoguelikeIsActive(void)
+{
+    return IS_FRLG && gRoguelikeRun.runSeed != 0;
+}
+
+bool32 RouteNodeWasVisited(u32 column, u32 row)
+{
+    return (gRoguelikeRun.visited & (1u << (column * ROUTE_MAP_ROWS + row))) != 0;
+}
+
+void MarkRouteNodeVisited(u32 column, u32 row)
+{
+    gRoguelikeRun.visited |= 1u << (column * ROUTE_MAP_ROWS + row);
+}
+
+u32 GetRouteMapChoices(const struct RouteMap *map, u32 column, u32 row, struct RouteChoice *choices)
+{
+    u32 next, count = 0;
+
+    if (row > 0 && (map->sideLinks[column] & (1 << (row - 1))))
+    {
+        choices[count].column = column;
+        choices[count++].row = row - 1;
+    }
+    for (next = 0; next < ROUTE_MAP_ROWS; next++)
+    {
+        if (column + 1 < map->numColumns && (map->links[column][row] & (1 << next)))
+        {
+            choices[count].column = column + 1;
+            choices[count++].row = next;
+        }
+    }
+    if (map->sideLinks[column] & (1 << row))
+    {
+        choices[count].column = column;
+        choices[count++].row = row + 1;
+    }
+    return count;
+}
+
+s32 GetRocketFrontColumn(const struct RouteMap *map, u32 rocketMoves)
+{
+    s32 front = (s32)rocketMoves - ROUTE_ROCKET_LEAD;
+
+    if (front < 0)
+        return -1;
+    return min(front, map->numColumns - 1);
+}
+
+bool32 RouteNodeIsOvertaken(const struct RouteMap *map, u32 column, u32 rocketMoves)
+{
+    return (s32)column <= GetRocketFrontColumn(map, rocketMoves);
+}
+
 void StartRoguelikeRoute(u32 seed)
 {
     struct RouteMap map;
@@ -250,6 +318,8 @@ void StartRoguelikeRoute(u32 seed)
     gRoguelikeRun.column = 0;
     gRoguelikeRun.row = GetRouteMapStartRow(&map);
     gRoguelikeRun.rocketMoves = 0;
+    gRoguelikeRun.visited = 0;
+    MarkRouteNodeVisited(gRoguelikeRun.column, gRoguelikeRun.row);
 }
 
 bool32 RouteMapCanReach(const struct RouteMap *map, u32 fromColumn, u32 fromRow, u32 toColumn, u32 toRow)
@@ -306,4 +376,85 @@ u32 GetSnapshotJumpCost(u32 tier, u32 growthRate, u32 targetLevel)
     if (tier == 0 || tier >= SNAPSHOT_TIER_COUNT)
         return 0;
     return sSnapshotJumpCost[tier] * GetGrowthCurvePercent(growthRate, targetLevel);
+}
+
+bool32 GetNextSnapshotJump(u32 species, u32 level, struct SnapshotJump *jump)
+{
+    u32 line, form, tier;
+
+    for (line = 0; line < ARRAY_COUNT(sSnapshotLines); line++)
+    {
+        for (form = 0; form < ARRAY_COUNT(sSnapshotLines[line].species); form++)
+        {
+            if (sSnapshotLines[line].species[form] == species && species != SPECIES_NONE)
+                break;
+        }
+        if (form == ARRAY_COUNT(sSnapshotLines[line].species))
+            continue;
+        for (tier = 1; tier < SNAPSHOT_TIER_COUNT; tier++)
+        {
+            if (sSnapshotLines[line].level[tier] > level)
+            {
+                jump->tier = tier;
+                jump->level = sSnapshotLines[line].level[tier];
+                // Never devolve a Pokémon that evolved ahead of its line.
+                jump->species = sSnapshotLines[line].species[max(form, sSnapshotLines[line].form[tier])];
+                return TRUE;
+            }
+        }
+        return FALSE;
+    }
+    return FALSE;
+}
+
+u32 GetRoguelikeObedienceLevel(u32 badges)
+{
+    return sObedienceLevels[min(badges, ARRAY_COUNT(sObedienceLevels) - 1)];
+}
+
+// The battle points slot for a party Pokémon, claiming a free slot (one whose
+// owner has left the party) if it has none yet.
+u16 *GetSnapshotPoints(struct Pokemon *mon)
+{
+    u32 personality = GetMonData(mon, MON_DATA_PERSONALITY);
+    u32 slot, i, freeSlot = PARTY_SIZE;
+
+    for (slot = 0; slot < PARTY_SIZE; slot++)
+    {
+        if (gRoguelikeRun.pointsOwner[slot] == personality)
+            return &gRoguelikeRun.points[slot];
+    }
+    for (slot = 0; slot < PARTY_SIZE && freeSlot == PARTY_SIZE; slot++)
+    {
+        freeSlot = slot;
+        for (i = 0; i < PARTY_SIZE; i++)
+        {
+            if (GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES) != SPECIES_NONE
+             && GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_PERSONALITY) == gRoguelikeRun.pointsOwner[slot])
+                freeSlot = PARTY_SIZE;
+        }
+    }
+    if (freeSlot == PARTY_SIZE)
+        freeSlot = 0;
+    gRoguelikeRun.pointsOwner[freeSlot] = personality;
+    gRoguelikeRun.points[freeSlot] = 0;
+    return &gRoguelikeRun.points[freeSlot];
+}
+
+// Called instead of giving experience: every Pokémon still standing that
+// fought the fainted one earns a knockout.
+void RoguelikeAwardKnockout(u32 partyBits)
+{
+    u32 i;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][i];
+
+        if (!(partyBits & (1u << i))
+         || GetMonData(mon, MON_DATA_SPECIES) == SPECIES_NONE
+         || GetMonData(mon, MON_DATA_HP) == 0)
+            continue;
+        *GetSnapshotPoints(mon) += SNAPSHOT_POINTS_PER_KNOCKOUT;
+    }
 }

@@ -18,6 +18,7 @@
 #include "util.h"
 #include "pokemon.h"
 #include "random.h"
+#include "roguelike.h"
 #include "battle_controllers.h"
 #include "battle_interface.h"
 #include "text.h"
@@ -2164,6 +2165,12 @@ static void Cmd_getexp(void)
         {
             gBattleScripting.getexpState++;
             gBattleStruct->givenExpMons[GetBattlerTrainer(gBattlerFainted) & BIT_FLANK] |= (1u << gBattlerPartyIndexes[gBattlerFainted]);
+            if (RoguelikeIsActive())
+            {
+                // Roguelike: knockouts earn battle points towards snapshot jumps instead of experience.
+                RoguelikeAwardKnockout(gSentPokesToOpponent[(gBattlerFainted & 2) >> 1]);
+                gBattleScripting.getexpState = 6;
+            }
         }
         break;
     case 1: // calculate experience points to redistribute

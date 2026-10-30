@@ -164,3 +164,103 @@ TEST("GenerateGymMap is a straight line of Gym trainers ending in the Leader")
         EXPECT(RouteMapCanReach(&map, 0, GYM_MAP_ROW, trainers + 1, GYM_MAP_ROW));
     }
 }
+
+TEST("GenerateRouteMap links sideways only between neighbouring nodes in middle columns")
+{
+    u32 seed, column, row, sideways = 0;
+    struct RouteMap map;
+
+    for (seed = 0; seed < SEEDS_TO_CHECK; seed++)
+    {
+        GenerateRouteMap(&map, seed);
+        EXPECT_EQ(map.sideLinks[0], 0);
+        EXPECT_EQ(map.sideLinks[ROUTE_MAP_EXIT_COLUMN], 0);
+        for (column = 0; column < ROUTE_MAP_COLUMNS; column++)
+        {
+            for (row = 0; row < ROUTE_MAP_ROWS; row++)
+            {
+                if (!(map.sideLinks[column] & (1 << row)))
+                    continue;
+                sideways++;
+                EXPECT_LT(row + 1, ROUTE_MAP_ROWS);
+                EXPECT_NE(map.type[column][row], ROUTE_NODE_EMPTY);
+                EXPECT_NE(map.type[column][row + 1], ROUTE_NODE_EMPTY);
+            }
+        }
+    }
+    EXPECT_GT(sideways, 0);
+}
+
+TEST("GetRouteMapChoices lists sideways and forward moves top to bottom")
+{
+    u32 seed, i, count;
+    struct RouteMap map;
+    struct RouteChoice choices[ROUTE_MAP_MAX_CHOICES];
+
+    for (seed = 0; seed < SEEDS_TO_CHECK; seed++)
+    {
+        GenerateRouteMap(&map, seed);
+        count = GetRouteMapChoices(&map, 0, GetRouteMapStartRow(&map), choices);
+        EXPECT_GT(count, 0);
+        for (i = 0; i < count; i++)
+            EXPECT_EQ(choices[i].column, 1);
+        for (i = 0; i + 1 < count; i++)
+            EXPECT_LT(choices[i].row, choices[i + 1].row);
+    }
+    // A sideways link adds the node above or below to the choices.
+    memset(&map, 0, sizeof(map));
+    map.numColumns = ROUTE_MAP_COLUMNS;
+    map.type[1][1] = map.type[1][2] = map.type[2][1] = ROUTE_NODE_WILD;
+    map.links[1][1] = 1 << 1;
+    map.sideLinks[1] = 1 << 1;
+    count = GetRouteMapChoices(&map, 1, 1, choices);
+    EXPECT_EQ(count, 2);
+    EXPECT_EQ(choices[0].column, 2);
+    EXPECT_EQ(choices[1].column, 1);
+    EXPECT_EQ(choices[1].row, 2);
+    count = GetRouteMapChoices(&map, 1, 2, choices);
+    EXPECT_EQ(count, 1);
+    EXPECT_EQ(choices[0].row, 1);
+}
+
+TEST("Team Rocket only catches up through sideways moves")
+{
+    struct RouteMap map;
+    u32 column;
+
+    GenerateRouteMap(&map, 1);
+    EXPECT_EQ(GetRocketFrontColumn(&map, 0), -1);
+    // Moving straight ahead, Rocket stays behind the player.
+    for (column = 1; column < ROUTE_MAP_COLUMNS; column++)
+        EXPECT(!RouteNodeIsOvertaken(&map, column, column));
+    // Enough sideways moves let it reach the player's column.
+    EXPECT(RouteNodeIsOvertaken(&map, 2, 2 + ROUTE_ROCKET_LEAD));
+    EXPECT(!RouteNodeIsOvertaken(&map, 2, 2 + ROUTE_ROCKET_LEAD - 1));
+    EXPECT_EQ(GetRocketFrontColumn(&map, 100), ROUTE_MAP_EXIT_COLUMN);
+}
+
+TEST("GetNextSnapshotJump moves up a tier and evolves on schedule")
+{
+    struct SnapshotJump jump;
+
+    EXPECT(GetNextSnapshotJump(SPECIES_BULBASAUR, 7, &jump));
+    EXPECT_EQ(jump.tier, 1);
+    EXPECT_EQ(jump.level, 14);
+    EXPECT_EQ(jump.species, SPECIES_IVYSAUR);
+    EXPECT(GetNextSnapshotJump(SPECIES_IVYSAUR, 24, &jump));
+    EXPECT_EQ(jump.level, 32);
+    EXPECT_EQ(jump.species, SPECIES_VENUSAUR);
+    // An evolved Pokémon never jumps back to an earlier form.
+    EXPECT(GetNextSnapshotJump(SPECIES_RATICATE, 10, &jump));
+    EXPECT_EQ(jump.species, SPECIES_RATICATE);
+    EXPECT(!GetNextSnapshotJump(SPECIES_VENUSAUR, 60, &jump));
+    EXPECT(!GetNextSnapshotJump(SPECIES_NONE, 5, &jump));
+}
+
+TEST("GetRoguelikeObedienceLevel rises with badges")
+{
+    EXPECT_EQ(GetRoguelikeObedienceLevel(0), 19);
+    EXPECT_EQ(GetRoguelikeObedienceLevel(2), 29);
+    EXPECT_EQ(GetRoguelikeObedienceLevel(7), 59);
+    EXPECT_GE(GetRoguelikeObedienceLevel(8), MAX_LEVEL);
+}

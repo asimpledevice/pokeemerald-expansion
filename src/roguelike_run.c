@@ -1,9 +1,11 @@
 #include "global.h"
 #include "battle.h"
 #include "battle_setup.h"
+#include "evolution_scene.h"
 #include "item.h"
 #include "main.h"
 #include "pokemon.h"
+#include "pokemon_storage_system.h"
 #include "random.h"
 #include "roguelike.h"
 #include "script_pokemon_util.h"
@@ -32,13 +34,14 @@
 // Land encounter slot weights, as in the main games (12 slots).
 static const u8 sLandSlotWeights[] = {20, 20, 10, 10, 10, 10, 5, 5, 4, 4, 1, 1};
 
-// Placeholder trainers for the slice: early-route FRLG Youngsters.
+// Placeholder trainers for the slice: Viridian Forest's Bug Catchers, whose
+// level 6-8 teams suit a level 7 starter now that fainting is permanent.
 static const u16 sSliceTrainers[] =
 {
-    TRAINER_YOUNGSTER_BEN,
-    TRAINER_YOUNGSTER_CALVIN,
-    TRAINER_YOUNGSTER_JOSH,
-    TRAINER_YOUNGSTER_TIMMY,
+    TRAINER_BUG_CATCHER_RICK,
+    TRAINER_BUG_CATCHER_DOUG,
+    TRAINER_BUG_CATCHER_ANTHONY,
+    TRAINER_BUG_CATCHER_CHARLIE,
 };
 
 struct RoguelikeTownInfo
@@ -73,8 +76,21 @@ static const struct RoguelikeTownInfo sTowns[ROGUELIKE_TOWN_COUNT] =
     },
 };
 
+// Team Rocket's slice trainers, for overtaken nodes.
+static const u16 sRocketTrainers[] =
+{
+    TRAINER_TEAM_ROCKET_GRUNT,
+    TRAINER_TEAM_ROCKET_GRUNT_2,
+};
+
 static void CB2_HandleRouteNode(void);
 static void CB2_ReturnFromRouteBattle(void);
+static void CB2_ProcessJumps(void);
+static void CB2_EndRun(void);
+
+// Where to go once post-battle jumps (and their evolutions) are done.
+static EWRAM_DATA MainCallback sAfterJumps = NULL;
+static EWRAM_DATA u8 sJumpPartyId = 0;
 static const struct WildPokemonInfo *GetRouteLandMons(u32 map)
 {
     u32 i;
@@ -145,9 +161,24 @@ void StartRouteOnMap(u32 seed, u32 routeMapId, MainCallback onRouteEnd)
 static void CB2_HandleRouteNode(void)
 {
     struct RouteMap map;
+    u32 column = gRoguelikeRun.column, row = gRoguelikeRun.row;
 
     GetCurrentRunMap(&map);
-    switch (map.type[gRoguelikeRun.column][gRoguelikeRun.row])
+    // Team Rocket holds every node it has overtaken, played or not.
+    if (!gRoguelikeRun.inGym && RouteNodeIsOvertaken(&map, column, gRoguelikeRun.rocketMoves))
+    {
+        MarkRouteNodeVisited(column, row);
+        StartRouteTrainerBattle(sRocketTrainers[Random() % ARRAY_COUNT(sRocketTrainers)]);
+        return;
+    }
+    // Sideways moves can return to a node: it only plays once.
+    if (RouteNodeWasVisited(column, row))
+    {
+        ReopenRouteMap(ROUTE_MESSAGE_NONE);
+        return;
+    }
+    MarkRouteNodeVisited(column, row);
+    switch (map.type[column][row])
     {
     case ROUTE_NODE_WILD:
         if (!StartRouteWildBattle())
@@ -183,36 +214,127 @@ static void CB2_HandleRouteNode(void)
     }
 }
 
-static void CB2_ReturnFromRouteBattle(void)
+static void ReopenRouteMapAfterBattle(void)
 {
-    CpuFill16(0, (void *)BG_PLTT, BG_PLTT_SIZE);
-    ResetOamRange(0, 128);
-    if (gBattleOutcome == B_OUTCOME_LOST || gBattleOutcome == B_OUTCOME_DREW || gBattleOutcome == B_OUTCOME_FORFEITED)
-    {
-        // Run over comes with the run rules; for now the party is healed.
-        HealPlayerParty();
-        ReopenRouteMap(ROUTE_MESSAGE_WIPED_OUT);
-        return;
-    }
-    if (gRoguelikeRun.inGym && gRoguelikeRun.column + 1 == gRoguelikeRun.gymTrainers + 2)
-    {
-        // Beat the Leader.
-        SetMainCallback2(gRoguelikeRun.onRouteEnd);
-        return;
-    }
-    ReopenRouteMap(ROUTE_MESSAGE_NONE);
+    ReopenRouteMap(gRoguelikeRun.message);
 }
 
-// Leaves the route or Gym screens for the overworld, at a warp in a town.
-static void WarpIntoTown(u32 town, u32 warpId)
+// Permadeath: Pokémon that fainted are gone for good. Returns how many.
+static u32 RemoveFaintedMons(void)
 {
-    SetWarpDestination(MAP_GROUP(sTowns[town].map), MAP_NUM(sTowns[town].map), warpId, -1, -1);
+    u32 i, lost = 0;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][i];
+
+        if (GetMonData(mon, MON_DATA_SPECIES) != SPECIES_NONE && GetMonData(mon, MON_DATA_HP) == 0)
+        {
+            ZeroMonData(mon);
+            lost++;
+        }
+    }
+    CompactPartySlots();
+    CalculatePlayerPartyCount();
+    return lost;
+}
+
+static void CB2_ReturnFromRouteBattle(void)
+{
+    u32 lost;
+
+    CpuFill16(0, (void *)BG_PLTT, BG_PLTT_SIZE);
+    ResetOamRange(0, 128);
+    lost = RemoveFaintedMons();
+    if (gPartiesCount[B_TRAINER_PLAYER] == 0)
+    {
+        gRoguelikeRun.message = ROUTE_MESSAGE_WIPED_OUT;
+        OpenRouteMap(CB2_EndRun);
+        return;
+    }
+    gRoguelikeRun.lostMons = lost;
+    gRoguelikeRun.message = lost ? ROUTE_MESSAGE_LOST_MONS : ROUTE_MESSAGE_NONE;
+    if (gRoguelikeRun.inGym && gRoguelikeRun.column + 1 == gRoguelikeRun.gymTrainers + 2)
+        sAfterJumps = gRoguelikeRun.onRouteEnd; // beat the Leader
+    else
+        sAfterJumps = ReopenRouteMapAfterBattle;
+    sJumpPartyId = 0;
+    SetMainCallback2(CB2_ProcessJumps);
+}
+
+// Teaches the moves a Pokémon would have learned on the levels it skipped.
+// The slice forgets the oldest move to make room; a move choice comes later.
+static void LearnSkippedMoves(struct Pokemon *mon, u32 species, u32 fromLevel, u32 toLevel)
+{
+    const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
+    u32 i;
+
+    for (i = 0; learnset[i].move != LEVEL_UP_MOVE_END; i++)
+    {
+        if (learnset[i].level <= fromLevel || learnset[i].level > toLevel)
+            continue;
+        if (GiveMoveToMon(mon, learnset[i].move) == MON_HAS_MAX_MOVES)
+            DeleteFirstMoveAndGiveMoveToMon(mon, learnset[i].move);
+    }
+}
+
+// Snapshot jumps after a battle: each Pokémon with enough battle points jumps
+// to its next tier, one tier per battle. Evolutions leave for the evolution
+// scene, which comes back here for the rest of the party.
+static void CB2_ProcessJumps(void)
+{
+    for (; sJumpPartyId < PARTY_SIZE; sJumpPartyId++)
+    {
+        struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][sJumpPartyId];
+        u32 species = GetMonData(mon, MON_DATA_SPECIES);
+        u32 level = GetMonData(mon, MON_DATA_LEVEL);
+        u32 growthRate = gSpeciesInfo[species].growthRate;
+        u32 cost, exp;
+        u16 *points;
+        struct SnapshotJump jump;
+
+        if (species == SPECIES_NONE || GetMonData(mon, MON_DATA_IS_EGG))
+            continue;
+        if (!GetNextSnapshotJump(species, level, &jump))
+            continue;
+        points = GetSnapshotPoints(mon);
+        cost = GetSnapshotJumpCost(jump.tier, growthRate, jump.level);
+        if (*points < cost)
+            continue;
+        *points -= cost;
+        exp = gExperienceTables[growthRate][jump.level];
+        SetMonData(mon, MON_DATA_EXP, &exp);
+        CalculateMonStats(mon);
+        LearnSkippedMoves(mon, jump.species, level, jump.level);
+        gRoguelikeRun.jumpSpecies = jump.species;
+        gRoguelikeRun.jumpLevel = jump.level;
+        if (gRoguelikeRun.message == ROUTE_MESSAGE_NONE)
+            gRoguelikeRun.message = ROUTE_MESSAGE_JUMPED;
+        if (jump.species != species)
+        {
+            gCB2_AfterEvolution = CB2_ProcessJumps;
+            BeginEvolutionScene(mon, jump.species, FALSE, sJumpPartyId++);
+            return;
+        }
+    }
+    SetMainCallback2(sAfterJumps);
+}
+// Leaves the route or Gym screens for the overworld.
+static void WarpToField(u32 map, u32 warpId, s32 x, s32 y)
+{
+    SetWarpDestination(MAP_GROUP(map), MAP_NUM(map), warpId, x, y);
     DmaFillLarge16(3, 0, (void *)VRAM, VRAM_SIZE, 0x1000);
     DmaFill32Defvars(3, 0, (void *)OAM, OAM_SIZE);
     DmaFill16Defvars(3, 0, (void *)PLTT, PLTT_SIZE);
     WarpIntoMap();
     gFieldCallback = FieldCB_DefaultWarpExit;
     SetMainCallback2(CB2_LoadMap);
+}
+
+// Arrives at a warp in a town.
+static void WarpIntoTown(u32 town, u32 warpId)
+{
+    WarpToField(sTowns[town].map, warpId, -1, -1);
 }
 
 static void CB2_EndRouteIntoTown(void)
@@ -229,12 +351,43 @@ static void CB2_EndGym(void)
     WarpIntoTown(gRoguelikeRun.town, sTowns[gRoguelikeRun.town].gymWarp);
 }
 
+static void GiveStarter(u32 species, u32 level)
+{
+    ZeroPlayerPartyMons();
+    CreateMonWithIVs(&gParties[B_TRAINER_PLAYER][0], species, level, Random32(), OTID_STRUCT_PLAYER_ID, USE_RANDOM_IVS);
+    GiveMonInitialMoveset(&gParties[B_TRAINER_PLAYER][0]);
+    CalculatePlayerPartyCount();
+}
+
+// The party was wiped out: the run is over. The player goes home to Pallet
+// Town with the run's starter, fresh, and no badges.
+static void CB2_EndRun(void)
+{
+    u32 species = gRoguelikeRun.starterSpecies, level = gRoguelikeRun.starterLevel;
+    u32 flag;
+
+    memset(&gRoguelikeRun, 0, sizeof(gRoguelikeRun));
+    for (flag = FLAG_BADGE01_GET; flag <= FLAG_BADGE08_GET; flag++)
+        FlagClear(flag);
+    if (species == SPECIES_NONE)
+    {
+        species = SPECIES_BULBASAUR;
+        level = 7;
+    }
+    GiveStarter(species, level);
+    WarpToField(MAP_PALLET_TOWN, WARP_ID_NONE, 12, 4);
+}
+
 // Special, called by a map script after fading out: VAR_0x8004 is the FRLG
 // route whose encounters to use, VAR_0x8005 the town the route leads to.
 void RoguelikeStartRoute(void)
 {
     if (gRoguelikeRun.runSeed == 0)
+    {
         gRoguelikeRun.runSeed = Random32() | 1;
+        gRoguelikeRun.starterSpecies = GetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_SPECIES);
+        gRoguelikeRun.starterLevel = GetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_LEVEL);
+    }
     gRoguelikeRun.stop++;
     gRoguelikeRun.town = gSpecialVar_0x8005;
     StartRouteOnMap(gRoguelikeRun.runSeed + gRoguelikeRun.stop, gSpecialVar_0x8004, CB2_EndRouteIntoTown);
@@ -256,11 +409,7 @@ void RoguelikeStartGym(void)
 static void GiveDebugStarter(void)
 {
     if (CalculatePlayerPartyCount() == 0)
-    {
-        CreateMonWithIVs(&gParties[B_TRAINER_PLAYER][0], SPECIES_BULBASAUR, 7, Random32(), OTID_STRUCT_PLAYER_ID, USE_RANDOM_IVS);
-        GiveMonInitialMoveset(&gParties[B_TRAINER_PLAYER][0]);
-        CalculatePlayerPartyCount();
-    }
+        GiveStarter(SPECIES_BULBASAUR, 7);
 }
 
 // Debug boot mode 2: a new game with a name and gender already set.
@@ -300,6 +449,7 @@ void CB2_RoguelikeDebugBoot(void)
         return;
     }
     GiveDebugStarter();
+    gRoguelikeRun.runSeed = 1;
     StartRouteOnMap(gRoguelikeRun.routeSeed + 1, MAP_ROUTE1, CB2_RoguelikeDebugBoot);
 }
 

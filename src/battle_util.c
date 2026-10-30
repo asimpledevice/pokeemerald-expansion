@@ -21,6 +21,7 @@
 #include "util.h"
 #include "battle_scripts.h"
 #include "random.h"
+#include "roguelike.h"
 #include "text.h"
 #include "safari_zone.h"
 #include "sound.h"
@@ -5635,6 +5636,18 @@ enum Obedience GetAttackerObedienceForAction(void)
         return OBEYS;
     if (gBattleTypeFlags & BATTLE_TYPE_RECORDED)
         return OBEYS;
+    if (RoguelikeIsActive())
+    {
+        // Roguelike: obedience by tier, judged on level for every Pokémon.
+        u32 badges = 0;
+        for (u32 flag = FLAG_BADGE01_GET; flag <= FLAG_BADGE08_GET; flag++)
+            badges += FlagGet(flag);
+        obedienceLevel = GetRoguelikeObedienceLevel(badges);
+        levelReferenced = gBattleMons[gBattlerAttacker].level;
+        if (levelReferenced <= obedienceLevel)
+            return OBEYS;
+        goto ROLL_OBEDIENCE;
+    }
     if (B_OBEDIENCE_MECHANICS < GEN_8 && !IsOtherTrainer(gBattleMons[gBattlerAttacker].otId, gBattleMons[gBattlerAttacker].otName))
         return OBEYS;
     if (FlagGet(FLAG_BADGE08_GET)) // Rain Badge, ignore obedience altogether
@@ -5666,6 +5679,7 @@ enum Obedience GetAttackerObedienceForAction(void)
     if (levelReferenced <= obedienceLevel)
         return OBEYS;
 
+ROLL_OBEDIENCE:
     rnd = Random();
     calc = (levelReferenced + obedienceLevel) * (rnd & 255) >> 8;
     if (calc < obedienceLevel)

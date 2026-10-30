@@ -5,6 +5,7 @@
 #include "malloc.h"
 #include "menu.h"
 #include "palette.h"
+#include "pokemon.h"
 #include "roguelike.h"
 #include "sound.h"
 #include "sprite.h"
@@ -36,6 +37,8 @@ enum {
     TILE_PATH_ACROSS_BOTTOM,
     TILE_PATH_DOWN,
     TILE_PATH_UP,
+    TILE_PATH_SIDE_LEFT,
+    TILE_PATH_SIDE_RIGHT,
     TILE_NODE_TOP_LEFT,
     TILE_NODE_TOP_RIGHT,
     TILE_NODE_BOTTOM_LEFT,
@@ -51,8 +54,11 @@ enum {
 };
 
 // Background palettes: one per node type (only the node colour differs),
-// plus one for the node the player stands on.
+// plus ones for the node the player stands on, nodes already played and
+// nodes Team Rocket has overtaken.
 #define PAL_PLAYER ROUTE_NODE_TYPE_COUNT
+#define PAL_VISITED (ROUTE_NODE_TYPE_COUNT + 1)
+#define PAL_ROCKET (ROUTE_NODE_TYPE_COUNT + 2)
 #define PAL_TEXT 15
 
 #define TAG_CURSOR 0x5200
@@ -69,7 +75,7 @@ static EWRAM_DATA struct {
     MainCallback onNodeChosen;
     struct RouteMap map;
     u8 state;
-    u8 choice; // index into the rows linked from the current node
+    u8 choice; // index into the moves from the current node
     u8 cursorSpriteId;
 } *sRouteMap = NULL;
 
@@ -113,7 +119,7 @@ static const struct WindowTemplate sRouteMapWindowTemplates[] =
     DUMMY_WIN_TEMPLATE
 };
 
-static const u16 sNodeColors[ROUTE_NODE_TYPE_COUNT + 1] =
+static const u16 sNodeColors[PAL_ROCKET + 1] =
 {
     [ROUTE_NODE_EMPTY] = RGB(13, 22, 10),
     [ROUTE_NODE_START] = RGB(24, 24, 24),
@@ -126,6 +132,8 @@ static const u16 sNodeColors[ROUTE_NODE_TYPE_COUNT + 1] =
     [ROUTE_NODE_GYM_TRAINER] = RGB(22, 12, 4),
     [ROUTE_NODE_LEADER] = RGB(20, 6, 26),
     [PAL_PLAYER] = RGB(6, 26, 31),
+    [PAL_VISITED] = RGB(16, 18, 15),
+    [PAL_ROCKET] = RGB(9, 3, 12),
 };
 
 static const u8 *const sNodeNames[ROUTE_NODE_TYPE_COUNT] =
@@ -148,7 +156,7 @@ static const u8 *const sMessages[] =
     [ROUTE_MESSAGE_FOUND_POTION] = COMPOUND_STRING("You found a POTION!"),
     [ROUTE_MESSAGE_HEALED] = COMPOUND_STRING("Your POKéMON are fully healed."),
     [ROUTE_MESSAGE_MART_CLOSED] = COMPOUND_STRING("The MART is closed for now."),
-    [ROUTE_MESSAGE_WIPED_OUT] = COMPOUND_STRING("Your team was wiped out!"),
+    [ROUTE_MESSAGE_WIPED_OUT] = COMPOUND_STRING("Your team was wiped out. Run over!"),
 };
 
 static const u8 sBlankTile[TILE_SIZE_4BPP] = {0};
@@ -218,6 +226,10 @@ static void DrawTiles(void)
             if (x + y == 7 || x + y == 6 || x + y == 8)
                 SetPixel(&tiles[TILE_PATH_UP * TILE_SIZE_4BPP], x, y, COLOR_PATH);
         }
+        SetPixel(&tiles[TILE_PATH_SIDE_LEFT * TILE_SIZE_4BPP], 6, y, COLOR_PATH);
+        SetPixel(&tiles[TILE_PATH_SIDE_LEFT * TILE_SIZE_4BPP], 7, y, COLOR_PATH);
+        SetPixel(&tiles[TILE_PATH_SIDE_RIGHT * TILE_SIZE_4BPP], 0, y, COLOR_PATH);
+        SetPixel(&tiles[TILE_PATH_SIDE_RIGHT * TILE_SIZE_4BPP], 1, y, COLOR_PATH);
     }
     // The node marker: a filled circle with an outline, split into four tiles.
     for (y = 0; y < 16; y++)
@@ -254,7 +266,7 @@ static void LoadPalettes(void)
     palette[COLOR_GROUND] = sNodeColors[ROUTE_NODE_EMPTY];
     palette[COLOR_PATH] = RGB(26, 22, 14);
     palette[COLOR_OUTLINE] = RGB(3, 3, 3);
-    for (i = 0; i <= PAL_PLAYER; i++)
+    for (i = 0; i <= PAL_ROCKET; i++)
     {
         palette[COLOR_NODE] = sNodeColors[i];
         LoadPalette(palette, BG_PLTT_ID(i), PLTT_SIZE_4BPP);
@@ -299,6 +311,19 @@ static void DrawRouteMap(void)
     }
     for (column = 0; column < map->numColumns; column++)
     {
+        for (row = 0; row + 1 < ROUTE_MAP_ROWS; row++)
+        {
+            if (!(map->sideLinks[column] & (1 << row)))
+                continue;
+            for (i = 0; i < NODE_SPACING - 2; i++)
+            {
+                FillBgTilemapBufferRect(1, TILE_PATH_SIDE_LEFT, NODE_X(column), NODE_Y(row) + 2 + i, 1, 1, 0);
+                FillBgTilemapBufferRect(1, TILE_PATH_SIDE_RIGHT, NODE_X(column) + 1, NODE_Y(row) + 2 + i, 1, 1, 0);
+            }
+        }
+    }
+    for (column = 0; column < map->numColumns; column++)
+    {
         for (row = 0; row < ROUTE_MAP_ROWS; row++)
         {
             u32 x = NODE_X(column), y = NODE_Y(row);
@@ -308,6 +333,10 @@ static void DrawRouteMap(void)
                 continue;
             if (column == gRoguelikeRun.column && row == gRoguelikeRun.row)
                 palette = PAL_PLAYER;
+            else if (!gRoguelikeRun.inGym && RouteNodeIsOvertaken(map, column, gRoguelikeRun.rocketMoves))
+                palette = PAL_ROCKET;
+            else if (RouteNodeWasVisited(column, row))
+                palette = PAL_VISITED;
             FillBgTilemapBufferRect(1, TILE_NODE_TOP_LEFT, x, y, 1, 1, palette);
             FillBgTilemapBufferRect(1, TILE_NODE_TOP_RIGHT, x + 1, y, 1, 1, palette);
             FillBgTilemapBufferRect(1, TILE_NODE_BOTTOM_LEFT, x, y + 1, 1, 1, palette);
@@ -317,60 +346,92 @@ static void DrawRouteMap(void)
     CopyBgTilemapBufferToVram(1);
 }
 
-// The rows the player can move to next, lowest first.
-static u32 GetChoices(u8 *rows)
+static u32 GetChoices(struct RouteChoice *choices)
 {
-    u32 next, count = 0;
-    u32 links = sRouteMap->map.links[gRoguelikeRun.column][gRoguelikeRun.row];
-
-    for (next = 0; next < ROUTE_MAP_ROWS; next++)
-    {
-        if (links & (1 << next))
-            rows[count++] = next;
-    }
-    return count;
+    // A wiped-out run only waits for A.
+    if (gRoguelikeRun.message == ROUTE_MESSAGE_WIPED_OUT)
+        return 0;
+    return GetRouteMapChoices(&sRouteMap->map, gRoguelikeRun.column, gRoguelikeRun.row, choices);
 }
 
-static u32 GetChosenRow(void)
+static bool32 GetChosenNode(struct RouteChoice *chosen)
 {
-    u8 rows[ROUTE_MAP_ROWS];
-    u32 count = GetChoices(rows);
+    struct RouteChoice choices[ROUTE_MAP_MAX_CHOICES];
+    u32 count = GetChoices(choices);
 
     if (count == 0)
-        return gRoguelikeRun.row;
-    return rows[sRouteMap->choice % count];
+        return FALSE;
+    *chosen = choices[sRouteMap->choice % count];
+    return TRUE;
+}
+
+static u8 *GetMessageText(u8 *text)
+{
+    u8 *end;
+
+    switch (gRoguelikeRun.message)
+    {
+    case ROUTE_MESSAGE_JUMPED:
+        end = StringCopy(text, GetSpeciesName(gRoguelikeRun.jumpSpecies));
+        end = StringCopy(end, COMPOUND_STRING(" jumped to Lv. "));
+        end = ConvertIntToDecimalStringN(end, gRoguelikeRun.jumpLevel, STR_CONV_MODE_LEFT_ALIGN, 3);
+        return StringCopy(end, COMPOUND_STRING("!"));
+    case ROUTE_MESSAGE_LOST_MONS:
+        end = ConvertIntToDecimalStringN(text, gRoguelikeRun.lostMons, STR_CONV_MODE_LEFT_ALIGN, 1);
+        return StringCopy(end, COMPOUND_STRING(" POKéMON lost for good."));
+    default:
+        return StringCopy(text, sMessages[gRoguelikeRun.message]);
+    }
 }
 
 static void PrintInfo(void)
 {
     u8 text[64];
     u8 *end;
-    u32 column = gRoguelikeRun.column + 1;
-    u32 movesLeft = gRoguelikeRun.rocketMoves < ROUTE_ROCKET_ARRIVAL_MOVES
-                  ? ROUTE_ROCKET_ARRIVAL_MOVES - gRoguelikeRun.rocketMoves : 0;
+    struct RouteChoice chosen;
+    s32 lead = ROUTE_ROCKET_LEAD - (gRoguelikeRun.rocketMoves - gRoguelikeRun.column);
     static const u8 sTextColors[] = {TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_LIGHT_GRAY};
 
     FillWindowPixelBuffer(WIN_INFO, PIXEL_FILL(1));
     // The last node's message shows until the cursor moves.
     if (gRoguelikeRun.message != ROUTE_MESSAGE_NONE)
     {
-        StringCopy(text, sMessages[gRoguelikeRun.message]);
+        GetMessageText(text);
+    }
+    else if (GetChosenNode(&chosen))
+    {
+        end = StringCopy(text, COMPOUND_STRING("Next: "));
+        if (!gRoguelikeRun.inGym && RouteNodeIsOvertaken(&sRouteMap->map, chosen.column, gRoguelikeRun.rocketMoves + 1))
+            StringCopy(end, COMPOUND_STRING("TEAM ROCKET"));
+        else if (RouteNodeWasVisited(chosen.column, chosen.row))
+            StringCopy(end, COMPOUND_STRING("Nothing new"));
+        else
+            StringCopy(end, sNodeNames[sRouteMap->map.type[chosen.column][chosen.row]]);
     }
     else
     {
-        end = StringCopy(text, COMPOUND_STRING("Next: "));
-        StringCopy(end, sNodeNames[sRouteMap->map.type[column][GetChosenRow()]]);
+        text[0] = EOS;
     }
     AddTextPrinterParameterized3(WIN_INFO, FONT_NORMAL, 4, 1, sTextColors, TEXT_SKIP_DRAW, text);
-    if (gRoguelikeRun.inGym)
+    if (gRoguelikeRun.message == ROUTE_MESSAGE_WIPED_OUT)
+    {
+        StringCopy(text, COMPOUND_STRING("Press A to go home to PALLET TOWN."));
+    }
+    else if (gRoguelikeRun.inGym)
     {
         StringCopy(text, COMPOUND_STRING("GYM: TEAM ROCKET can't follow you here."));
     }
+    else if (lead <= 0)
+    {
+        StringCopy(text, COMPOUND_STRING("TEAM ROCKET has caught up with you!"));
+    }
     else
     {
-        end = StringCopy(text, COMPOUND_STRING("ROCKET arrives in "));
-        end = ConvertIntToDecimalStringN(end, movesLeft, STR_CONV_MODE_LEFT_ALIGN, 2);
-        StringCopy(end, COMPOUND_STRING(" moves"));
+        // Forward moves keep the gap; sideways moves close it.
+        end = StringCopy(text, COMPOUND_STRING("ROCKET is "));
+        end = ConvertIntToDecimalStringN(end, lead, STR_CONV_MODE_LEFT_ALIGN, 2);
+        StringCopy(end, lead == 1 ? COMPOUND_STRING(" sideways step behind")
+                                  : COMPOUND_STRING(" sideways steps behind"));
     }
     AddTextPrinterParameterized3(WIN_INFO, FONT_NORMAL, 4, 13, sTextColors, TEXT_SKIP_DRAW, text);
     CopyWindowToVram(WIN_INFO, COPYWIN_FULL);
@@ -379,9 +440,15 @@ static void PrintInfo(void)
 static void MoveCursorToChoice(void)
 {
     struct Sprite *cursor = &gSprites[sRouteMap->cursorSpriteId];
+    struct RouteChoice chosen;
 
-    cursor->x = NODE_X(gRoguelikeRun.column + 1) * 8 + 8;
-    cursor->y = NODE_Y(GetChosenRow()) * 8 + 8;
+    if (!GetChosenNode(&chosen))
+    {
+        cursor->x = cursor->y = -16;
+        return;
+    }
+    cursor->x = NODE_X(chosen.column) * 8 + 8;
+    cursor->y = NODE_Y(chosen.row) * 8 + 8;
 }
 
 static void SpriteCB_Cursor(struct Sprite *sprite)
@@ -460,11 +527,19 @@ enum {
 
 static void HandleInput(void)
 {
-    u8 rows[ROUTE_MAP_ROWS];
-    u32 count = GetChoices(rows);
+    struct RouteChoice choices[ROUTE_MAP_MAX_CHOICES];
+    u32 count = GetChoices(choices);
 
     if (count == 0)
+    {
+        if (JOY_NEW(A_BUTTON))
+        {
+            PlaySE(SE_SELECT);
+            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+            sRouteMap->state = STATE_FADE_OUT;
+        }
         return;
+    }
     if (JOY_NEW(DPAD_UP) && count > 1)
     {
         PlaySE(SE_SELECT);
@@ -484,8 +559,8 @@ static void HandleInput(void)
     else if (JOY_NEW(A_BUTTON))
     {
         PlaySE(SE_SELECT);
-        gRoguelikeRun.row = GetChosenRow();
-        gRoguelikeRun.column++;
+        gRoguelikeRun.column = choices[sRouteMap->choice % count].column;
+        gRoguelikeRun.row = choices[sRouteMap->choice % count].row;
         gRoguelikeRun.rocketMoves++;
         gRoguelikeRun.message = ROUTE_MESSAGE_NONE;
         BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
