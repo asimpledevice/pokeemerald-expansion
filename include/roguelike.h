@@ -47,7 +47,8 @@ u32 GetRouteMapStartRow(const struct RouteMap *map);
 
 // Debug only: 1 skips the title screen and plays route maps back to back;
 // 2 starts a new game in Pallet Town past Oak, with a starter; 3 starts one
-// at Pewter Gym's door with a level 24 Ivysaur. Keep FALSE in commits.
+// at Pewter Gym's door with a level 24 Ivysaur. Modes 2 and 3 give way to the
+// title screen once a save exists, so Continue works. Keep FALSE in commits.
 #define ROGUELIKE_DEBUG_BOOT FALSE
 
 // Team Rocket reaches a route's transition after this many moves: 2.4 times
@@ -64,35 +65,21 @@ enum RouteMessage
     ROUTE_MESSAGE_WIPED_OUT,
     ROUTE_MESSAGE_JUMPED,
     ROUTE_MESSAGE_LOST_MONS,
+    ROUTE_MESSAGE_SAVED,
+    ROUTE_MESSAGE_SAVE_FAILED,
 };
 
-struct RoguelikeRun
+// The run state lives in SaveBlock1 (struct RoguelikeRun, global.roguelike.h),
+// so saving keeps the run.
+#define gRoguelikeRun (gSaveBlock1Ptr->roguelikeRun)
+
+// What happens when the player takes a route's transition or beats a Leader.
+enum RouteEnd
 {
-    u32 runSeed;   // set when the run starts; every route's seed derives from it
-    u32 routeSeed; // the route map is regenerated from this, not stored
-    MainCallback onRouteEnd; // runs when the player takes the transition or beats the Leader
-    u16 routeMapId; // the FRLG route whose encounters this route uses
-    u8 stop;        // routes started so far this run
-    u8 town;        // the town this route or Gym belongs to (ROGUELIKE_TOWN_*)
-    u8 inGym;       // TRUE while on a Gym map
-    u8 gymTrainers; // Gym trainers before the Leader
-    u8 column;      // where the player is on the map
-    u8 row;
-    u8 rocketMoves; // moves taken on this route; Team Rocket's pursuit counts these
-    u8 message;     // enum RouteMessage
-    u32 visited;    // bit (column * ROUTE_MAP_ROWS + row) set: the node has been played
-    u16 starterSpecies; // the run's starter, given again when a run ends
-    u8 starterLevel;
-    u16 jumpSpecies;    // the last Pokémon to jump, for ROUTE_MESSAGE_JUMPED
-    u8 jumpLevel;
-    u8 lostMons;        // Pokémon lost in the last battle, for ROUTE_MESSAGE_LOST_MONS
-    // Battle points towards each Pokémon's next jump, in hundredths, kept
-    // by personality so party order can change.
-    u32 pointsOwner[PARTY_SIZE];
-    u16 points[PARTY_SIZE];
+    ROUTE_END_TOWN,       // warp into the route's town
+    ROUTE_END_GYM,        // award the badge and leave the Gym
+    ROUTE_END_DEBUG_LOOP, // debug boot mode 1: the next route map
 };
-
-extern struct RoguelikeRun gRoguelikeRun;
 
 void GetCurrentRunMap(struct RouteMap *map);
 bool32 RoguelikeIsActive(void);
@@ -121,7 +108,10 @@ u32 GetRouteMapChoices(const struct RouteMap *map, u32 column, u32 row, struct R
 s32 GetRocketFrontColumn(const struct RouteMap *map, u32 rocketMoves);
 bool32 RouteNodeIsOvertaken(const struct RouteMap *map, u32 column, u32 rocketMoves);
 void StartRoguelikeRoute(u32 seed);
-void StartRouteOnMap(u32 seed, u32 routeMapId, MainCallback onRouteEnd);
+void StartRouteOnMap(u32 seed, u32 routeMapId, u32 routeEnd);
+bool32 RoguelikeIsOnRouteMap(void);
+void FieldCB_RoguelikeResumeRoute(void);
+bool32 RoguelikeSaveOnRouteMap(void);
 void OpenRouteMap(MainCallback onNodeChosen);
 void CB2_RoguelikeDebugBoot(void);
 void RoguelikeStartRoute(void);

@@ -157,6 +157,8 @@ static const u8 *const sMessages[] =
     [ROUTE_MESSAGE_HEALED] = COMPOUND_STRING("Your POKéMON are fully healed."),
     [ROUTE_MESSAGE_MART_CLOSED] = COMPOUND_STRING("The MART is closed for now."),
     [ROUTE_MESSAGE_WIPED_OUT] = COMPOUND_STRING("Your team was wiped out."),
+    [ROUTE_MESSAGE_SAVED] = COMPOUND_STRING("Your progress was saved."),
+    [ROUTE_MESSAGE_SAVE_FAILED] = COMPOUND_STRING("The save failed."),
 };
 
 static const u8 sBlankTile[TILE_SIZE_4BPP] = {0};
@@ -522,14 +524,67 @@ static void VBlankCB_RouteMap(void)
 enum {
     STATE_FADE_IN,
     STATE_INPUT,
+    STATE_SAVE_CONFIRM,
+    STATE_SAVING,
     STATE_FADE_OUT,
 };
+
+static void PrintTwoLines(const u8 *top, const u8 *bottom)
+{
+    static const u8 sTextColors[] = {TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_LIGHT_GRAY};
+
+    FillWindowPixelBuffer(WIN_INFO, PIXEL_FILL(1));
+    AddTextPrinterParameterized3(WIN_INFO, FONT_NORMAL, 4, 1, sTextColors, TEXT_SKIP_DRAW, top);
+    AddTextPrinterParameterized3(WIN_INFO, FONT_NORMAL, 4, 13, sTextColors, TEXT_SKIP_DRAW, bottom);
+    CopyWindowToVram(WIN_INFO, COPYWIN_FULL);
+}
+
+// Start saves the run where it stands; Continue reopens this map.
+static void HandleSaveConfirm(void)
+{
+    if (JOY_NEW(A_BUTTON))
+    {
+        PlaySE(SE_SELECT);
+        PrintTwoLines(COMPOUND_STRING("Saving..."), COMPOUND_STRING("Don't turn off the power."));
+        sRouteMap->state = STATE_SAVING;
+    }
+    else if (JOY_NEW(B_BUTTON | START_BUTTON))
+    {
+        PlaySE(SE_SELECT);
+        PrintInfo();
+        sRouteMap->state = STATE_INPUT;
+    }
+}
+
+static void DoSave(void)
+{
+    gRoguelikeRun.message = ROUTE_MESSAGE_NONE;
+    if (RoguelikeSaveOnRouteMap())
+    {
+        PlaySE(SE_SAVE);
+        gRoguelikeRun.message = ROUTE_MESSAGE_SAVED;
+    }
+    else
+    {
+        PlaySE(SE_BOO);
+        gRoguelikeRun.message = ROUTE_MESSAGE_SAVE_FAILED;
+    }
+    PrintInfo();
+    sRouteMap->state = STATE_INPUT;
+}
 
 static void HandleInput(void)
 {
     struct RouteChoice choices[ROUTE_MAP_MAX_CHOICES];
     u32 count = GetChoices(choices);
 
+    if (JOY_NEW(START_BUTTON) && count != 0)
+    {
+        PlaySE(SE_SELECT);
+        PrintTwoLines(COMPOUND_STRING("Save your progress?"), COMPOUND_STRING("A: Save    B: Cancel"));
+        sRouteMap->state = STATE_SAVE_CONFIRM;
+        return;
+    }
     if (count == 0)
     {
         if (JOY_NEW(A_BUTTON))
@@ -578,6 +633,13 @@ static void CB2_RouteMap(void)
         break;
     case STATE_INPUT:
         HandleInput();
+        break;
+    case STATE_SAVE_CONFIRM:
+        HandleSaveConfirm();
+        break;
+    case STATE_SAVING:
+        // One frame after the "Saving..." text, so it shows while the save runs.
+        DoSave();
         break;
     case STATE_FADE_OUT:
         if (!gPaletteFade.active)

@@ -6,8 +6,6 @@
 #include "data/roguelike.h"
 #include "data/roguelike_snapshots.h"
 
-EWRAM_DATA struct RoguelikeRun gRoguelikeRun = {0};
-
 static u32 RandomBelow(rng_value_t *rng, u32 n)
 {
     return LocalRandom(rng) % n;

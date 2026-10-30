@@ -662,6 +662,7 @@ struct SecretBase
 #include "global.fieldmap.h"
 #include "global.berry.h"
 #include "global.tv.h"
+#include "global.roguelike.h"
 #include "pokemon.h"
 
 struct WarpData
@@ -1210,6 +1211,7 @@ struct SaveBlock1
     u8 rivalName[PLAYER_NAME_LENGTH + 1];
     struct DaycareMon route5DayCareMon;
 #endif
+    struct RoguelikeRun roguelikeRun;
     // sizeof: 0x3???
 };
 

@@ -7,12 +7,17 @@
 #include "pokemon.h"
 #include "pokemon_storage_system.h"
 #include "random.h"
+#include "save.h"
+#include "task.h"
 #include "roguelike.h"
 #include "script_pokemon_util.h"
 #include "wild_encounter.h"
 #include "event_data.h"
 #include "field_screen_effect.h"
 #include "overworld.h"
+#include "field_control_avatar.h"
+#include "fieldmap.h"
+#include "script.h"
 #include "string_util.h"
 #include "constants/battle.h"
 #include "constants/flags.h"
@@ -87,6 +92,20 @@ static void CB2_HandleRouteNode(void);
 static void CB2_ReturnFromRouteBattle(void);
 static void CB2_ProcessJumps(void);
 static void CB2_EndRun(void);
+static void CB2_EndRouteIntoTown(void);
+static void CB2_EndGym(void);
+
+static const MainCallback sRouteEndCallbacks[] =
+{
+    [ROUTE_END_TOWN] = CB2_EndRouteIntoTown,
+    [ROUTE_END_GYM] = CB2_EndGym,
+    [ROUTE_END_DEBUG_LOOP] = CB2_RoguelikeDebugBoot,
+};
+
+static MainCallback GetRouteEndCallback(void)
+{
+    return sRouteEndCallbacks[gRoguelikeRun.routeEnd];
+}
 
 // Where to go once post-battle jumps (and their evolutions) are done.
 static EWRAM_DATA MainCallback sAfterJumps = NULL;
@@ -150,11 +169,12 @@ static void ReopenRouteMap(u32 message)
 }
 
 // Starts a route at its first node and opens its map.
-void StartRouteOnMap(u32 seed, u32 routeMapId, MainCallback onRouteEnd)
+void StartRouteOnMap(u32 seed, u32 routeMapId, u32 routeEnd)
 {
     StartRoguelikeRoute(seed);
     gRoguelikeRun.routeMapId = routeMapId;
-    gRoguelikeRun.onRouteEnd = onRouteEnd;
+    gRoguelikeRun.routeEnd = routeEnd;
+    gRoguelikeRun.onRouteMap = TRUE;
     ReopenRouteMap(ROUTE_MESSAGE_NONE);
 }
 
@@ -206,7 +226,7 @@ static void CB2_HandleRouteNode(void)
         ReopenRouteMap(ROUTE_MESSAGE_MART_CLOSED);
         break;
     case ROUTE_NODE_TRANSITION:
-        SetMainCallback2(gRoguelikeRun.onRouteEnd);
+        SetMainCallback2(GetRouteEndCallback());
         break;
     default:
         ReopenRouteMap(ROUTE_MESSAGE_NONE);
@@ -255,7 +275,7 @@ static void CB2_ReturnFromRouteBattle(void)
     gRoguelikeRun.lostMons = lost;
     gRoguelikeRun.message = lost ? ROUTE_MESSAGE_LOST_MONS : ROUTE_MESSAGE_NONE;
     if (gRoguelikeRun.inGym && gRoguelikeRun.column + 1 == gRoguelikeRun.gymTrainers + 2)
-        sAfterJumps = gRoguelikeRun.onRouteEnd; // beat the Leader
+        sAfterJumps = GetRouteEndCallback(); // beat the Leader
     else
         sAfterJumps = ReopenRouteMapAfterBattle;
     sJumpPartyId = 0;
@@ -322,6 +342,7 @@ static void CB2_ProcessJumps(void)
 // Leaves the route or Gym screens for the overworld.
 static void WarpToField(u32 map, u32 warpId, s32 x, s32 y)
 {
+    gRoguelikeRun.onRouteMap = FALSE;
     SetWarpDestination(MAP_GROUP(map), MAP_NUM(map), warpId, x, y);
     DmaFillLarge16(3, 0, (void *)VRAM, VRAM_SIZE, 0x1000);
     DmaFill32Defvars(3, 0, (void *)OAM, OAM_SIZE);
@@ -390,7 +411,7 @@ void RoguelikeStartRoute(void)
     }
     gRoguelikeRun.stop++;
     gRoguelikeRun.town = gSpecialVar_0x8005;
-    StartRouteOnMap(gRoguelikeRun.runSeed + gRoguelikeRun.stop, gSpecialVar_0x8004, CB2_EndRouteIntoTown);
+    StartRouteOnMap(gRoguelikeRun.runSeed + gRoguelikeRun.stop, gSpecialVar_0x8004, ROUTE_END_TOWN);
 }
 
 // Special, called by a Gym's map script on entry: VAR_0x8005 is the town.
@@ -399,12 +420,43 @@ void RoguelikeStartGym(void)
     gRoguelikeRun.town = gSpecialVar_0x8005;
     gRoguelikeRun.inGym = TRUE;
     gRoguelikeRun.gymTrainers = sTowns[gRoguelikeRun.town].gymTrainers;
-    gRoguelikeRun.onRouteEnd = CB2_EndGym;
+    gRoguelikeRun.routeEnd = ROUTE_END_GYM;
+    gRoguelikeRun.onRouteMap = TRUE;
     gRoguelikeRun.column = 0;
     gRoguelikeRun.row = GYM_MAP_ROW;
     ReopenRouteMap(ROUTE_MESSAGE_NONE);
 }
 
+
+bool32 RoguelikeIsOnRouteMap(void)
+{
+    return RoguelikeIsActive() && gRoguelikeRun.onRouteMap;
+}
+
+static void Task_ResumeRoute(u8 taskId)
+{
+    DestroyTask(taskId);
+    ReopenRouteMap(ROUTE_MESSAGE_NONE);
+}
+
+// Continue on a save made from the route map: the field loads the map the
+// route or Gym started from, behind a black screen, and the route map
+// reopens straight away. Field controls stay locked so that map's scripts
+// don't run in the meantime.
+void FieldCB_RoguelikeResumeRoute(void)
+{
+    LockPlayerFieldControls();
+    CreateTask(Task_ResumeRoute, 0);
+}
+
+// Saves from the route map. The saved location is still the map the route
+// or Gym started from, which Continue loads before reopening the route map.
+bool32 RoguelikeSaveOnRouteMap(void)
+{
+    SaveMapView();
+    IncrementGameStat(GAME_STAT_SAVED_GAME);
+    return TrySavingData(SAVE_NORMAL) == SAVE_STATUS_OK;
+}
 
 static void GiveDebugStarter(void)
 {
@@ -462,7 +514,7 @@ void CB2_RoguelikeDebugBoot(void)
     }
     GiveDebugStarter();
     gRoguelikeRun.runSeed = 1;
-    StartRouteOnMap(gRoguelikeRun.routeSeed + 1, MAP_ROUTE1, CB2_RoguelikeDebugBoot);
+    StartRouteOnMap(gRoguelikeRun.routeSeed + 1, MAP_ROUTE1, ROUTE_END_DEBUG_LOOP);
 }
 
 #else
@@ -482,6 +534,20 @@ void RoguelikeStartGym(void)
 
 void RoguelikeOnNewGame(void)
 {
+}
+
+bool32 RoguelikeIsOnRouteMap(void)
+{
+    return FALSE;
+}
+
+void FieldCB_RoguelikeResumeRoute(void)
+{
+}
+
+bool32 RoguelikeSaveOnRouteMap(void)
+{
+    return FALSE;
 }
 
 #endif // IS_FRLG

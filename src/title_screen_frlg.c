@@ -381,7 +381,9 @@ static const u32 *const sUnused_Tilemaps[] = {
 
 void CB2_InitTitleScreenFrlg(void)
 {
-    if (ROGUELIKE_DEBUG_BOOT)
+    // Debug boot modes 2 and 3 start a new game only while there's no save,
+    // so a saved run can be continued from the title screen.
+    if (ROGUELIKE_DEBUG_BOOT && (ROGUELIKE_DEBUG_BOOT == 1 || gSaveFileStatus != SAVE_STATUS_OK))
     {
         InitHeap(gHeap, HEAP_SIZE);
         CB2_RoguelikeDebugBoot();

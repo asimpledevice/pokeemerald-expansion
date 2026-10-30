@@ -51,6 +51,7 @@
 #include "palette.h"
 #include "play_time.h"
 #include "random.h"
+#include "roguelike.h"
 #include "roamer.h"
 #include "rotating_gate.h"
 #include "rtc.h"
@@ -2158,7 +2159,10 @@ void CB2_ContinueSavedGame(void)
     else
     {
         TryPutTodaysRivalTrainerOnAir();
-        gFieldCallback = FieldCB_FadeTryShowMapPopup;
+        if (RoguelikeIsOnRouteMap())
+            gFieldCallback = FieldCB_RoguelikeResumeRoute;
+        else
+            gFieldCallback = FieldCB_FadeTryShowMapPopup;
         SetMainCallback1(CB1_Overworld);
         CB2_ReturnToField();
     }
