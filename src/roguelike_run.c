@@ -412,7 +412,7 @@ static void GiveDebugStarter(void)
         GiveStarter(SPECIES_BULBASAUR, 7);
 }
 
-// Debug boot mode 2: a new game with a name and gender already set.
+// Debug boot modes 2 and 3: a new game with a name and gender already set.
 static void CB2_DebugFieldStart(void)
 {
     static const u8 sText_Player[] = _("RED");
@@ -426,11 +426,22 @@ static void CB2_DebugFieldStart(void)
 
 // Called at the end of NewGameInitData. Starts a fresh run; in debug boot
 // mode 2 it also skips Oak's cutscene, gives a level 7 Bulbasaur and starts
-// the player just south of Pallet Town's north road.
+// the player just south of Pallet Town's north road. Mode 3 starts a run
+// inside Pewter Gym's door with a level 24 Ivysaur, to test the Gym.
 void RoguelikeOnNewGame(void)
 {
     memset(&gRoguelikeRun, 0, sizeof(gRoguelikeRun));
-    if (ROGUELIKE_DEBUG_BOOT == 2)
+    if (ROGUELIKE_DEBUG_BOOT == 3)
+    {
+        VarSet(VAR_MAP_SCENE_PALLET_TOWN_OAK, 3);
+        GiveStarter(SPECIES_IVYSAUR, 24);
+        gRoguelikeRun.runSeed = 1;
+        gRoguelikeRun.starterSpecies = SPECIES_BULBASAUR;
+        gRoguelikeRun.starterLevel = 7;
+        SetWarpDestination(MAP_GROUP(MAP_PEWTER_CITY_GYM), MAP_NUM(MAP_PEWTER_CITY_GYM), WARP_ID_NONE, 6, 13);
+        WarpIntoMap();
+    }
+    else if (ROGUELIKE_DEBUG_BOOT == 2)
     {
         VarSet(VAR_MAP_SCENE_PALLET_TOWN_OAK, 3);
         GiveDebugStarter();
@@ -440,10 +451,11 @@ void RoguelikeOnNewGame(void)
 }
 
 // Debug boot (ROGUELIKE_DEBUG_BOOT): mode 1 plays Route 1 maps back to back
-// with a level 7 Bulbasaur; mode 2 starts a new game in Pallet Town.
+// with a level 7 Bulbasaur; mode 2 starts a new game in Pallet Town; mode 3
+// starts one at Pewter Gym.
 void CB2_RoguelikeDebugBoot(void)
 {
-    if (ROGUELIKE_DEBUG_BOOT == 2)
+    if (ROGUELIKE_DEBUG_BOOT >= 2)
     {
         CB2_DebugFieldStart();
         return;

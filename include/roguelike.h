@@ -46,7 +46,8 @@ bool32 RouteMapCanReach(const struct RouteMap *map, u32 fromColumn, u32 fromRow,
 u32 GetRouteMapStartRow(const struct RouteMap *map);
 
 // Debug only: 1 skips the title screen and plays route maps back to back;
-// 2 starts a new game in Pallet Town past Oak, with a starter. Keep FALSE in commits.
+// 2 starts a new game in Pallet Town past Oak, with a starter; 3 starts one
+// at Pewter Gym's door with a level 24 Ivysaur. Keep FALSE in commits.
 #define ROGUELIKE_DEBUG_BOOT FALSE
 
 // Team Rocket reaches a route's transition after this many moves: 2.4 times
