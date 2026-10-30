@@ -156,7 +156,7 @@ static const u8 *const sMessages[] =
     [ROUTE_MESSAGE_FOUND_POTION] = COMPOUND_STRING("You found a POTION!"),
     [ROUTE_MESSAGE_HEALED] = COMPOUND_STRING("Your POKéMON are fully healed."),
     [ROUTE_MESSAGE_MART_CLOSED] = COMPOUND_STRING("The MART is closed for now."),
-    [ROUTE_MESSAGE_WIPED_OUT] = COMPOUND_STRING("Your team was wiped out. Run over!"),
+    [ROUTE_MESSAGE_WIPED_OUT] = COMPOUND_STRING("Your team was wiped out."),
 };
 
 static const u8 sBlankTile[TILE_SIZE_4BPP] = {0};
@@ -415,7 +415,7 @@ static void PrintInfo(void)
     AddTextPrinterParameterized3(WIN_INFO, FONT_NORMAL, 4, 1, sTextColors, TEXT_SKIP_DRAW, text);
     if (gRoguelikeRun.message == ROUTE_MESSAGE_WIPED_OUT)
     {
-        StringCopy(text, COMPOUND_STRING("Press A to go home to PALLET TOWN."));
+        StringCopy(text, COMPOUND_STRING("You are not a POKéMON MASTER."));
     }
     else if (gRoguelikeRun.inGym)
     {

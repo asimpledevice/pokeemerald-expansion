@@ -109,9 +109,10 @@ u32 GetRouteMapChoices(const struct RouteMap *map, u32 column, u32 row, struct R
 #define ROUTE_MAP_MAX_CHOICES (ROUTE_MAP_ROWS + 2)
 
 // Team Rocket's lead, in moves (tunable). Rocket sweeps the route one column
-// per move, so forward moves keep the gap and each sideways move closes it by
-// one: with a lead of 4, the fourth sideways step on a route lets Rocket catch up.
-#define ROUTE_ROCKET_LEAD 4
+// per move, so a player who always moves forward is never caught; each detour
+// step closes the gap by one. 8 puts Rocket at a 6-move route's exit after 14
+// moves, the design doc's 2.4x the main path.
+#define ROUTE_ROCKET_LEAD 8
 
 // Team Rocket sweeps the map from the left, one column per move once it has
 // arrived. Nodes in columns up to the front are overtaken: entering one
