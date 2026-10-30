@@ -138,6 +138,15 @@ static const u8 *const sNodeNames[ROUTE_NODE_TYPE_COUNT] =
     [ROUTE_NODE_TRANSITION] = COMPOUND_STRING("Next town"),
 };
 
+static const u8 *const sMessages[] =
+{
+    [ROUTE_MESSAGE_NONE] = NULL,
+    [ROUTE_MESSAGE_FOUND_POTION] = COMPOUND_STRING("You found a POTION!"),
+    [ROUTE_MESSAGE_HEALED] = COMPOUND_STRING("Your POKéMON are fully healed."),
+    [ROUTE_MESSAGE_MART_CLOSED] = COMPOUND_STRING("The MART is closed for now."),
+    [ROUTE_MESSAGE_WIPED_OUT] = COMPOUND_STRING("Your team was wiped out!"),
+};
+
 static const u8 sBlankTile[TILE_SIZE_4BPP] = {0};
 
 static const u16 sCursorPalette[16] = {RGB(0, 0, 0), RGB(31, 31, 31), RGB(2, 2, 2)};
@@ -338,8 +347,16 @@ static void PrintInfo(void)
     static const u8 sTextColors[] = {TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_LIGHT_GRAY};
 
     FillWindowPixelBuffer(WIN_INFO, PIXEL_FILL(1));
-    end = StringCopy(text, COMPOUND_STRING("Next: "));
-    StringCopy(end, sNodeNames[sRouteMap->map.type[column][GetChosenRow()]]);
+    // The last node's message shows until the cursor moves.
+    if (gRoguelikeRun.message != ROUTE_MESSAGE_NONE)
+    {
+        StringCopy(text, sMessages[gRoguelikeRun.message]);
+    }
+    else
+    {
+        end = StringCopy(text, COMPOUND_STRING("Next: "));
+        StringCopy(end, sNodeNames[sRouteMap->map.type[column][GetChosenRow()]]);
+    }
     AddTextPrinterParameterized3(WIN_INFO, FONT_NORMAL, 4, 1, sTextColors, TEXT_SKIP_DRAW, text);
     end = StringCopy(text, COMPOUND_STRING("ROCKET arrives in "));
     end = ConvertIntToDecimalStringN(end, movesLeft, STR_CONV_MODE_LEFT_ALIGN, 2);
@@ -441,6 +458,7 @@ static void HandleInput(void)
     {
         PlaySE(SE_SELECT);
         sRouteMap->choice = (sRouteMap->choice + count - 1) % count;
+        gRoguelikeRun.message = ROUTE_MESSAGE_NONE;
         MoveCursorToChoice();
         PrintInfo();
     }
@@ -448,6 +466,7 @@ static void HandleInput(void)
     {
         PlaySE(SE_SELECT);
         sRouteMap->choice = (sRouteMap->choice + 1) % count;
+        gRoguelikeRun.message = ROUTE_MESSAGE_NONE;
         MoveCursorToChoice();
         PrintInfo();
     }
@@ -457,6 +476,7 @@ static void HandleInput(void)
         gRoguelikeRun.row = GetChosenRow();
         gRoguelikeRun.column++;
         gRoguelikeRun.rocketMoves++;
+        gRoguelikeRun.message = ROUTE_MESSAGE_NONE;
         BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
         sRouteMap->state = STATE_FADE_OUT;
     }

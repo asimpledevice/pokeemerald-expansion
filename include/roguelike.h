@@ -45,17 +45,31 @@ u32 GetRouteMapStartRow(const struct RouteMap *map);
 #define ROUTE_ROCKET_ARRIVAL_MOVES 14
 
 // The current run. Not saved yet: the playable slice keeps it in memory.
+// One-line messages the route map shows after a node.
+enum RouteMessage
+{
+    ROUTE_MESSAGE_NONE,
+    ROUTE_MESSAGE_FOUND_POTION,
+    ROUTE_MESSAGE_HEALED,
+    ROUTE_MESSAGE_MART_CLOSED,
+    ROUTE_MESSAGE_WIPED_OUT,
+};
+
 struct RoguelikeRun
 {
     u32 routeSeed; // the route map is regenerated from this, not stored
+    MainCallback onRouteEnd; // runs when the player takes the transition
+    u16 routeMapId; // the FRLG route whose encounters this route uses
     u8 column;     // where the player is on the route map
     u8 row;
     u8 rocketMoves; // moves taken on this route; Team Rocket's pursuit counts these
+    u8 message;     // enum RouteMessage
 };
 
 extern struct RoguelikeRun gRoguelikeRun;
 
 void StartRoguelikeRoute(u32 seed);
+void StartRouteOnMap(u32 seed, u32 routeMapId, MainCallback onRouteEnd);
 void OpenRouteMap(MainCallback onNodeChosen);
 void CB2_RoguelikeDebugBoot(void);
 
