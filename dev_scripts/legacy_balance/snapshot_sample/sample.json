@@ -1,0 +1,698 @@
+{
+ "averages": {
+  "unevolved": 339.0,
+  "final": 491.4264705882353
+ },
+ "families": [
+  {
+   "family": "PIDGEY",
+   "forms": [
+    {
+     "species": "PIDGEY",
+     "bst": 251,
+     "emerald_legacy_bst": null,
+     "vs_avg": -88,
+     "types": [
+      "TYPE_FLYING",
+      "TYPE_NORMAL"
+     ],
+     "growth": "GROWTH_MEDIUM_SLOW",
+     "first_stab": [
+      1,
+      "TACKLE"
+     ],
+     "learnset_max": 53,
+     "learnset_moves_after_1": 13
+    },
+    {
+     "species": "PIDGEOTTO",
+     "bst": 349,
+     "emerald_legacy_bst": null,
+     "vs_avg": 10,
+     "types": [
+      "TYPE_FLYING",
+      "TYPE_NORMAL"
+     ],
+     "growth": "GROWTH_MEDIUM_SLOW",
+     "first_stab": [
+      1,
+      "TACKLE"
+     ],
+     "learnset_max": 62,
+     "learnset_moves_after_1": 13
+    },
+    {
+     "species": "PIDGEOT",
+     "bst": 479,
+     "emerald_legacy_bst": null,
+     "vs_avg": -12,
+     "types": [
+      "TYPE_FLYING",
+      "TYPE_NORMAL"
+     ],
+     "growth": "GROWTH_MEDIUM_SLOW",
+     "first_stab": [
+      1,
+      "HURRICANE"
+     ],
+     "learnset_max": 68,
+     "learnset_moves_after_1": 13
+    }
+   ],
+   "evolutions": [
+    {
+     "from": "PIDGEY",
+     "to": "PIDGEOTTO",
+     "method": "EVO_LEVEL",
+     "param": "18",
+     "tier": 1
+    },
+    {
+     "from": "PIDGEOTTO",
+     "to": "PIDGEOT",
+     "method": "EVO_LEVEL",
+     "param": "36",
+     "tier": 3
+    }
+   ]
+  },
+  {
+   "family": "RATTATA",
+   "forms": [
+    {
+     "species": "RATTATA",
+     "bst": 253,
+     "emerald_legacy_bst": null,
+     "vs_avg": -86,
+     "types": [
+      "TYPE_NORMAL"
+     ],
+     "growth": "GROWTH_MEDIUM_FAST",
+     "first_stab": [
+      1,
+      "TACKLE"
+     ],
+     "learnset_max": 34,
+     "learnset_moves_after_1": 11
+    },
+    {
+     "species": "RATICATE",
+     "bst": 413,
+     "emerald_legacy_bst": null,
+     "vs_avg": -78,
+     "types": [
+      "TYPE_NORMAL"
+     ],
+     "growth": "GROWTH_MEDIUM_FAST",
+     "first_stab": [
+      1,
+      "TACKLE"
+     ],
+     "learnset_max": 44,
+     "learnset_moves_after_1": 11
+    }
+   ],
+   "evolutions": [
+    {
+     "from": "RATTATA",
+     "to": "RATICATE",
+     "method": "EVO_LEVEL",
+     "param": "20",
+     "tier": 2
+    }
+   ]
+  },
+  {
+   "family": "CATERPIE",
+   "forms": [
+    {
+     "species": "CATERPIE",
+     "bst": 195,
+     "emerald_legacy_bst": null,
+     "vs_avg": -144,
+     "types": [
+      "TYPE_BUG"
+     ],
+     "growth": "GROWTH_MEDIUM_FAST",
+     "first_stab": [
+      9,
+      "BUG_BITE"
+     ],
+     "learnset_max": 9,
+     "learnset_moves_after_1": 1
+    },
+    {
+     "species": "METAPOD",
+     "bst": 205,
+     "emerald_legacy_bst": null,
+     "vs_avg": -134,
+     "types": [
+      "TYPE_BUG"
+     ],
+     "growth": "GROWTH_MEDIUM_FAST",
+     "first_stab": null,
+     "learnset_max": 1,
+     "learnset_moves_after_1": 0
+    },
+    {
+     "species": "BUTTERFREE",
+     "bst": 395,
+     "emerald_legacy_bst": null,
+     "vs_avg": -96,
+     "types": [
+      "TYPE_BUG",
+      "TYPE_FLYING"
+     ],
+     "growth": "GROWTH_MEDIUM_FAST",
+     "first_stab": [
+      1,
+      "BUG_BITE"
+     ],
+     "learnset_max": 44,
+     "learnset_moves_after_1": 13
+    }
+   ],
+   "evolutions": [
+    {
+     "from": "CATERPIE",
+     "to": "METAPOD",
+     "method": "EVO_LEVEL",
+     "param": "7",
+     "tier": 0
+    },
+    {
+     "from": "METAPOD",
+     "to": "BUTTERFREE",
+     "method": "EVO_LEVEL",
+     "param": "10",
+     "tier": 1
+    }
+   ]
+  },
+  {
+   "family": "GEODUDE",
+   "forms": [
+    {
+     "species": "GEODUDE",
+     "bst": 300,
+     "emerald_legacy_bst": null,
+     "vs_avg": -39,
+     "types": [
+      "TYPE_GROUND",
+      "TYPE_ROCK"
+     ],
+     "growth": "GROWTH_MEDIUM_SLOW",
+     "first_stab": [
+      10,
+      "ROLLOUT"
+     ],
+     "learnset_max": 42,
+     "learnset_moves_after_1": 12
+    },
+    {
+     "species": "GRAVELER",
+     "bst": 390,
+     "emerald_legacy_bst": null,
+     "vs_avg": 51,
+     "types": [
+      "TYPE_GROUND",
+      "TYPE_ROCK"
+     ],
+     "growth": "GROWTH_MEDIUM_SLOW",
+     "first_stab": [
+      10,
+      "ROLLOUT"
+     ],
+     "learnset_max": 54,
+     "learnset_moves_after_1": 11
+    },
+    {
+     "species": "GOLEM",
+     "bst": 495,
+     "emerald_legacy_bst": null,
+     "vs_avg": 4,
+     "types": [
+      "TYPE_GROUND",
+      "TYPE_ROCK"
+     ],
+     "growth": "GROWTH_MEDIUM_SLOW",
+     "first_stab": [
+      16,
+      "ROCK_THROW"
+     ],
+     "learnset_max": 54,
+     "learnset_moves_after_1": 10
+    }
+   ],
+   "evolutions": [
+    {
+     "from": "GEODUDE",
+     "to": "GRAVELER",
+     "method": "EVO_LEVEL",
+     "param": "25",
+     "tier": 2
+    },
+    {
+     "from": "GRAVELER",
+     "to": "GOLEM",
+     "method": "EVO_TRADE",
+     "param": "0",
+     "tier": null
+    }
+   ]
+  },
+  {
+   "family": "ABRA",
+   "forms": [
+    {
+     "species": "ABRA",
+     "bst": 310,
+     "emerald_legacy_bst": null,
+     "vs_avg": -29,
+     "types": [
+      "TYPE_PSYCHIC"
+     ],
+     "growth": "GROWTH_MEDIUM_SLOW",
+     "first_stab": null,
+     "learnset_max": 1,
+     "learnset_moves_after_1": 0
+    },
+    {
+     "species": "KADABRA",
+     "bst": 400,
+     "emerald_legacy_bst": null,
+     "vs_avg": 61,
+     "types": [
+      "TYPE_PSYCHIC"
+     ],
+     "growth": "GROWTH_MEDIUM_SLOW",
+     "first_stab": [
+      0,
+      "CONFUSION"
+     ],
+     "learnset_max": 50,
+     "learnset_moves_after_1": 10
+    },
+    {
+     "species": "ALAKAZAM",
+     "bst": 500,
+     "emerald_legacy_bst": null,
+     "vs_avg": 9,
+     "types": [
+      "TYPE_PSYCHIC"
+     ],
+     "growth": "GROWTH_MEDIUM_SLOW",
+     "first_stab": [
+      1,
+      "CONFUSION"
+     ],
+     "learnset_max": 50,
+     "learnset_moves_after_1": 10
+    }
+   ],
+   "evolutions": [
+    {
+     "from": "ABRA",
+     "to": "KADABRA",
+     "method": "EVO_LEVEL",
+     "param": "16",
+     "tier": 1
+    },
+    {
+     "from": "KADABRA",
+     "to": "ALAKAZAM",
+     "method": "EVO_TRADE",
+     "param": "0",
+     "tier": null
+    }
+   ]
+  },
+  {
+   "family": "MAGIKARP",
+   "forms": [
+    {
+     "species": "MAGIKARP",
+     "bst": 200,
+     "emerald_legacy_bst": null,
+     "vs_avg": -139,
+     "types": [
+      "TYPE_WATER"
+     ],
+     "growth": "GROWTH_SLOW",
+     "first_stab": null,
+     "learnset_max": 25,
+     "learnset_moves_after_1": 2
+    },
+    {
+     "species": "GYARADOS",
+     "bst": 540,
+     "emerald_legacy_bst": null,
+     "vs_avg": 49,
+     "types": [
+      "TYPE_FLYING",
+      "TYPE_WATER"
+     ],
+     "growth": "GROWTH_SLOW",
+     "first_stab": [
+      4,
+      "WHIRLPOOL"
+     ],
+     "learnset_max": 52,
+     "learnset_moves_after_1": 13
+    }
+   ],
+   "evolutions": [
+    {
+     "from": "MAGIKARP",
+     "to": "GYARADOS",
+     "method": "EVO_LEVEL",
+     "param": "20",
+     "tier": 2
+    }
+   ]
+  },
+  {
+   "family": "DRATINI",
+   "forms": [
+    {
+     "species": "DRATINI",
+     "bst": 300,
+     "emerald_legacy_bst": null,
+     "vs_avg": -39,
+     "types": [
+      "TYPE_DRAGON"
+     ],
+     "growth": "GROWTH_SLOW",
+     "first_stab": [
+      5,
+      "TWISTER"
+     ],
+     "learnset_max": 60,
+     "learnset_moves_after_1": 12
+    },
+    {
+     "species": "DRAGONAIR",
+     "bst": 420,
+     "emerald_legacy_bst": null,
+     "vs_avg": 81,
+     "types": [
+      "TYPE_DRAGON"
+     ],
+     "growth": "GROWTH_SLOW",
+     "first_stab": [
+      1,
+      "TWISTER"
+     ],
+     "learnset_max": 74,
+     "learnset_moves_after_1": 10
+    },
+    {
+     "species": "DRAGONITE",
+     "bst": 600,
+     "emerald_legacy_bst": null,
+     "vs_avg": 109,
+     "types": [
+      "TYPE_DRAGON",
+      "TYPE_FLYING"
+     ],
+     "growth": "GROWTH_SLOW",
+     "first_stab": [
+      0,
+      "HURRICANE"
+     ],
+     "learnset_max": 80,
+     "learnset_moves_after_1": 10
+    }
+   ],
+   "evolutions": [
+    {
+     "from": "DRATINI",
+     "to": "DRAGONAIR",
+     "method": "EVO_LEVEL",
+     "param": "30",
+     "tier": 3
+    },
+    {
+     "from": "DRAGONAIR",
+     "to": "DRAGONITE",
+     "method": "EVO_LEVEL",
+     "param": "55",
+     "tier": 5
+    }
+   ]
+  },
+  {
+   "family": "EEVEE",
+   "forms": [
+    {
+     "species": "EEVEE",
+     "bst": 325,
+     "emerald_legacy_bst": null,
+     "vs_avg": -14,
+     "types": [
+      "TYPE_NORMAL"
+     ],
+     "growth": "GROWTH_MEDIUM_FAST",
+     "first_stab": [
+      1,
+      "TACKLE"
+     ],
+     "learnset_max": 55,
+     "learnset_moves_after_1": 11
+    },
+    {
+     "species": "JOLTEON",
+     "bst": 525,
+     "emerald_legacy_bst": null,
+     "vs_avg": 34,
+     "types": [
+      "TYPE_ELECTRIC"
+     ],
+     "growth": "GROWTH_MEDIUM_FAST",
+     "first_stab": [
+      0,
+      "THUNDER_SHOCK"
+     ],
+     "learnset_max": 55,
+     "learnset_moves_after_1": 11
+    }
+   ],
+   "evolutions": [
+    {
+     "from": "EEVEE",
+     "to": "JOLTEON",
+     "method": "EVO_ITEM",
+     "param": "ITEM_THUNDER_STONE",
+     "tier": null
+    }
+   ]
+  },
+  {
+   "family": "PIKACHU",
+   "forms": [
+    {
+     "species": "PIKACHU",
+     "bst": 320,
+     "emerald_legacy_bst": 320,
+     "vs_avg": -19,
+     "types": [
+      "TYPE_ELECTRIC"
+     ],
+     "growth": "GROWTH_MEDIUM_FAST",
+     "first_stab": [
+      1,
+      "NUZZLE"
+     ],
+     "learnset_max": 44,
+     "learnset_moves_after_1": 11
+    },
+    {
+     "species": "RAICHU",
+     "bst": 485,
+     "emerald_legacy_bst": null,
+     "vs_avg": -6,
+     "types": [
+      "TYPE_ELECTRIC"
+     ],
+     "growth": "GROWTH_MEDIUM_FAST",
+     "first_stab": [
+      0,
+      "THUNDER_PUNCH"
+     ],
+     "learnset_max": 5,
+     "learnset_moves_after_1": 1
+    }
+   ],
+   "evolutions": [
+    {
+     "from": "PIKACHU",
+     "to": "RAICHU",
+     "method": "EVO_ITEM",
+     "param": "ITEM_THUNDER_STONE",
+     "tier": null
+    }
+   ]
+  },
+  {
+   "family": "NIDORAN_M",
+   "forms": [
+    {
+     "species": "NIDORAN_M",
+     "bst": 273,
+     "emerald_legacy_bst": null,
+     "vs_avg": -66,
+     "types": [
+      "TYPE_POISON"
+     ],
+     "growth": "GROWTH_MEDIUM_SLOW",
+     "first_stab": [
+      1,
+      "POISON_STING"
+     ],
+     "learnset_max": 55,
+     "learnset_moves_after_1": 11
+    },
+    {
+     "species": "NIDORINO",
+     "bst": 365,
+     "emerald_legacy_bst": null,
+     "vs_avg": 26,
+     "types": [
+      "TYPE_POISON"
+     ],
+     "growth": "GROWTH_MEDIUM_SLOW",
+     "first_stab": [
+      1,
+      "POISON_STING"
+     ],
+     "learnset_max": 71,
+     "learnset_moves_after_1": 9
+    },
+    {
+     "species": "NIDOKING",
+     "bst": 505,
+     "emerald_legacy_bst": null,
+     "vs_avg": 14,
+     "types": [
+      "TYPE_GROUND",
+      "TYPE_POISON"
+     ],
+     "growth": "GROWTH_MEDIUM_SLOW",
+     "first_stab": [
+      1,
+      "SLUDGE_WAVE"
+     ],
+     "learnset_max": 1,
+     "learnset_moves_after_1": 0
+    }
+   ],
+   "evolutions": [
+    {
+     "from": "NIDORAN_M",
+     "to": "NIDORINO",
+     "method": "EVO_LEVEL",
+     "param": "16",
+     "tier": 1
+    },
+    {
+     "from": "NIDORINO",
+     "to": "NIDOKING",
+     "method": "EVO_ITEM",
+     "param": "ITEM_MOON_STONE",
+     "tier": null
+    }
+   ]
+  },
+  {
+   "family": "FARFETCHD",
+   "forms": [
+    {
+     "species": "FARFETCHD",
+     "bst": 377,
+     "emerald_legacy_bst": null,
+     "vs_avg": -114,
+     "types": [
+      "TYPE_FLYING",
+      "TYPE_NORMAL"
+     ],
+     "growth": "GROWTH_MEDIUM_FAST",
+     "first_stab": [
+      1,
+      "PECK"
+     ],
+     "learnset_max": 65,
+     "learnset_moves_after_1": 13
+    }
+   ],
+   "evolutions": []
+  },
+  {
+   "family": "SNORLAX",
+   "forms": [
+    {
+     "species": "SNORLAX",
+     "bst": 540,
+     "emerald_legacy_bst": null,
+     "vs_avg": 49,
+     "types": [
+      "TYPE_NORMAL"
+     ],
+     "growth": "GROWTH_SLOW",
+     "first_stab": [
+      1,
+      "TACKLE"
+     ],
+     "learnset_max": 56,
+     "learnset_moves_after_1": 14
+    }
+   ],
+   "evolutions": []
+  },
+  {
+   "family": "EKANS",
+   "forms": [
+    {
+     "species": "EKANS",
+     "bst": 288,
+     "emerald_legacy_bst": 303,
+     "vs_avg": -51,
+     "types": [
+      "TYPE_POISON"
+     ],
+     "growth": "GROWTH_MEDIUM_FAST",
+     "first_stab": [
+      4,
+      "POISON_STING"
+     ],
+     "learnset_max": 49,
+     "learnset_moves_after_1": 15
+    },
+    {
+     "species": "ARBOK",
+     "bst": 448,
+     "emerald_legacy_bst": 460,
+     "vs_avg": -43,
+     "types": [
+      "TYPE_POISON"
+     ],
+     "growth": "GROWTH_MEDIUM_FAST",
+     "first_stab": [
+      1,
+      "POISON_STING"
+     ],
+     "learnset_max": 63,
+     "learnset_moves_after_1": 13
+    }
+   ],
+   "evolutions": [
+    {
+     "from": "EKANS",
+     "to": "ARBOK",
+     "method": "EVO_LEVEL",
+     "param": "22",
+     "tier": 2
+    }
+   ]
+  }
+ ]
+}
