@@ -14,6 +14,7 @@
 #include "roguelike.h"
 #include "script_pokemon_util.h"
 #include "shop.h"
+#include "starter_choose.h"
 #include "wild_encounter.h"
 #include "event_data.h"
 #include "field_screen_effect.h"
@@ -546,23 +547,60 @@ static void GiveStarter(u32 species, u32 level)
     CalculatePlayerPartyCount();
 }
 
-// The party was wiped out: the run is over. The player goes home to Pallet
-// Town with the run's starter, fresh, and no badges.
+// Where a run starts: in front of Prof. Oak, whose lab opens the starter choice.
+#define OAKS_LAB_START_X 6
+#define OAKS_LAB_START_Y 5
+
+// The party was wiped out: the run is over. The player goes back to Oak's
+// lab with no badges, to choose a starter for the next run.
 static void CB2_EndRun(void)
 {
-    u32 species = gRoguelikeRun.starterSpecies, level = gRoguelikeRun.starterLevel;
     u32 flag;
 
     memset(&gRoguelikeRun, 0, sizeof(gRoguelikeRun));
     for (flag = FLAG_BADGE01_GET; flag <= FLAG_BADGE08_GET; flag++)
         FlagClear(flag);
-    if (species == SPECIES_NONE)
-    {
-        species = SPECIES_BULBASAUR;
-        level = 7;
-    }
-    GiveStarter(species, level);
-    WarpToField(MAP_PALLET_TOWN, WARP_ID_NONE, 12, 4);
+    ZeroPlayerPartyMons();
+    CalculatePlayerPartyCount();
+    WarpToField(MAP_PALLET_TOWN_PROFESSOR_OAKS_LAB, WARP_ID_NONE, OAKS_LAB_START_X, OAKS_LAB_START_Y);
+}
+
+static void CB2_GiveRoguelikeStarter(void)
+{
+    u32 species = GetStarterPokemon(gSpecialVar_Result);
+
+    // Starters begin at their line's catch floor: 7, 9 and 8.
+    GiveStarter(species, GetSnapshotCatchFloor(species));
+    FlagSet(FLAG_SYS_POKEMON_GET);
+    gSpecialVar_Result = species;
+    SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
+}
+
+// Special, called by Oak's lab when a run has no Pokémon yet: the starter
+// choice. VAR_RESULT is the species chosen.
+void RoguelikeChooseStarter(void)
+{
+    SetMainCallback2(CB2_ChooseStarter);
+    gMain.savedCallback = CB2_GiveRoguelikeStarter;
+}
+
+// The FRLG story never runs in the roguelike: each scene the slice passes
+// through is set to its finished state, so no cutscene or errand blocks the
+// way (Oak's escort at Pallet's north exit, the lab's starter scene, the
+// parcel at Viridian's Mart, the old man on Viridian's north road).
+static void SetRoguelikeWorldState(void)
+{
+    VarSet(VAR_MAP_SCENE_PALLET_TOWN_OAK, 3);
+    VarSet(VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 9);
+    VarSet(VAR_MAP_SCENE_VIRIDIAN_CITY_MART, 2);
+    VarSet(VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN, 2);
+    FlagClear(FLAG_HIDE_OAK_IN_HIS_LAB);
+    FlagSet(FLAG_HIDE_RIVAL_IN_LAB);
+    FlagSet(FLAG_HIDE_BULBASAUR_BALL);
+    FlagSet(FLAG_HIDE_SQUIRTLE_BALL);
+    FlagSet(FLAG_HIDE_CHARMANDER_BALL);
+    FlagSet(FLAG_HIDE_POKEDEX);
+    FlagSet(FLAG_SYS_POKEDEX_GET);
 }
 
 // Special, called by a map script after fading out: VAR_0x8004 is the FRLG
@@ -644,30 +682,32 @@ static void CB2_DebugFieldStart(void)
     SetMainCallback2(CB2_NewGame);
 }
 
-// Called at the end of NewGameInitData. Starts a fresh run; in debug boot
-// mode 2 it also skips Oak's cutscene, gives a level 7 Bulbasaur and starts
-// the player just south of Pallet Town's north road. Mode 3 starts a run
-// inside Pewter Gym's door with a level 24 Ivysaur, to test the Gym.
+// Called at the end of NewGameInitData, after Oak's speech. Starts a fresh
+// run in Oak's lab, where the player chooses a starter. Debug boot mode 2
+// instead gives a level 7 Bulbasaur and starts just south of Pallet Town's
+// north road; mode 3 starts inside Pewter Gym's door with a level 24 Ivysaur.
 void RoguelikeOnNewGame(void)
 {
     memset(&gRoguelikeRun, 0, sizeof(gRoguelikeRun));
+    SetRoguelikeWorldState();
     if (ROGUELIKE_DEBUG_BOOT == 3)
     {
-        VarSet(VAR_MAP_SCENE_PALLET_TOWN_OAK, 3);
         GiveStarter(SPECIES_IVYSAUR, 24);
         gRoguelikeRun.runSeed = 1;
         gRoguelikeRun.starterSpecies = SPECIES_BULBASAUR;
         gRoguelikeRun.starterLevel = 7;
         SetWarpDestination(MAP_GROUP(MAP_PEWTER_CITY_GYM), MAP_NUM(MAP_PEWTER_CITY_GYM), WARP_ID_NONE, 6, 13);
-        WarpIntoMap();
     }
     else if (ROGUELIKE_DEBUG_BOOT == 2)
     {
-        VarSet(VAR_MAP_SCENE_PALLET_TOWN_OAK, 3);
         GiveDebugStarter();
         SetWarpDestination(MAP_GROUP(MAP_PALLET_TOWN), MAP_NUM(MAP_PALLET_TOWN), WARP_ID_NONE, 12, 4);
-        WarpIntoMap();
     }
+    else
+    {
+        SetWarpDestination(MAP_GROUP(MAP_PALLET_TOWN_PROFESSOR_OAKS_LAB), MAP_NUM(MAP_PALLET_TOWN_PROFESSOR_OAKS_LAB), WARP_ID_NONE, OAKS_LAB_START_X, OAKS_LAB_START_Y);
+    }
+    WarpIntoMap();
 }
 
 // Debug boot (ROGUELIKE_DEBUG_BOOT): mode 1 plays Route 1 maps back to back
@@ -707,6 +747,10 @@ void RoguelikeOnNewGame(void)
 bool32 RoguelikeIsOnRouteMap(void)
 {
     return FALSE;
+}
+
+void RoguelikeChooseStarter(void)
+{
 }
 
 void FieldCB_RoguelikeResumeRoute(void)

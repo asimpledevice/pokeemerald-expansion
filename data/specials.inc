@@ -640,3 +640,4 @@ gSpecials::
 	def_special CheckAddCoins
 	def_special RoguelikeStartRoute, waitstate=1
 	def_special RoguelikeStartGym, waitstate=1
+	def_special RoguelikeChooseStarter, waitstate=1

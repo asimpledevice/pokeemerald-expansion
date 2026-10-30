@@ -47,6 +47,7 @@ PalletTown_ProfessorOaksLab_EventScript_ReadyPlayerForStarterScene::
 	end
 
 PalletTown_ProfessorOaksLab_OnFrame::
+	map_script_2 VAR_TEMP_5, 0, PalletTown_ProfessorOaksLab_EventScript_RoguelikeStarter
 	map_script_2 VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 1, PalletTown_ProfessorOaksLab_ChooseStarterScene
 	map_script_2 VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 7, PalletTown_ProfessorOaksLab_EventScript_EnterForNationalDexScene
 	.2byte 0
@@ -1655,3 +1656,40 @@ PalletTown_ProfessorOaksLab_Text_RivalIllCompleteThePokedex::
 	.string "ONE ISLAND first…\p"
 	.string "Anyways, I'm outta here!$"
 
+
+@ Roguelike: a run with no Pokémon yet starts here, with Oak's starter choice.
+PalletTown_ProfessorOaksLab_EventScript_RoguelikeStarter::
+	setvar VAR_TEMP_5, 1
+	getpartysize
+	goto_if_ne VAR_RESULT, 0, PalletTown_ProfessorOaksLab_EventScript_RoguelikeStarterEnd
+	lockall
+	textcolor NPC_TEXT_COLOR_MALE
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	msgbox PalletTown_ProfessorOaksLab_Text_RoguelikeChooseStarter
+	closemessage
+	fadescreen FADE_TO_BLACK
+	special RoguelikeChooseStarter
+	waitstate
+	bufferspeciesname STR_VAR_1, VAR_RESULT
+	playfanfare MUS_RG_OBTAIN_KEY_ITEM
+	message PalletTown_ProfessorOaksLab_Text_RoguelikeReceivedStarter
+	waitmessage
+	waitfanfare
+	msgbox PalletTown_ProfessorOaksLab_Text_RoguelikeHeadNorth
+	releaseall
+PalletTown_ProfessorOaksLab_EventScript_RoguelikeStarterEnd::
+	end
+
+PalletTown_ProfessorOaksLab_Text_RoguelikeChooseStarter::
+	.string "OAK: Ah, {PLAYER}! Ready to set out?\p"
+	.string "Choose a POKéMON to travel with.$"
+
+PalletTown_ProfessorOaksLab_Text_RoguelikeReceivedStarter::
+	.string "{PLAYER} received the {STR_VAR_1}\n"
+	.string "from PROF. OAK!$"
+
+PalletTown_ProfessorOaksLab_Text_RoguelikeHeadNorth::
+	.string "OAK: Head north out of PALLET TOWN.\p"
+	.string "TEAM ROCKET is on the move, so\n"
+	.string "don't dawdle on the road!$"

@@ -117,6 +117,7 @@ void CB2_RoguelikeDebugBoot(void);
 void RoguelikeStartRoute(void);
 void RoguelikeStartGym(void);
 void RoguelikeOnNewGame(void);
+void RoguelikeChooseStarter(void);
 
 // Snapshot levelling: Pokémon level in fixed jumps, one per tier of ten levels.
 // A jump's cost is counted in battle points (see src/data/roguelike.h) and
