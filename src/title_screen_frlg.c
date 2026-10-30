@@ -18,6 +18,7 @@
 #include "quickstart.h"
 #include "random.h"
 #include "reset_rtc_screen.h"
+#include "roguelike.h"
 #include "save.h"
 #include "scanline_effect.h"
 #include "sound.h"
@@ -380,6 +381,12 @@ static const u32 *const sUnused_Tilemaps[] = {
 
 void CB2_InitTitleScreenFrlg(void)
 {
+    if (ROGUELIKE_DEBUG_BOOT)
+    {
+        InitHeap(gHeap, HEAP_SIZE);
+        CB2_RoguelikeDebugBoot();
+        return;
+    }
     switch (gMain.state)
     {
     default:

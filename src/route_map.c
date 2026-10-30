@@ -62,14 +62,15 @@ enum {
 };
 
 static EWRAM_DATA struct {
+    // Graphics buffers first: DMA copies to VRAM need 4-byte alignment.
+    u8 tiles[TILE_COUNT * TILE_SIZE_4BPP] __attribute__((aligned(4)));
+    u8 cursorTiles[4 * TILE_SIZE_4BPP] __attribute__((aligned(4)));
+    u16 tilemap[32 * 32] __attribute__((aligned(4)));
     MainCallback onNodeChosen;
     struct RouteMap map;
     u8 state;
     u8 choice; // index into the rows linked from the current node
     u8 cursorSpriteId;
-    u8 tiles[TILE_COUNT * TILE_SIZE_4BPP];
-    u8 cursorTiles[4 * TILE_SIZE_4BPP];
-    u16 tilemap[32 * 32];
 } *sRouteMap = NULL;
 
 static void CB2_InitRouteMap(void);
@@ -103,9 +104,9 @@ static const struct WindowTemplate sRouteMapWindowTemplates[] =
     [WIN_INFO] = {
         .bg = 0,
         .tilemapLeft = 1,
-        .tilemapTop = 17,
+        .tilemapTop = 16,
         .width = 28,
-        .height = 3,
+        .height = 4,
         .paletteNum = PAL_TEXT,
         .baseBlock = 1
     },
@@ -136,6 +137,8 @@ static const u8 *const sNodeNames[ROUTE_NODE_TYPE_COUNT] =
     [ROUTE_NODE_MART] = COMPOUND_STRING("POKé MART"),
     [ROUTE_NODE_TRANSITION] = COMPOUND_STRING("Next town"),
 };
+
+static const u8 sBlankTile[TILE_SIZE_4BPP] = {0};
 
 static const u16 sCursorPalette[16] = {RGB(0, 0, 0), RGB(31, 31, 31), RGB(2, 2, 2)};
 
@@ -385,6 +388,10 @@ static void CB2_InitRouteMap(void)
     SetBgTilemapBuffer(1, sRouteMap->tilemap);
     InitWindows(sRouteMapWindowTemplates);
     DeactivateAllTextPrinters();
+
+    // Clear the text layer: its tile 0 and tilemap still hold the last screen's graphics.
+    LoadBgTiles(0, sBlankTile, sizeof(sBlankTile), 0);
+    FillBgTilemapBufferRect(0, 0, 0, 0, 32, 32, PAL_TEXT);
 
     DrawTiles();
     LoadPalettes();

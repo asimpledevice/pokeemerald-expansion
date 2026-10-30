@@ -227,6 +227,17 @@ void StartRoguelikeRoute(u32 seed)
     gRoguelikeRun.rocketMoves = 0;
 }
 
+// Debug boot (ROGUELIKE_DEBUG_BOOT): show route maps back to back, starting
+// a new route each time the player reaches the transition.
+void CB2_RoguelikeDebugBoot(void)
+{
+    if (gRoguelikeRun.column == 0 && gRoguelikeRun.rocketMoves == 0)
+        StartRoguelikeRoute(gRoguelikeRun.routeSeed);
+    else if (gRoguelikeRun.column == ROUTE_MAP_EXIT_COLUMN)
+        StartRoguelikeRoute(gRoguelikeRun.routeSeed + 1);
+    OpenRouteMap(CB2_RoguelikeDebugBoot);
+}
+
 bool32 RouteMapCanReach(const struct RouteMap *map, u32 fromColumn, u32 fromRow, u32 toColumn, u32 toRow)
 {
     u32 column, row, next;

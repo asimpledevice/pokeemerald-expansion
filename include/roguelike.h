@@ -36,6 +36,10 @@ void GenerateRouteMap(struct RouteMap *map, u32 seed);
 bool32 RouteMapCanReach(const struct RouteMap *map, u32 fromColumn, u32 fromRow, u32 toColumn, u32 toRow);
 u32 GetRouteMapStartRow(const struct RouteMap *map);
 
+// Debug only: TRUE skips the title screen and opens a route map at boot,
+// reopening it after every choice. Keep FALSE in commits.
+#define ROGUELIKE_DEBUG_BOOT FALSE
+
 // Team Rocket reaches a route's transition after this many moves: 2.4 times
 // the shortest path across the route (FTL's fleet ratio). Tunable.
 #define ROUTE_ROCKET_ARRIVAL_MOVES 14
@@ -53,6 +57,7 @@ extern struct RoguelikeRun gRoguelikeRun;
 
 void StartRoguelikeRoute(u32 seed);
 void OpenRouteMap(MainCallback onNodeChosen);
+void CB2_RoguelikeDebugBoot(void);
 
 // Snapshot levelling: Pokémon level in fixed jumps, one per tier of ten levels.
 // A jump's cost is counted in battle points (see src/data/roguelike.h) and
