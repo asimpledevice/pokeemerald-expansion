@@ -6,6 +6,8 @@
 #include "main.h"
 #include "pokemon.h"
 #include "pokemon_storage_system.h"
+#include "pokemon_summary_screen.h"
+#include "party_menu.h"
 #include "random.h"
 #include "save.h"
 #include "task.h"
@@ -111,7 +113,8 @@ static const u16 sRocketTrainers[] =
 static void CB2_HandleRouteNode(void);
 static void CB2_ReturnFromRouteBattle(void);
 static void CB2_ProcessJumps(void);
-static void LearnSkippedMoves(struct Pokemon *mon, u32 species, u32 fromLevel, u32 toLevel);
+static void LearnSkippedMoves(u32 partyId, u32 species, u32 fromLevel, u32 toLevel, MainCallback then);
+static void CB2_LearnQueuedMoves(void);
 static void ApplyCatchFloor(void);
 static void CB2_EndRun(void);
 static void CB2_EndRouteIntoTown(void);
@@ -132,6 +135,19 @@ static MainCallback GetRouteEndCallback(void)
 // Where to go once post-battle jumps (and their evolutions) are done.
 static EWRAM_DATA MainCallback sAfterJumps = NULL;
 static EWRAM_DATA u8 sJumpPartyId = 0;
+static EWRAM_DATA u16 sPendingEvolution = SPECIES_NONE;
+
+// Moves a Pokémon reached while it already knew four. Each one opens the
+// summary screen's move choice: forget a move for it, or skip it.
+#define MAX_QUEUED_MOVES 8
+static EWRAM_DATA struct
+{
+    MainCallback then; // where to go once every queued move is settled
+    u16 moves[MAX_QUEUED_MOVES];
+    u8 partyId;
+    u8 count;
+    u8 next;
+} sMoveQueue = {0};
 static const struct WildPokemonInfo *GetRouteLandMons(u32 map)
 {
     u32 i;
@@ -327,14 +343,16 @@ static void CB2_ReturnFromRouteBattle(void)
     }
     gRoguelikeRun.lostMons = lost;
     gRoguelikeRun.message = lost ? ROUTE_MESSAGE_LOST_MONS : ROUTE_MESSAGE_NONE;
-    if (gBattleOutcome == B_OUTCOME_CAUGHT)
-        ApplyCatchFloor();
     if (gRoguelikeRun.inGym && gRoguelikeRun.column + 1 == gRoguelikeRun.gymTrainers + 2)
         sAfterJumps = GetRouteEndCallback(); // beat the Leader
     else
         sAfterJumps = ReopenRouteMapAfterBattle;
     sJumpPartyId = 0;
-    SetMainCallback2(CB2_ProcessJumps);
+    sMoveQueue.count = sMoveQueue.next = 0;
+    sMoveQueue.then = CB2_ProcessJumps;
+    if (gBattleOutcome == B_OUTCOME_CAUGHT)
+        ApplyCatchFloor();
+    SetMainCallback2(CB2_LearnQueuedMoves);
 }
 
 // A Pokémon caught below its line's floor joins at the floor (tier 0). The
@@ -360,7 +378,7 @@ static void ApplyCatchFloor(void)
 
             SetMonData(mon, MON_DATA_EXP, &exp);
             CalculateMonStats(mon);
-            LearnSkippedMoves(mon, species, level, floor);
+            LearnSkippedMoves(i, species, level, floor, CB2_ProcessJumps);
             level = floor;
         }
         gRoguelikeRun.jumpSpecies = species;
@@ -372,24 +390,86 @@ static void ApplyCatchFloor(void)
 }
 
 // Teaches the moves a Pokémon would have learned on the levels it skipped.
-// The slice forgets the oldest move to make room; a move choice comes later.
-static void LearnSkippedMoves(struct Pokemon *mon, u32 species, u32 fromLevel, u32 toLevel)
+// Moves that don't fit wait in the queue for the player's choice, which
+// CB2_LearnQueuedMoves runs before going on to `then`.
+static void LearnSkippedMoves(u32 partyId, u32 species, u32 fromLevel, u32 toLevel, MainCallback then)
 {
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][partyId];
     const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
     u32 i;
 
+    sMoveQueue.partyId = partyId;
+    sMoveQueue.count = 0;
+    sMoveQueue.next = 0;
+    sMoveQueue.then = then;
     for (i = 0; learnset[i].move != LEVEL_UP_MOVE_END; i++)
     {
         if (learnset[i].level <= fromLevel || learnset[i].level > toLevel)
             continue;
-        if (GiveMoveToMon(mon, learnset[i].move) == MON_HAS_MAX_MOVES)
-            DeleteFirstMoveAndGiveMoveToMon(mon, learnset[i].move);
+        if (GiveMoveToMon(mon, learnset[i].move) == MON_HAS_MAX_MOVES && sMoveQueue.count < MAX_QUEUED_MOVES)
+            sMoveQueue.moves[sMoveQueue.count++] = learnset[i].move;
     }
 }
 
+static void CB2_AfterMoveChoice(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][sMoveQueue.partyId];
+    u32 slot = GetMoveSlotToReplace();
+
+    if (slot < MAX_MON_MOVES)
+    {
+        // HMs can't be forgotten: ask again.
+        if (CannotForgetMove(GetMonData(mon, MON_DATA_MOVE1 + slot)))
+        {
+            SetMainCallback2(CB2_LearnQueuedMoves);
+            return;
+        }
+        RemoveMonPPBonus(mon, slot);
+        SetMonMoveSlot(mon, sMoveQueue.moves[sMoveQueue.next], slot);
+    }
+    sMoveQueue.next++;
+    SetMainCallback2(CB2_LearnQueuedMoves);
+}
+
+static void CB2_LearnQueuedMoves(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][sMoveQueue.partyId];
+
+    while (sMoveQueue.next < sMoveQueue.count)
+    {
+        u16 move = sMoveQueue.moves[sMoveQueue.next];
+
+        if (!MonKnowsMove(mon, move))
+        {
+            ShowSelectMovePokemonSummaryScreen(gParties[B_TRAINER_PLAYER], sMoveQueue.partyId, CB2_AfterMoveChoice, move);
+            return;
+        }
+        sMoveQueue.next++;
+    }
+    sMoveQueue.count = sMoveQueue.next = 0;
+    SetMainCallback2(sMoveQueue.then);
+}
+
+// After a jump's moves are settled: evolve if the line says so, then carry
+// on with the rest of the party.
+static void CB2_AfterJumpMoves(void)
+{
+    if (sPendingEvolution != SPECIES_NONE)
+    {
+        u32 species = sPendingEvolution;
+
+        sPendingEvolution = SPECIES_NONE;
+        gCB2_AfterEvolution = CB2_ProcessJumps;
+        BeginEvolutionScene(&gParties[B_TRAINER_PLAYER][sMoveQueue.partyId], species, FALSE, sMoveQueue.partyId);
+        return;
+    }
+    SetMainCallback2(CB2_ProcessJumps);
+}
+
 // Snapshot jumps after a battle: each Pokémon with enough battle points jumps
-// to its next tier, one tier per battle. Evolutions leave for the evolution
-// scene, which comes back here for the rest of the party.
+// to its next tier, one tier per battle, choosing moves to forget when it
+// learns more than it can hold. Evolutions leave for the evolution scene,
+// which comes back here for the rest of the party.
 static void CB2_ProcessJumps(void)
 {
     for (; sJumpPartyId < PARTY_SIZE; sJumpPartyId++)
@@ -414,17 +494,14 @@ static void CB2_ProcessJumps(void)
         exp = gExperienceTables[growthRate][jump.level];
         SetMonData(mon, MON_DATA_EXP, &exp);
         CalculateMonStats(mon);
-        LearnSkippedMoves(mon, jump.species, level, jump.level);
         gRoguelikeRun.jumpSpecies = jump.species;
         gRoguelikeRun.jumpLevel = jump.level;
         if (gRoguelikeRun.message == ROUTE_MESSAGE_NONE)
             gRoguelikeRun.message = ROUTE_MESSAGE_JUMPED;
-        if (jump.species != species)
-        {
-            gCB2_AfterEvolution = CB2_ProcessJumps;
-            BeginEvolutionScene(mon, jump.species, FALSE, sJumpPartyId++);
-            return;
-        }
+        sPendingEvolution = (jump.species != species) ? jump.species : SPECIES_NONE;
+        LearnSkippedMoves(sJumpPartyId++, jump.species, level, jump.level, CB2_AfterJumpMoves);
+        SetMainCallback2(CB2_LearnQueuedMoves);
+        return;
     }
     SetMainCallback2(sAfterJumps);
 }
