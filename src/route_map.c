@@ -1,0 +1,485 @@
+#include "global.h"
+#include "bg.h"
+#include "gpu_regs.h"
+#include "main.h"
+#include "malloc.h"
+#include "menu.h"
+#include "palette.h"
+#include "roguelike.h"
+#include "sound.h"
+#include "sprite.h"
+#include "string_util.h"
+#include "text.h"
+#include "window.h"
+#include "constants/rgb.h"
+#include "constants/songs.h"
+
+/*
+ *  The route map: an FTL-style node map of the current route. The player
+ *  picks the next node from the ones linked to where they stand, and the
+ *  screen hands control back to the caller, which runs that node.
+ *
+ *  The art is placeholder: paths, node markers and the cursor are drawn as
+ *  tiles generated here, so the slice needs no new graphics files. Nodes sit
+ *  4 tiles apart so diagonal paths run at exactly 45 degrees.
+ */
+
+#define NODE_SPACING 4 // tiles between node origins, across and down
+#define MAP_LEFT 2
+#define MAP_TOP 2
+#define NODE_X(column) (MAP_LEFT + (column) * NODE_SPACING)
+#define NODE_Y(row) (MAP_TOP + (row) * NODE_SPACING)
+
+enum {
+    TILE_GROUND,
+    TILE_PATH_ACROSS_TOP,
+    TILE_PATH_ACROSS_BOTTOM,
+    TILE_PATH_DOWN,
+    TILE_PATH_UP,
+    TILE_NODE_TOP_LEFT,
+    TILE_NODE_TOP_RIGHT,
+    TILE_NODE_BOTTOM_LEFT,
+    TILE_NODE_BOTTOM_RIGHT,
+    TILE_COUNT,
+};
+
+enum {
+    COLOR_GROUND = 1,
+    COLOR_PATH,
+    COLOR_NODE,
+    COLOR_OUTLINE,
+};
+
+// Background palettes: one per node type (only the node colour differs),
+// plus one for the node the player stands on.
+#define PAL_PLAYER ROUTE_NODE_TYPE_COUNT
+#define PAL_TEXT 15
+
+#define TAG_CURSOR 0x5200
+
+enum {
+    WIN_INFO,
+};
+
+static EWRAM_DATA struct {
+    MainCallback onNodeChosen;
+    struct RouteMap map;
+    u8 state;
+    u8 choice; // index into the rows linked from the current node
+    u8 cursorSpriteId;
+    u8 tiles[TILE_COUNT * TILE_SIZE_4BPP];
+    u8 cursorTiles[4 * TILE_SIZE_4BPP];
+    u16 tilemap[32 * 32];
+} *sRouteMap = NULL;
+
+static void CB2_InitRouteMap(void);
+static void CB2_RouteMap(void);
+static void VBlankCB_RouteMap(void);
+static void SpriteCB_Cursor(struct Sprite *sprite);
+
+static const struct BgTemplate sRouteMapBgTemplates[] =
+{
+    {
+        .bg = 0,
+        .charBaseIndex = 0,
+        .mapBaseIndex = 31,
+        .screenSize = 0,
+        .paletteMode = 0,
+        .priority = 0,
+        .baseTile = 0
+    }, {
+        .bg = 1,
+        .charBaseIndex = 1,
+        .mapBaseIndex = 30,
+        .screenSize = 0,
+        .paletteMode = 0,
+        .priority = 1,
+        .baseTile = 0
+    }
+};
+
+static const struct WindowTemplate sRouteMapWindowTemplates[] =
+{
+    [WIN_INFO] = {
+        .bg = 0,
+        .tilemapLeft = 1,
+        .tilemapTop = 17,
+        .width = 28,
+        .height = 3,
+        .paletteNum = PAL_TEXT,
+        .baseBlock = 1
+    },
+    DUMMY_WIN_TEMPLATE
+};
+
+static const u16 sNodeColors[ROUTE_NODE_TYPE_COUNT + 1] =
+{
+    [ROUTE_NODE_EMPTY] = RGB(13, 22, 10),
+    [ROUTE_NODE_START] = RGB(24, 24, 24),
+    [ROUTE_NODE_WILD] = RGB(10, 28, 10),
+    [ROUTE_NODE_TRAINER] = RGB(28, 8, 8),
+    [ROUTE_NODE_EVENT] = RGB(30, 26, 6),
+    [ROUTE_NODE_CENTER] = RGB(31, 16, 22),
+    [ROUTE_NODE_MART] = RGB(8, 14, 30),
+    [ROUTE_NODE_TRANSITION] = RGB(31, 31, 31),
+    [PAL_PLAYER] = RGB(6, 26, 31),
+};
+
+static const u8 *const sNodeNames[ROUTE_NODE_TYPE_COUNT] =
+{
+    [ROUTE_NODE_EMPTY] = COMPOUND_STRING(""),
+    [ROUTE_NODE_START] = COMPOUND_STRING("Start"),
+    [ROUTE_NODE_WILD] = COMPOUND_STRING("Wild POKéMON"),
+    [ROUTE_NODE_TRAINER] = COMPOUND_STRING("TRAINER"),
+    [ROUTE_NODE_EVENT] = COMPOUND_STRING("Event"),
+    [ROUTE_NODE_CENTER] = COMPOUND_STRING("POKéMON CENTER"),
+    [ROUTE_NODE_MART] = COMPOUND_STRING("POKé MART"),
+    [ROUTE_NODE_TRANSITION] = COMPOUND_STRING("Next town"),
+};
+
+static const u16 sCursorPalette[16] = {RGB(0, 0, 0), RGB(31, 31, 31), RGB(2, 2, 2)};
+
+static const struct OamData sOam_Cursor =
+{
+    .shape = SPRITE_SHAPE(16x16),
+    .size = SPRITE_SIZE(16x16),
+    .priority = 0,
+};
+
+static const struct SpriteTemplate sSpriteTemplate_Cursor =
+{
+    .tileTag = TAG_CURSOR,
+    .paletteTag = TAG_CURSOR,
+    .oam = &sOam_Cursor,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCB_Cursor,
+};
+
+static void SetPixel(u8 *tile, u32 x, u32 y, u32 color)
+{
+    u8 *byte = &tile[y * 4 + x / 2];
+
+    if (x & 1)
+        *byte = (*byte & 0x0F) | (color << 4);
+    else
+        *byte = (*byte & 0xF0) | color;
+}
+
+// Squared distance from the centre of a 16x16 marker, in half pixels.
+static u32 MarkerDistance(u32 x, u32 y)
+{
+    s32 dx = 2 * (s32)x - 15, dy = 2 * (s32)y - 15;
+
+    return dx * dx + dy * dy;
+}
+
+static void DrawTiles(void)
+{
+    u8 *tiles = sRouteMap->tiles;
+    u32 tile, x, y;
+
+    for (tile = 0; tile < TILE_COUNT; tile++)
+    {
+        for (y = 0; y < 8; y++)
+            for (x = 0; x < 8; x++)
+                SetPixel(&tiles[tile * TILE_SIZE_4BPP], x, y, COLOR_GROUND);
+    }
+    for (x = 0; x < 8; x++)
+    {
+        SetPixel(&tiles[TILE_PATH_ACROSS_TOP * TILE_SIZE_4BPP], x, 6, COLOR_PATH);
+        SetPixel(&tiles[TILE_PATH_ACROSS_TOP * TILE_SIZE_4BPP], x, 7, COLOR_PATH);
+        SetPixel(&tiles[TILE_PATH_ACROSS_BOTTOM * TILE_SIZE_4BPP], x, 0, COLOR_PATH);
+        SetPixel(&tiles[TILE_PATH_ACROSS_BOTTOM * TILE_SIZE_4BPP], x, 1, COLOR_PATH);
+    }
+    for (y = 0; y < 8; y++)
+    {
+        for (x = 0; x < 8; x++)
+        {
+            if (x == y || x == y + 1 || x + 1 == y)
+                SetPixel(&tiles[TILE_PATH_DOWN * TILE_SIZE_4BPP], x, y, COLOR_PATH);
+            if (x + y == 7 || x + y == 6 || x + y == 8)
+                SetPixel(&tiles[TILE_PATH_UP * TILE_SIZE_4BPP], x, y, COLOR_PATH);
+        }
+    }
+    // The node marker: a filled circle with an outline, split into four tiles.
+    for (y = 0; y < 16; y++)
+    {
+        for (x = 0; x < 16; x++)
+        {
+            u32 quarter = TILE_NODE_TOP_LEFT + (y >= 8 ? 2 : 0) + (x >= 8 ? 1 : 0);
+            u32 distance = MarkerDistance(x, y);
+
+            if (distance <= 13 * 13)
+                SetPixel(&tiles[quarter * TILE_SIZE_4BPP], x % 8, y % 8, distance <= 10 * 10 ? COLOR_NODE : COLOR_OUTLINE);
+        }
+    }
+    LoadBgTiles(1, tiles, sizeof(sRouteMap->tiles), 0);
+
+    // The cursor: a hollow square, two pixels thick, in 1D sprite tile order.
+    for (y = 0; y < 16; y++)
+    {
+        for (x = 0; x < 16; x++)
+        {
+            u32 quarter = (y >= 8 ? 2 : 0) + (x >= 8 ? 1 : 0);
+
+            if (x < 2 || x > 13 || y < 2 || y > 13)
+                SetPixel(&sRouteMap->cursorTiles[quarter * TILE_SIZE_4BPP], x % 8, y % 8, (x == 0 || x == 15 || y == 0 || y == 15) ? 2 : 1);
+        }
+    }
+}
+
+static void LoadPalettes(void)
+{
+    u32 i;
+    u16 palette[16] = {0};
+
+    palette[COLOR_GROUND] = sNodeColors[ROUTE_NODE_EMPTY];
+    palette[COLOR_PATH] = RGB(26, 22, 14);
+    palette[COLOR_OUTLINE] = RGB(3, 3, 3);
+    for (i = 0; i <= PAL_PLAYER; i++)
+    {
+        palette[COLOR_NODE] = sNodeColors[i];
+        LoadPalette(palette, BG_PLTT_ID(i), PLTT_SIZE_4BPP);
+    }
+    LoadPalette(gStandardMenuPalette, BG_PLTT_ID(PAL_TEXT), PLTT_SIZE_4BPP);
+}
+
+static void DrawRouteMap(void)
+{
+    const struct RouteMap *map = &sRouteMap->map;
+    u32 column, row, next, i;
+
+    FillBgTilemapBufferRect(1, TILE_GROUND, 0, 0, 32, 32, 0);
+    for (column = 0; column < ROUTE_MAP_EXIT_COLUMN; column++)
+    {
+        for (row = 0; row < ROUTE_MAP_ROWS; row++)
+        {
+            u32 x = NODE_X(column), y = NODE_Y(row);
+
+            for (next = 0; next < ROUTE_MAP_ROWS; next++)
+            {
+                if (!(map->links[column][row] & (1 << next)))
+                    continue;
+                for (i = 0; i < NODE_SPACING - 2; i++)
+                {
+                    if (next == row)
+                    {
+                        FillBgTilemapBufferRect(1, TILE_PATH_ACROSS_TOP, x + 2 + i, y, 1, 1, 0);
+                        FillBgTilemapBufferRect(1, TILE_PATH_ACROSS_BOTTOM, x + 2 + i, y + 1, 1, 1, 0);
+                    }
+                    else if (next > row)
+                    {
+                        FillBgTilemapBufferRect(1, TILE_PATH_DOWN, x + 2 + i, y + 2 + i, 1, 1, 0);
+                    }
+                    else
+                    {
+                        FillBgTilemapBufferRect(1, TILE_PATH_UP, x + 2 + i, y - 1 - i, 1, 1, 0);
+                    }
+                }
+            }
+        }
+    }
+    for (column = 0; column < ROUTE_MAP_COLUMNS; column++)
+    {
+        for (row = 0; row < ROUTE_MAP_ROWS; row++)
+        {
+            u32 x = NODE_X(column), y = NODE_Y(row);
+            u32 palette = map->type[column][row];
+
+            if (palette == ROUTE_NODE_EMPTY)
+                continue;
+            if (column == gRoguelikeRun.column && row == gRoguelikeRun.row)
+                palette = PAL_PLAYER;
+            FillBgTilemapBufferRect(1, TILE_NODE_TOP_LEFT, x, y, 1, 1, palette);
+            FillBgTilemapBufferRect(1, TILE_NODE_TOP_RIGHT, x + 1, y, 1, 1, palette);
+            FillBgTilemapBufferRect(1, TILE_NODE_BOTTOM_LEFT, x, y + 1, 1, 1, palette);
+            FillBgTilemapBufferRect(1, TILE_NODE_BOTTOM_RIGHT, x + 1, y + 1, 1, 1, palette);
+        }
+    }
+    CopyBgTilemapBufferToVram(1);
+}
+
+// The rows the player can move to next, lowest first.
+static u32 GetChoices(u8 *rows)
+{
+    u32 next, count = 0;
+    u32 links = sRouteMap->map.links[gRoguelikeRun.column][gRoguelikeRun.row];
+
+    for (next = 0; next < ROUTE_MAP_ROWS; next++)
+    {
+        if (links & (1 << next))
+            rows[count++] = next;
+    }
+    return count;
+}
+
+static u32 GetChosenRow(void)
+{
+    u8 rows[ROUTE_MAP_ROWS];
+    u32 count = GetChoices(rows);
+
+    if (count == 0)
+        return gRoguelikeRun.row;
+    return rows[sRouteMap->choice % count];
+}
+
+static void PrintInfo(void)
+{
+    u8 text[64];
+    u8 *end;
+    u32 column = gRoguelikeRun.column + 1;
+    u32 movesLeft = gRoguelikeRun.rocketMoves < ROUTE_ROCKET_ARRIVAL_MOVES
+                  ? ROUTE_ROCKET_ARRIVAL_MOVES - gRoguelikeRun.rocketMoves : 0;
+    static const u8 sTextColors[] = {TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_LIGHT_GRAY};
+
+    FillWindowPixelBuffer(WIN_INFO, PIXEL_FILL(1));
+    end = StringCopy(text, COMPOUND_STRING("Next: "));
+    StringCopy(end, sNodeNames[sRouteMap->map.type[column][GetChosenRow()]]);
+    AddTextPrinterParameterized3(WIN_INFO, FONT_NORMAL, 4, 1, sTextColors, TEXT_SKIP_DRAW, text);
+    end = StringCopy(text, COMPOUND_STRING("ROCKET arrives in "));
+    end = ConvertIntToDecimalStringN(end, movesLeft, STR_CONV_MODE_LEFT_ALIGN, 2);
+    StringCopy(end, COMPOUND_STRING(" moves"));
+    AddTextPrinterParameterized3(WIN_INFO, FONT_NORMAL, 4, 13, sTextColors, TEXT_SKIP_DRAW, text);
+    CopyWindowToVram(WIN_INFO, COPYWIN_FULL);
+}
+
+static void MoveCursorToChoice(void)
+{
+    struct Sprite *cursor = &gSprites[sRouteMap->cursorSpriteId];
+
+    cursor->x = NODE_X(gRoguelikeRun.column + 1) * 8 + 8;
+    cursor->y = NODE_Y(GetChosenRow()) * 8 + 8;
+}
+
+static void SpriteCB_Cursor(struct Sprite *sprite)
+{
+    sprite->invisible = (++sprite->data[0] / 16) % 2;
+}
+
+void OpenRouteMap(MainCallback onNodeChosen)
+{
+    SetVBlankCallback(NULL);
+    sRouteMap = AllocZeroed(sizeof(*sRouteMap));
+    sRouteMap->onNodeChosen = onNodeChosen;
+    GenerateRouteMap(&sRouteMap->map, gRoguelikeRun.routeSeed);
+    SetMainCallback2(CB2_InitRouteMap);
+}
+
+static void CB2_InitRouteMap(void)
+{
+    struct SpriteSheet cursorSheet;
+    struct SpritePalette cursorPalette = {sCursorPalette, TAG_CURSOR};
+
+    SetGpuReg(REG_OFFSET_DISPCNT, 0);
+    SetGpuReg(REG_OFFSET_BG0HOFS, 0);
+    SetGpuReg(REG_OFFSET_BG0VOFS, 0);
+    SetGpuReg(REG_OFFSET_BG1HOFS, 0);
+    SetGpuReg(REG_OFFSET_BG1VOFS, 0);
+    ResetSpriteData();
+    FreeAllSpritePalettes();
+    ResetPaletteFade();
+    ResetBgsAndClearDma3BusyFlags(0);
+    InitBgsFromTemplates(0, sRouteMapBgTemplates, ARRAY_COUNT(sRouteMapBgTemplates));
+    SetBgTilemapBuffer(1, sRouteMap->tilemap);
+    InitWindows(sRouteMapWindowTemplates);
+    DeactivateAllTextPrinters();
+
+    DrawTiles();
+    LoadPalettes();
+    DrawRouteMap();
+
+    cursorSheet.data = sRouteMap->cursorTiles;
+    cursorSheet.size = sizeof(sRouteMap->cursorTiles);
+    cursorSheet.tag = TAG_CURSOR;
+    LoadSpriteSheet(&cursorSheet);
+    LoadSpritePalette(&cursorPalette);
+    sRouteMap->cursorSpriteId = CreateSprite(&sSpriteTemplate_Cursor, 0, 0, 0);
+    MoveCursorToChoice();
+
+    PutWindowTilemap(WIN_INFO);
+    PrintInfo();
+    ScheduleBgCopyTilemapToVram(0);
+
+    SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_1D_MAP | DISPCNT_OBJ_ON);
+    ShowBg(0);
+    ShowBg(1);
+    BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
+    SetVBlankCallback(VBlankCB_RouteMap);
+    SetMainCallback2(CB2_RouteMap);
+}
+
+static void VBlankCB_RouteMap(void)
+{
+    LoadOam();
+    ProcessSpriteCopyRequests();
+    TransferPlttBuffer();
+}
+
+enum {
+    STATE_FADE_IN,
+    STATE_INPUT,
+    STATE_FADE_OUT,
+};
+
+static void HandleInput(void)
+{
+    u8 rows[ROUTE_MAP_ROWS];
+    u32 count = GetChoices(rows);
+
+    if (count == 0)
+        return;
+    if (JOY_NEW(DPAD_UP) && count > 1)
+    {
+        PlaySE(SE_SELECT);
+        sRouteMap->choice = (sRouteMap->choice + count - 1) % count;
+        MoveCursorToChoice();
+        PrintInfo();
+    }
+    else if (JOY_NEW(DPAD_DOWN) && count > 1)
+    {
+        PlaySE(SE_SELECT);
+        sRouteMap->choice = (sRouteMap->choice + 1) % count;
+        MoveCursorToChoice();
+        PrintInfo();
+    }
+    else if (JOY_NEW(A_BUTTON))
+    {
+        PlaySE(SE_SELECT);
+        gRoguelikeRun.row = GetChosenRow();
+        gRoguelikeRun.column++;
+        gRoguelikeRun.rocketMoves++;
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        sRouteMap->state = STATE_FADE_OUT;
+    }
+}
+
+static void CB2_RouteMap(void)
+{
+    switch (sRouteMap->state)
+    {
+    case STATE_FADE_IN:
+        if (!gPaletteFade.active)
+            sRouteMap->state = STATE_INPUT;
+        break;
+    case STATE_INPUT:
+        HandleInput();
+        break;
+    case STATE_FADE_OUT:
+        if (!gPaletteFade.active)
+        {
+            MainCallback onNodeChosen = sRouteMap->onNodeChosen;
+
+            FreeAllWindowBuffers();
+            TRY_FREE_AND_SET_NULL(sRouteMap);
+            SetMainCallback2(onNodeChosen);
+            return;
+        }
+        break;
+    }
+    AnimateSprites();
+    BuildOamBuffer();
+    UpdatePaletteFade();
+    DoScheduledBgTilemapCopiesToVram();
+}
