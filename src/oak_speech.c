@@ -1473,8 +1473,8 @@ static void Task_OakSpeech_FadeOutPlayerPic(u8 taskId)
         }
         else
         {
-            // The roguelike has no rival to name: his name stays BLUE.
-            StringCopy(gSaveBlock1Ptr->rivalName, sPlayerNameChoices[3]);
+            // The roguelike has no rival to name: he is always GARY.
+            StringCopy(gSaveBlock1Ptr->rivalName, gNameChoice_Gary);
             gTasks[taskId].func = Task_OakSpeech_ReshowPlayersPic;
         }
     }
