@@ -4,6 +4,8 @@
 #include "evolution_scene.h"
 #include "item.h"
 #include "main.h"
+#include "money.h"
+#include "pokedex.h"
 #include "pokemon.h"
 #include "pokemon_storage_system.h"
 #include "pokemon_summary_screen.h"
@@ -552,7 +554,8 @@ static void GiveStarter(u32 species, u32 level)
 #define OAKS_LAB_START_Y 5
 
 // The party was wiped out: the run is over. The player goes back to Oak's
-// lab with no badges, to choose a starter for the next run.
+// lab to choose a starter for the next run, with no badges, an empty bag and
+// a new game's money. The Pokédex stays with the save.
 static void CB2_EndRun(void)
 {
     u32 flag;
@@ -560,6 +563,8 @@ static void CB2_EndRun(void)
     memset(&gRoguelikeRun, 0, sizeof(gRoguelikeRun));
     for (flag = FLAG_BADGE01_GET; flag <= FLAG_BADGE08_GET; flag++)
         FlagClear(flag);
+    ClearBag();
+    SetMoney(&gSaveBlock1Ptr->money, ROGUELIKE_STARTING_MONEY);
     ZeroPlayerPartyMons();
     CalculatePlayerPartyCount();
     WarpToField(MAP_PALLET_TOWN_PROFESSOR_OAKS_LAB, WARP_ID_NONE, OAKS_LAB_START_X, OAKS_LAB_START_Y);
@@ -571,6 +576,8 @@ static void CB2_GiveRoguelikeStarter(void)
 
     // Starters begin at their line's catch floor: 7, 9 and 8.
     GiveStarter(species, GetSnapshotCatchFloor(species));
+    GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_SET_SEEN);
+    GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_SET_CAUGHT);
     FlagSet(FLAG_SYS_POKEMON_GET);
     gSpecialVar_Result = species;
     SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);

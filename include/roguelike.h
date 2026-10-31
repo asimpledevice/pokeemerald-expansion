@@ -148,6 +148,9 @@ bool32 GetNextSnapshotJump(u32 species, u32 level, struct SnapshotJump *jump);
 // can use a damaging move of its own type. 0 when there's no floor.
 u32 GetSnapshotCatchFloor(u32 species);
 
+// Money a run starts with, as a new game does.
+#define ROGUELIKE_STARTING_MONEY 3000
+
 // Poké Balls given when a run starts.
 #define ROGUELIKE_STARTING_BALLS 5
 
